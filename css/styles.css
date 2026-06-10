@@ -1,0 +1,133 @@
+
+            /* =====================================
+                     Invoice - Admin login 
+            ===================================== */
+
+.admin-login-invoice {
+  display:flex;
+  min-height:100vh;
+}
+
+
+/*---- LEFT PANEL ----*/
+.invoice-left-login {
+  width:50%;
+  background:#e8eaec;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:60px;
+}
+
+.invoice-left-login img {
+  width:180px;
+  margin-bottom:10px;
+}
+
+.invoice-left-login h1 {
+  font-size:42px;
+  font-weight:700;
+  margin-bottom:15px;
+  color: #127c42;
+}
+
+.invoice-left-login p {
+  max-width:450px;
+  font-size:18px;
+  line-height:1.8;
+  opacity:0.95;
+  color: #063b8a;
+}
+
+
+/*---- RIGHT PANEL ----*/
+.invoice-right-login {
+  width:50%;
+  background:linear-gradient(135deg,#a5b4dd,#b4e6c9);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:40px;
+}
+
+.invoice-right-login h2 {
+  font-size:32px;
+  color:#1e293b;
+  margin-bottom:15px;
+}
+
+.invoice-right-login p {
+  color: #063b8a;
+  margin-bottom:30px;
+}
+
+
+/*--- FORM CARD - login ---*/
+.invoice-form-login {
+  width:100%;
+  max-width:420px;
+  background:#fff;
+  padding:35px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(7, 102, 50, 0.692);
+}
+
+/*--- INPUTS - Field ---*/
+.invoice-form-login input{
+  width:100%;
+  height:52px;
+  border:1px solid #dbe2ea;
+  border-radius:10px;
+  padding:0 15px;
+  font-size:15px;
+  margin-bottom:18px;
+  transition:0.3s;
+}
+
+.invoice-form-login input:focus {
+  outline:none;
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,0.15);
+}
+
+/*--- PASSWORD - Field ---*/
+.invoice-login-password-wrapper {
+  position:relative;
+}
+
+.invoice-login-password-wrapper input {
+  padding-right:50px;
+}
+
+.invoice-lg-toggle-password {
+  position:absolute;
+  right:16px;
+  top:16px;
+  font-size: 14px;
+  cursor:pointer;
+  color:#64748b;
+}
+
+/*--- LOGIN BUTTON ---*/
+.invoice-form-login button{
+  width:100%;
+  height:52px;
+  border:none;
+  border-radius:10px;
+  background:#2563eb;
+  color:#fff;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.invoice-form-login button:hover{
+  background:#163fad;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------ */
+
