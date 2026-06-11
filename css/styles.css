@@ -76,7 +76,7 @@
 }
 
 /*--- INPUTS - Field ---*/
-.invoice-form-login input{
+.invoice-form-login input {
   width:100%;
   height:52px;
   border:1px solid #dbe2ea;
@@ -112,8 +112,8 @@
 }
 
 /*--- LOGIN BUTTON ---*/
-.invoice-form-login button{
-  width:100%;
+.invoice-form-login button {
+  width:100%; 
   height:52px;
   border:none;
   border-radius:10px;
@@ -125,7 +125,7 @@
   transition:0.3s;
 }
 
-.invoice-form-login button:hover{
+.invoice-form-login button:hover {
   background:#163fad;
 }
 
@@ -135,149 +135,342 @@
                            Invoice - DASHBOARD HEADER
                     ================================== */
 
-.invoice-dashboard-header{
-    height:80px;
-    background:#ffffff;
+.invoice-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: white;
+  color: #037c40;
+  height: 95px;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:0 30px;
-
-    border-bottom:1px solid #e5e7eb;
-
-    box-shadow:0 2px 10px rgba(0,0,0,0.05);
-
-    position:sticky;
-    top:0;
-    z-index:1000;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
 
 
 /*--- LEFT SECTION ---*/
-.left-header-invoice{
-    display:flex;
-    align-items:center;
-    gap:25px;
+.left-header-invoice {
+  display:flex;
+  align-items:center;  
+  gap: 55px;
 }
 
-.logo-header-invoice img{
-    width:120px;
-    height:auto;
+.logo-header-invoice img {
+  width:130px;  
 }
 
-.left-header-invoice-menu-btn{
-    width:40px;
-    height:40px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:8px;
-    cursor:pointer;
-    transition:0.3s;
+.left-header-invoice-menu-btn {
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+  margin-left: 50px;
 }
 
-.left-header-invoice-menu-btn:hover{
-    background:#f1f5f9;
+.left-header-invoice-menu-btn:hover {
+  background:#0b8653;     
 }
 
-.left-header-invoice-menu-btn i{
-    font-size:20px;
-    color:#334155;
+.left-header-invoice-menu-btn i {
+  font-size:26px;
+  color:#334155;
+}
+
+.left-header-invoice-menu-btn i:hover {
+  color:white;
 }
 
 
 /*--- CENTER TITLE ---*/
-.header-invoice-center{
-    font-size:22px;
-    font-weight:700;
-    color:#1e293b;
-    letter-spacing:1px;
+.header-invoice-center {
+  font-size:23px;
+  font-weight:700;
+  letter-spacing:1px;
 }
 
 
 /*--- RIGHT SECTION ---*/
-.right-header-invoice{
-    display:flex;
-    align-items:center;
+.right-header-invoice {
+  display:flex;
+  align-items:center;
+}
+
+.right-header-avatar-icon {
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background: #4CAF50;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transition: 0.3s; 
+}
+
+.right-header-avatar-icon i {
+  font-size:15px;
 }
 
 
 /*--- PROFILE DROPDOWN ---*/
-.admin-profile-dropdown{
-    position:relative;
+.invoice-admin-profile-dropdown {
+  position:relative;
 }
 
-.admin-profile-btn{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    cursor:pointer;
-    padding:8px 15px;
-    border-radius:12px;
-    transition:0.3s;
+.invoice-admin-profile-btn {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  padding:8px 15px;
+  border-radius:12px;
+  transition:0.3s;
 }
 
-.admin-profile-btn:hover{
-    background:#f8fafc;
+.invoice-admin-profile-btn:hover {
+  background:#a4ccf5;
 }
 
-.right-header-avatar-icon{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    background:#2563eb;
-    color:#fff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.right-header-avatar-icon i{
-    font-size:16px;
-}
-
-.admin-profile-btn span{
-    font-size:15px;
-    font-weight:600;
-    color:#334155;
+.invoice-admin-profile-btn span { 
+  font-size:18px;
+  font-weight:600;
+  color:#334155;
+  letter-spacing: 1px;
 }
 
 
 /*--- DROPDOWN MENU ---*/
-.dropdown-menu{
-    position:absolute;
-    top:60px;
-    right:0;
-    width:220px;
-    background:#fff;
-    border-radius:12px;
-    box-shadow:
-    0 10px 25px rgba(0,0,0,0.1);
-    display:none;
-    overflow:hidden;
+.invoice-dropdown-menu {
+  position:absolute;
+  top:60px;
+  right:0;
+  width:200px;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  display:none;
+  overflow:hidden;
+  border : 1px solid rgb(9, 117, 36);
+  z-index: 999;
 }
 
-.dropdown-menu.show{
-    display:block;
+.invoice-dropdown-menu.show {
+  display:block;
 }
 
-.dropdown-menu a{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:14px 18px;
-    text-decoration:none;
-    color:#334155;
-    transition:0.3s;
+.invoice-dropdown-menu a {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  text-decoration:none;
+  color:#334155;
+  transition:0.3s;
 }
 
-.dropdown-menu a:hover{
-    background:#f8fafc;
+.invoice-dropdown-menu a:hover {
+  background:#f1f1f1;
 }
 
-.dropdown-menu i{
-    width:18px;
+.invoice-dropdown-menu i {
+  width:18px;
+  color: rgb(6, 131, 48)
 }
+
+/* ---------------------------------------------------------------------------------------------------------------------------------- */
+
+                          /* ================================================
+                                  Invoice Dashboard - SIDEBAR CONTAINER
+                          ================================================ */
+
+
+.Admin-side-bar-invoice {
+  display: flex;
+  min-height: calc(100vh - 60px);
+}
+
+/*--- SIDEBAR MENU---*/
+.invoice-admin-dsh-sidebar {
+  width: 260px;
+  background:linear-gradient(135deg,#01351f,#078b54);
+  color: #fff;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.invoice-admin-dsh-sidebar a {
+  text-decoration: none;
+  color: white;
+  padding: 12px 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: 0.3s;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+.invoice-admin-dsh-sidebar a:hover {
+  background:#2563eb;
+  color:#fff;
+}
+
+.invoice-admin-dsh-sidebar a i {
+  width:20px;
+  text-align:center;
+  /* color: rgb(224, 93, 6); */
+}
+
+
+/*--- DROPDOWN - sidebar ---*/
+.in-admin-sidebar-task-dropdown {
+  width:100%;
+}
+
+.invoice-admin-side-bar-drop-btn {
+  text-decoration: none;
+  color: white;
+  padding: 12px 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: 0.3s;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.invoice-admin-side-bar-drop-btn .icon-color {
+  margin-left: auto;
+}
+
+.invoice-admin-side-bar-drop-btn i {
+  width: 20px;
+  text-align: center;
+}
+
+.invoice-admin-side-bar-drop-btn:hover {
+  background:#2563eb;
+  color:#fff;
+}
+
+
+/*--- dasshboard Sidebar DROPDOWN CONTENT ---*/
+.adminInvoice-side-bar-drop-content {
+  display: none;
+  flex-direction: column;
+  background: #076b41;
+}
+
+.adminInvoice-side-bar-drop-content a {
+  padding-left: 40px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+
+/*--- SHOW MENU ---*/
+.in-admin-sidebar-task-dropdown.active
+.adminInvoice-side-bar-drop-content {
+  display:block;
+}
+
+
+/*--- DROPDOWN ICON ---*/
+.icon-color {
+  transition:0.3s;
+}
+
+.in-admin-sidebar-task-dropdown.active .icon-color {
+  transform:rotate(180deg);
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
+
+                              /* ====================================
+                                    Dashboard Main Context Card 
+                              ==================================== */
+
+.admin-InvoiceDash-main-content {
+  flex: 1;
+  padding: 50px;
+  background: #c5d7ee;
+}
+
+.admin-InvoiceDash-main-content h2 {
+  font-size: 28px;
+}
+
+.invoice-dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.InvoiceDashboard-card {
+  height:120px;
+  border-radius:10px;
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:white;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.InvoiceDashboard-card:hover {
+  transform:translateY(-4px);
+}
+
+.InvoiceDashboard-card h2 {
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.InvoiceDashboard-card p {
+  font-size:18px;
+}
+
+.InvoiceDashboard-card i {
+  font-size:60px;
+  opacity:0.2;
+}
+
+
+/*--- Dashboard cards COLORS ---*/
+
+.green {
+  background:#00a65a;
+}
+
+.purple {
+  background:#605ca8;
+}
+
+.orange {
+  background:#f39c12;
+}
+
+.red {
+  background:#dd4b39;
+}
+
+.blue {
+  background:#3c8dbc;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
+
+
+
+
+
+
 
