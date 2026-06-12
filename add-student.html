@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard - Dashboard Page</title>
+    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard - Add Student Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -20,6 +20,10 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    body {
+      background: #c5d7ee;
     }
 
     </style>
@@ -150,70 +154,114 @@
         </aside>
 
 
-        <!-- Main Dashboard card -->
-        <main class="admin-InvoiceDash-main-content">
+         <!-- Add student-Main content -->
+        <div class="add-student-main-content">
 
-            <h2>Dashboard</h2>
-
-            <div class="invoice-dashboard-cards">
-
-                <!-- Total Invoice -->
-                <div class="InvoiceDashboard-card orange">
-                    <div>
-                        <h2>24</h2>
-                        <p>Total Invoices</p>
-                    </div>
-                        <i class="fa fa-file-invoice"></i>
-                </div>
-
-                <!-- Paid Invoice -->
-                <div class="InvoiceDashboard-card blue">
-                    <div>
-                        <h2>22</h2>
-                        <p>Paid Invoices</p>
-                    </div>
-                        <i class="fa fa-check-circle"></i>
-                </div>
-
-                <!-- pending Invoice   -->
-                <div class="InvoiceDashboard-card red">
-                    <div>
-                        <h2>18</h2>
-                        <p>Pending Invoices</p>
-                    </div>
-                        <i class="fa fa-exclamation-triangle"></i>
-                </div>
-
-                <!-- Total Students -->
-                <div class="InvoiceDashboard-card green">
-                    <div>
-                        <h2>12</h2>
-                        <p>Total Students</p>
-                    </div>
-                        <i class="fa fa-user-graduate"></i>
-                </div>
-
-                <!-- Total Courses -->
-                <div class="InvoiceDashboard-card purple">
-                    <div>
-                        <h2>15</h2>
-                        <p>Total Courses</p>
-                    </div>
-                        <i class="fa fa-book"></i>
-                </div>
-              
+            <!-- Add student - PAGE HEADER -->
+            <div class="add-student-page-header">
+                <h2>Add Student</h2>
+                <p>Add and manage student details for invoice generation.</p>
             </div>
 
-        </main>
+                <form id="addstudent" class="add-student-invoice">
+                    <div class="add-student-form-wrapper">
+
+                        <!-- STUDENT INFORMATION -->
+                        <div class="Add-student-box">
+
+                        <div class="addStudent-box-header">Student Information</div>
+
+                            <div class="addStudent-box-body">
+
+                                <!-- Student name -->
+                                <div class="add-student-form-group">
+                                    <label>Student Name</label>
+                                    <input type="text" placeholder="Enter Student Name" required>
+                                </div>
+
+                                <!-- Email Address -->
+                                <div class="add-student-form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" placeholder="Enter Email Address" required>
+                                </div>
+
+                                <!-- Mobile Number -->
+                                <div class="add-student-form-group">
+                                    <label>Mobile Number</label>
+                                    <input type="text" placeholder="Enter Mobile Number" required>
+                                </div>
+
+                                <!-- Course Details-->
+                                <div class="add-student-form-group">
+                                    <label>Course</label>
+                                    <select required>
+                                        <option>-- Select Course --</option>
+                                        <option>BMCT - Basic Medical Coding Training</option>
+                                        <option>AMCT - Advanced Medical Coding Training</option>
+                                        <option>CPC - Certified Professional Coder</option>
+                                        <option>CPMA - Certified Professional Medical Auditor</option>
+                                        <option>CRC - Certified Risk Adjustment Coder</option>
+                                        <option>CCS - Certified Coding Specialist</option>
+                                        <option>ED - Emergency Dearptment</option>
+                                        <option>E&M - Evaluation & Management</option>
+                                        <option>IPDRG - Inpatient Diagnosis-Related Group</option>
+                                        <option>IVR - Interventional Radiology</option>
+                                        <option>Surgery</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
 
 
+                        <!-- ADDRESS INFORMATION -->
+                        <div class="Add-student-box">
 
+                        <div class="addStudent-box-header">Address Information</div>
 
+                            <div class="addStudent-box-body">
 
+                                <!-- Address -->
+                                <div class="add-student-form-group">
+                                    <label>Address</label>
+                                    <textarea rows="4" placeholder="Enter Address"></textarea>
+                                </div>
 
+                                <!-- Town / City -->
+                                <div class="add-student-form-group">
+                                    <label>Town / City</label>
+                                    <input type="text" placeholder="Town / City">
+                                </div>
 
-    </div>
+                                <!-- Country -->
+                                <div class="add-student-form-group">
+                                    <label>Country</label>
+                                    <input type="text" placeholder="Country">
+                                </div>
 
+                                <!-- Postcode -->
+                                <div class="add-student-form-group">
+                                    <label>Postcode</label>
+                                    <input type="text" placeholder="Postcode">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- SUBMIT BUTTON -->
+                    <div class="Add-student-submit">
+                        <button type="submit">Add Student</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+    </div>    
 
 
 <!-- Dashboard sidebar dropdown - JS -->
@@ -252,4 +300,4 @@ window.onclick = function(event) {
 
 
 </body>
-</html>   
+</html>    
