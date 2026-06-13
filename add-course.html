@@ -99,8 +99,8 @@
                 </div>
 
                 <div class="adminInvoice-side-bar-drop-content">
-                    <a href="#"><i class="fa fa-plus-circle"></i> Create Invoice</a>
-                    <a href="#"><i class="fa fa-file-alt"></i> Manage Invoices</a>
+                    <a href="create-invoice.html"><i class="fa fa-plus-circle"></i> Create Invoice</a>
+                    <a href="manage-invoice.html"><i class="fa fa-file-alt"></i> Manage Invoices</a>
                     <a href="#"><i class="fa fa-download"></i> Download CSV</a>
                 </div>
 
@@ -155,9 +155,47 @@
 
 
 
+        <!-- Add Course-->
+        <div class="add-course-container">
 
+            <div class="add-course-page-header">
+                <h2>Add Course</h2>
+                <p>Create a new course and define its fee structure.</p>
+            </div>
 
+                <form id="courseForm" class="Add-courseForm">
 
+                    <div class="Add-course-card">
+
+                        <div class="add-course-card-header">
+                            Course Information
+                        </div>
+
+                            <div class="Add-course-card-body">
+
+                                <!-- Course Name -->
+                                <div class="add-Course-form-group">
+                                    <label>Course Name</label>
+                                    <input type="text" id="courseName" placeholder="Enter Course Name" required>
+                                </div>
+
+                                <!-- Course Fee -->
+                                <div class="add-Course-form-group">
+                                    <label>Course Fee</label>
+                                    <input type="number" id="courseFee" placeholder="Enter Course Fee" required>
+                                </div>
+
+                            </div>
+
+                    </div>
+
+                    <div class="add-course-submit">
+                        <button type="submit">Add Course</button>
+                    </div>
+
+            </form>
+
+        </div>
 
     </div>    
 

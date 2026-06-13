@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard - Manage Student Page</title>
+    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard - Manage Course Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -154,49 +154,87 @@
         </aside>
 
 
-        <!-- Manage student list -->
-        <div class="manage-student-container">
 
-            <div class="manage-std-page-header">
-                <h2>Manage Students</h2>
-                <p>View, update, and manage student information.</p>
+        <!-- Manage invoice  -->
+        <div class="manage-invoice-container">
+
+            <div class="manage-invoice-page-header">
+                <h2>Manage Invoices</h2>
+                <p>View and manage all generated invoices.</p>
             </div>
 
-            <!-- Search Box -->
-            <div class="manage-student-search">
-                <input type="text" placeholder="Search by Name, Email or Mobile">
-                <button>Search</button>
+            <!-- Search & Actions -->
+            <div class="manage-invoice-top-bar">
+
+                <div class="manage-invoice-search">
+                    <input type="text" placeholder="Search Student or Invoice No">
+                    <button>Search</button>
+                </div>
+
+                <div class="manage-invoice-actions">
+                    <button class="manageInvoice-create-btn">Create Invoice</button>
+                    <button class="manageInvoice-csv-btn">Download CSV</button>
+                </div>
+
             </div>
 
-            <!-- Student Table -->
-            <div class="manage-std-table-container">
+            <!-- Invoice Table -->
+            <div class="manage-invoice-table-container">
 
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Invoice No</th>
                             <th>Student Name</th>
-                            <th>Email</th>
-                            <th>Mobile</th>
                             <th>Course</th>
+                            <th>Amount</th>
+                            <th>Invoice Date</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                <tbody>
 
+                    <tbody>
                         <tr>
-                            <td>1</td>
-                            <td>Vignesh</td>
-                            <td>vignesh.g@3470healthcare.com</td>
-                            <td>9876543210</td>
-                            <td>CPMA - Certified Professional Medical Auditor</td>
+                            <td>INV001</td>
+                            <td>Arjun Kumar</td>
+                            <td>BCA</td>
+                            <td>₹25,000</td>
+                            <td>01-06-2026</td>
+                            <td>15-06-2026</td>
 
                             <td>
-                                <button class="manage-std-edit-btn">Edit</button>
-                                <button class="manage-std-delete-btn">Delete</button>
+                                <span class="manageInvoice-paid">Paid</span>
                             </td>
+
+                            <td>
+                                <button class="view-btn">View</button>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+
                         </tr>
 
+                        <tr>
+                            <td>INV002</td>
+                            <td>Ravi Kumar</td>
+                            <td>B.Com</td>
+                            <td>₹30,000</td>
+                            <td>05-06-2026</td>
+                            <td>20-06-2026</td>
+
+                            <td>
+                                <span class="manageInvoice-pending">Pending</span>
+                            </td>
+
+                            <td>
+                                <button class="view-btn">View</button>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+
+                        </tr>
                     </tbody>
 
                 </table>
@@ -204,6 +242,7 @@
             </div>
 
         </div>
+
 
 
     </div>    

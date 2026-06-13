@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard - Manage Student Page</title>
+    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard - Manage Course Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -154,54 +154,72 @@
         </aside>
 
 
-        <!-- Manage student list -->
-        <div class="manage-student-container">
+        <!-- Create invoice  -->
+        <div class="create-invoice-container">
 
-            <div class="manage-std-page-header">
-                <h2>Manage Students</h2>
-                <p>View, update, and manage student information.</p>
+            <div class="create-invoice-page-header">
+                <h2>Create Invoice</h2>
+                <p>Generate and manage fee invoices for students.</p>
             </div>
 
-            <!-- Search Box -->
-            <div class="manage-student-search">
-                <input type="text" placeholder="Search by Name, Email or Mobile">
-                <button>Search</button>
-            </div>
+                <form id="invoiceForm" class="create-invoice-Form">
 
-            <!-- Student Table -->
-            <div class="manage-std-table-container">
+                    <div class="create-invoice-card">
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Student Name</th>
-                            <th>Email</th>
-                            <th>Mobile</th>
-                            <th>Course</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                <tbody>
+                        <div class="create-invoice-card-header">Invoice Information</div>
 
-                        <tr>
-                            <td>1</td>
-                            <td>Vignesh</td>
-                            <td>vignesh.g@3470healthcare.com</td>
-                            <td>9876543210</td>
-                            <td>CPMA - Certified Professional Medical Auditor</td>
+                            <div class="create-invoice-card-body">
 
-                            <td>
-                                <button class="manage-std-edit-btn">Edit</button>
-                                <button class="manage-std-delete-btn">Delete</button>
-                            </td>
-                        </tr>
+                                <!-- Student -->
+                                <div class="create-invoice-form-group">
+                                    <label>Student</label>
+                                    <select id="studentSelect" required>
+                                        <option value="">Select Student</option>
+                                        <option data-course="BCA" data-fee="25000">Arjun Kumar</option>
+                                        <option data-course="B.Com" data-fee="30000">Ravi Kumar</option>
+                                    </select>
+                                </div>
 
-                    </tbody>
+                                <!-- Course -->
+                                <div class="create-invoice-form-group">
+                                    <label>Course</label>
+                                    <input type="text" id="courseName" readonly>
+                                </div>
 
-                </table>
+                                <!-- Fee -->
+                                <div class="create-invoice-form-group">
+                                    <label>Course Fee</label>
+                                    <input type="text" id="courseFee" readonly>
+                                </div>
 
-            </div>
+                                <!-- Invoice Date -->
+                                <div class="create-invoice-form-group">
+                                    <label>Invoice Date</label>
+                                    <input type="date" required>
+                                </div>
+
+                                <!-- Due Date -->
+                                <div class="create-invoice-form-group">
+                                    <label>Due Date</label>
+                                    <input type="date" required>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="create-invoice-form-group">
+                                    <label>Description</label>
+                                    <textarea rows="4" placeholder="Enter Remarks"></textarea>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Generate Invoice -->
+                        <div class="generate-invoice-submit">
+                            <button type="submit">Generate Invoice</button>
+                        </div>
+
+                </form>
 
         </div>
 
@@ -241,6 +259,46 @@ window.onclick = function(event) {
         dropdown.classList.remove("show");
     }
 };
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    const studentSelect =
+document.getElementById("studentSelect");
+
+studentSelect.addEventListener("change", function(){
+
+    const selectedOption =
+    this.options[this.selectedIndex];
+
+    document.getElementById("courseName").value =
+    selectedOption.dataset.course || "";
+
+    document.getElementById("courseFee").value =
+    selectedOption.dataset.fee || "";
+
+});
+
+document
+.getElementById("invoiceForm")
+.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    alert("Invoice Generated Successfully");
+
+});
 </script>
 
 

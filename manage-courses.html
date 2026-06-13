@@ -99,8 +99,8 @@
                 </div>
 
                 <div class="adminInvoice-side-bar-drop-content">
-                    <a href="#"><i class="fa fa-plus-circle"></i> Create Invoice</a>
-                    <a href="#"><i class="fa fa-file-alt"></i> Manage Invoices</a>
+                    <a href="create-invoice.html"><i class="fa fa-plus-circle"></i> Create Invoice</a>
+                    <a href="manage-invoice.html"><i class="fa fa-file-alt"></i> Manage Invoices</a>
                     <a href="#"><i class="fa fa-download"></i> Download CSV</a>
                 </div>
 
@@ -155,8 +155,54 @@
 
 
 
+        <!-- Manage Course  -->
+        <div class="manage-course-container">
 
+            <div class="manage-course-page-header">
+                <h2>Manage Courses</h2>
+                <p>View, update, and manage course information.</p>
+            </div>
 
+            <!-- Search -->
+            <div class="manage-course-search">
+                <input type="text" placeholder="Search by Course Name">
+                <button>Search</button>
+            </div>
+
+            <!-- Table -->
+            <div class="manage-course-table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Course Name</th>
+                            <th>Course Fee</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>1</td>
+                            <td>BMCT - Basic Medical Coding Training</td>
+                            <td>₹14,000</td>
+
+                            <td>
+                                <button class="manage-course-edit-btn">Edit</button>
+                                <button class="manage-course-delete-btn">Delete</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
 
 
     </div>    
