@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard - Manage Course Page</title>
+    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard - Record Payment Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -168,99 +168,74 @@
         </aside>
 
 
+        <!-- Record Payemnt -->
+        <div class="record-payment-container">
 
-        <!-- Manage invoice  -->
-        <div class="manage-invoice-container">
-
-            <div class="manage-invoice-page-header">
-                <h2>Manage Invoices</h2>
-                <p>View and manage all generated invoices.</p>
+            <div class="record-payment-header">
+                <h2>Record Payment</h2>
+                <p>Record and track student invoice payments.</p>
             </div>
 
-            <!-- Search & Actions -->
-            <div class="manage-invoice-top-bar">
+                <form id="record-payment" class="record-Payment-form">
 
-                <div class="manage-invoice-search">
-                    <input type="text" placeholder="Search Student or Invoice No">
-                    <button onclick="searchInvoice()">Search</button>
-                </div>
+                    <div class="record-payment-card">
 
-                <div class="manage-invoice-actions">
-                    <button class="manageInvoice-create-btn"
-                            onclick="window.location.href='create-invoice.html'">Create Invoice</button>
-                    <button id="downloadCsvBtn" class="manageInvoice-csv-btn">Download CSV</button>
-                </div>
+                        <div class="record-payment-card-header">Payment Information</div>
 
-            </div>
+                            <div class="record-payment-card-body">
 
-            <!-- Invoice Table -->
-            <div class="manage-invoice-table-container">
+                                <div class="record-payment-form-group">
+                                    <label>Student Name</label>
+                                    <select required>
+                                        <option value="">Select Student</option>
+                                    </select>
+                                </div>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Invoice No</th>
-                            <th>Student Name</th>
-                            <th>Course</th>
-                            <th>Amount</th>
-                            <th>Invoice Date</th>
-                            <th>Due Date</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
+                                <div class="record-payment-form-group">
+                                    <label>Invoice Number</label>
+                                    <input type="text" readonly>
+                                </div>
 
-                    <tbody>
-                        <tr>
-                            <td>INV001</td>
-                            <td>Arjun Kumar</td>
-                            <td>BCA</td>
-                            <td>₹25,000</td>
-                            <td>01-06-2026</td>
-                            <td>15-06-2026</td>
+                                <div class="record-payment-form-group">
+                                    <label>Invoice Amount</label>
+                                    <input type="text" readonly>
+                                </div>
 
-                            <td>
-                                <span class="manageInvoice-paid">Paid</span>
-                            </td>
+                                <div class="record-payment-form-group">
+                                    <label>Payment Amount</label>
+                                    <input type="number" placeholder="Enter Payment Amount">
+                                </div>
 
-                            <td>
-                                <button class="manageInvoice-view-btn" onclick="viewInvoice('INV001')">View</button>
-                                <button class="manageInvoice-edit-btn" onclick="editInvoice('INV001')">Edit</button>
-                                <button class="manageInvoice-delete-btn"onclick="deleteInvoice('INV001')">Delete</button>
-                            </td>
+                                <div class="record-payment-form-group">
+                                    <label>Payment Date</label>
+                                    <input type="date">
+                                </div>
 
-                        </tr>
+                                <div class="record-payment-form-group">
+                                    <label>Payment Method</label>
+                                    <select>
+                                        <option value="">-- Select Payment Method --</option>
+                                        <option>Cash</option>
+                                        <option>UPI</option>
+                                        <option>Bank Transfer</option>
+                                        <option>Credit Card</option>
+                                    </select>
+                                </div>
 
-                        <tr>
-                            <td>INV002</td>
-                            <td>Ravi Kumar</td>
-                            <td>B.Com</td>
-                            <td>₹30,000</td>
-                            <td>05-06-2026</td>
-                            <td>20-06-2026</td>
+                            </div>
 
-                            <td>
-                                <span class="manageInvoice-pending">Pending</span>
-                            </td>
+                        </div>
 
-                            <td>
-                                <button class="manageInvoice-view-btn">View</button>
-                                <button class="manageInvoice-edit-btn">Edit</button>
-                                <button class="manageInvoice-delete-btn">Delete</button>
-                            </td>
+                        <div class="record-payment-submit-btn">
+                            <button type="submit">Record Payment</button>
+                        </div>
 
-                        </tr>
-                    </tbody>
-
-                </table>
+                </form>
 
             </div>
 
-        </div>
 
-
-
-    </div>    
+    </div>
 
 
 <!-- Dashboard sidebar dropdown - JS -->
@@ -298,103 +273,5 @@ window.onclick = function(event) {
 </script>
 
 
-
-
-
-
-<!-- Download CSV - JS -->
-<script>
-document.getElementById("downloadCsvBtn").addEventListener("click", function(){
-
-    const csvData = [
-
-        ["Invoice No","Student Name","Course","Amount","Status"],
-
-        ["INV001","Arjun Kumar","BCA","25000","Paid"],
-
-        ["INV002","Ravi Kumar","B.Com","30000","Pending"]
-
-    ];
-
-    const csvContent = csvData
-        .map(row => row.join(","))
-        .join("\n");
-
-    const blob = new Blob(
-        [csvContent],
-        { type: "text/csv" }
-    );
-
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-
-    a.href = url;
-    a.download = "invoices.csv";
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    document.body.removeChild(a);
-
-    URL.revokeObjectURL(url);
-
-});
-</script>
-
-
-<!-- View Invoice - JS -->
-<script>
-function viewInvoice(invoiceNo){
-
-    alert("View Invoice : " + invoiceNo);
-
-}
-</script>
-
-
-<!-- Edit Invoice - JS -->
-<script>
-function editInvoice(invoiceNo){
-
-    alert("Edit Invoice : " + invoiceNo);
-
-}
-</script>
-
-
-<!-- Delete Invoice - Js -->
-<script>
-function deleteInvoice(invoiceNo){
-
-    if(confirm(
-        "Are you sure you want to delete " +
-        invoiceNo + " ?"
-    )){
-
-        alert("Invoice Deleted");
-
-    }
-
-}
-</script>
-
-
-<!-- Search Invoice - JS -->
-<script>
-function searchInvoice(){
-
-    const keyword =
-        document
-        .getElementById("searchInvoice")
-        .value;
-
-    alert("Searching : " + keyword);
-
-}
-</script>
-
-
 </body>
-</html>    
+</html>           
