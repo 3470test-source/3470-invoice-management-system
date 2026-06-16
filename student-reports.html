@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard - Manage Course Page</title>
+    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard -  Student Reports Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -184,98 +184,100 @@
 
 
 
-        <!-- Manage invoice  -->
-        <div class="manage-invoice-container">
+        <!-- Student Reports -->
+        <div class="student-report-container">
 
-            <div class="manage-invoice-page-header">
-                <h2>Manage Invoices</h2>
-                <p>View and manage all generated invoices.</p>
+            <!-- Header -->
+            <div class="student-report-header">
+                <h2>Student Reports</h2>
+                <p>View student enrollment and course statistics.</p>
             </div>
 
-            <!-- Search & Actions -->
-            <div class="manage-invoice-top-bar">
+            <!-- Summary Cards -->
+            <div class="student-report-cards">
 
-                <div class="manage-invoice-search">
-                    <input type="text" placeholder="Search Student or Invoice No">
-                    <button onclick="searchInvoice()">Search</button>
+                <div class="student-report-card">
+                    <h3>350</h3>
+                    <p>Total Students</p>
                 </div>
 
-                <div class="manage-invoice-actions">
-                    <button class="manageInvoice-create-btn"
-                            onclick="window.location.href='create-invoice.html'">Create Invoice</button>
-                    <button id="downloadCsvBtn" class="manageInvoice-csv-btn">Download CSV</button>
+                <div class="student-report-card">
+                    <h3>320</h3>
+                    <p>Active Students</p>
+                </div>
+
+                <div class="student-report-card">
+                    <h3>15</h3>
+                    <p>Total Courses</p>
+                </div>
+
+                <div class="student-report-card">
+                    <h3>25</h3>
+                    <p>New Students</p>
                 </div>
 
             </div>
 
-            <!-- Invoice Table -->
-            <div class="manage-invoice-table-container">
+            <!-- Search & Filter -->
+            <div class="student-report-top-bar">
+                <input type="text" placeholder="Search Student Name">
+                <select>
+                    <option>All Courses</option>
+                    <option>BCA</option>
+                    <option>B.Com</option>
+                    <option>B.Sc Computer Science</option>
+                </select>
+
+                <button>Search</button>
+            </div>
+
+            <!-- Table -->
+            <div class="student-report-table-container">
 
                 <table>
+
                     <thead>
                         <tr>
-                            <th>Invoice No</th>
+                            <th>Student ID</th>
                             <th>Student Name</th>
                             <th>Course</th>
-                            <th>Amount</th>
-                            <th>Invoice Date</th>
-                            <th>Due Date</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr>
-                            <td>INV001</td>
+                            <td>ST001</td>
                             <td>Arjun Kumar</td>
                             <td>BCA</td>
-                            <td>₹25,000</td>
-                            <td>01-06-2026</td>
-                            <td>15-06-2026</td>
-
-                            <td>
-                                <span class="manageInvoice-paid">Paid</span>
-                            </td>
-
-                            <td>
-                                <button class="manageInvoice-view-btn" onclick="viewInvoice('INV001')">View</button>
-                                <button class="manageInvoice-edit-btn" onclick="editInvoice('INV001')">Edit</button>
-                                <button class="manageInvoice-delete-btn"onclick="deleteInvoice('INV001')">Delete</button>
-                            </td>
-
+                            <td>arjun@gmail.com</td>
+                             <td>9876543210</td>
                         </tr>
 
                         <tr>
-                            <td>INV002</td>
+                            <td>ST002</td>
                             <td>Ravi Kumar</td>
                             <td>B.Com</td>
-                            <td>₹30,000</td>
-                            <td>05-06-2026</td>
-                            <td>20-06-2026</td>
+                            <td>ravi@gmail.com</td>
+                            <td>9876543211</td>
+                        </tr>
 
-                            <td>
-                                <span class="manageInvoice-pending">Pending</span>
-                            </td>
-
-                            <td>
-                                <button class="manageInvoice-view-btn">View</button>
-                                <button class="manageInvoice-edit-btn">Edit</button>
-                                <button class="manageInvoice-delete-btn">Delete</button>
-                            </td>
-
+                        <tr>
+                            <td>ST003</td>
+                            <td>Priya Sharma</td>
+                            <td>B.Sc Computer Science</td>
+                            <td>priya@gmail.com</td>
+                            <td>9876543212</td>
                         </tr>
                     </tbody>
 
                 </table>
 
             </div>
+ 
+    </div>
 
-        </div>
-
-
-
-    </div>    
 
 
 <!-- Dashboard sidebar dropdown - JS -->
@@ -313,103 +315,5 @@ window.onclick = function(event) {
 </script>
 
 
-
-
-
-
-<!-- Download CSV - JS -->
-<script>
-document.getElementById("downloadCsvBtn").addEventListener("click", function(){
-
-    const csvData = [
-
-        ["Invoice No","Student Name","Course","Amount","Status"],
-
-        ["INV001","Arjun Kumar","BCA","25000","Paid"],
-
-        ["INV002","Ravi Kumar","B.Com","30000","Pending"]
-
-    ];
-
-    const csvContent = csvData
-        .map(row => row.join(","))
-        .join("\n");
-
-    const blob = new Blob(
-        [csvContent],
-        { type: "text/csv" }
-    );
-
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-
-    a.href = url;
-    a.download = "invoices.csv";
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    document.body.removeChild(a);
-
-    URL.revokeObjectURL(url);
-
-});
-</script>
-
-
-<!-- View Invoice - JS -->
-<script>
-function viewInvoice(invoiceNo){
-
-    alert("View Invoice : " + invoiceNo);
-
-}
-</script>
-
-
-<!-- Edit Invoice - JS -->
-<script>
-function editInvoice(invoiceNo){
-
-    alert("Edit Invoice : " + invoiceNo);
-
-}
-</script>
-
-
-<!-- Delete Invoice - Js -->
-<script>
-function deleteInvoice(invoiceNo){
-
-    if(confirm(
-        "Are you sure you want to delete " +
-        invoiceNo + " ?"
-    )){
-
-        alert("Invoice Deleted");
-
-    }
-
-}
-</script>
-
-
-<!-- Search Invoice - JS -->
-<script>
-function searchInvoice(){
-
-    const keyword =
-        document
-        .getElementById("searchInvoice")
-        .value;
-
-    alert("Searching : " + keyword);
-
-}
-</script>
-
-
 </body>
-</html>    
+</html>
