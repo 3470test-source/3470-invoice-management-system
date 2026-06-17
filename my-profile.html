@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard - Add Student Page</title>
+    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard -  Add User Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -183,60 +183,46 @@
         </aside>
 
 
-         <!-- Add student-Main content -->
-        <div class="add-student-main-content">
 
-            <!-- Add student - PAGE HEADER -->
-            <div class="add-student-page-header">
-                <h2>Add Student</h2>
-                <p>Add and manage student details for invoice generation.</p>
+        <!-- My Profile  -->
+        <div class="my-profile-container">
+
+            <!-- Page Header -->
+            <div class="my-profile-header">
+                <h2>My Profile</h2>
+                <p>Manage your account information and security settings.</p>
             </div>
 
-                <form id="addstudent" class="add-student-invoice">
-                    <div class="add-student-form-wrapper">
+                <form id="MyProfile" class="my-profile">
 
-                        <!-- STUDENT INFORMATION -->
-                        <div class="Add-student-box">
+                    <div class="my-profile-card">
 
-                        <div class="addStudent-box-header">Student Information</div>
+                        <div class="my-profile-card-header">Profile Information</div>
 
-                            <div class="addStudent-box-body">
+                            <div class="my-profile-card-body">
 
-                                <!-- Student name -->
-                                <div class="add-student-form-group">
-                                    <label>Student Name</label>
-                                    <input type="text" placeholder="Enter Student Name" required>
+                                <!-- Full Name -->
+                                <div class="my-profile-form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" placeholder="Enter Full Name" value="Admin User">
                                 </div>
 
                                 <!-- Email Address -->
-                                <div class="add-student-form-group">
+                                <div class="my-profile-form-group">
                                     <label>Email Address</label>
-                                    <input type="email" placeholder="Enter Email Address" required>
+                                    <input type="email" placeholder="Enter Email Address" value="admin@gmail.com">
+                                </div>
+
+                                <!-- Username -->
+                                <div class="my-profile-form-group">
+                                    <label>Username</label>
+                                    <input type="text" placeholder="Enter Username" value="admin">
                                 </div>
 
                                 <!-- Mobile Number -->
-                                <div class="add-student-form-group">
+                                <div class="my-profile-form-group">
                                     <label>Mobile Number</label>
-                                    <input type="text" placeholder="Enter Mobile Number" required>
-                                </div>
-
-                                <!-- Course Details-->
-                                <div class="add-student-form-group">
-                                    <label>Course</label>
-                                    <select required>
-                                        <option>-- Select Course --</option>
-                                        <option>BMCT - Basic Medical Coding Training</option>
-                                        <option>AMCT - Advanced Medical Coding Training</option>
-                                        <option>CPC - Certified Professional Coder</option>
-                                        <option>CPMA - Certified Professional Medical Auditor</option>
-                                        <option>CRC - Certified Risk Adjustment Coder</option>
-                                        <option>CCS - Certified Coding Specialist</option>
-                                        <option>ED - Emergency Dearptment</option>
-                                        <option>E&M - Evaluation & Management</option>
-                                        <option>IPDRG - Inpatient Diagnosis-Related Group</option>
-                                        <option>IVR - Interventional Radiology</option>
-                                        <option>Surgery</option>
-                                    </select>
+                                    <input type="text" placeholder="Enter Mobile Number" value="9876543210">
                                 </div>
 
                             </div>
@@ -244,53 +230,45 @@
                         </div>
 
 
-                        <!-- ADDRESS INFORMATION -->
-                        <div class="Add-student-box">
+                    <div class="my-profile-card">
 
-                        <div class="addStudent-box-header">Address Information</div>
+                        <div class="my-profile-card-header">Security Information</div>
 
-                            <div class="addStudent-box-body">
+                            <div class="my-profile-card-body">
 
-                                <!-- Address -->
-                                <div class="add-student-form-group">
-                                    <label>Address</label>
-                                    <textarea rows="4" placeholder="Enter Address"></textarea>
+                                <!-- Current Password -->
+                                <div class="my-profile-form-group">
+                                    <label>Current Password</label>
+                                    <input type="password" placeholder="Enter Current Password">
                                 </div>
 
-                                <!-- Town / City -->
-                                <div class="add-student-form-group">
-                                    <label>Town / City</label>
-                                    <input type="text" placeholder="Town / City">
+                                <!-- New Password -->
+                                <div class="my-profile-form-group">
+                                    <label>New Password</label>
+                                    <input type="password" placeholder="Enter New Password">
                                 </div>
 
-                                <!-- Country -->
-                                <div class="add-student-form-group">
-                                    <label>Country</label>
-                                    <input type="text" placeholder="Country">
-                                </div>
-
-                                <!-- Postcode -->
-                                <div class="add-student-form-group">
-                                    <label>Postcode</label>
-                                    <input type="text" placeholder="Postcode">
+                                <!-- Confirm Password -->
+                                <div class="my-profile-form-group">
+                                    <label>Confirm Password</label>
+                                    <input type="password" placeholder="Confirm New Password">
                                 </div>
 
                             </div>
 
                         </div>
 
-                    </div>
-
-                    <!-- SUBMIT BUTTON -->
-                    <div class="Add-student-submit">
-                        <button type="submit">Add Student</button>
+                    <!-- Submit btn -->
+                    <div class="my-profile-submit-btn">
+                        <button type="submit">Update Profile</button>
                     </div>
 
                 </form>
 
             </div>
 
-    </div>    
+
+    </div>
 
 
 <!-- Dashboard sidebar dropdown - JS -->
@@ -329,4 +307,4 @@ window.onclick = function(event) {
 
 
 </body>
-</html>    
+</html>

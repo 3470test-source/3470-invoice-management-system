@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard -  Manage User Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #c5d7ee;
+    }
+
+    </style>
+
+</head>
+<body>
+
+
+    <!-- Invoice Dashboard HEADER -->
+    <header class="invoice-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="left-header-invoice">
+
+            <div class="logo-header-invoice">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="IMS Logo">
+            </div>
+
+            <div class="left-header-invoice-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+
+        <!-- CENTER -->
+        <div class="header-invoice-center">
+            INVOICE MANAGEMENT SYSTEM
+        </div>
+
+        <!-- RIGHT -->
+        <div class="right-header-invoice">
+
+            <div class="invoice-admin-profile-dropdown">
+
+                <div class="invoice-admin-profile-btn right-header-invoice-profile" onclick="toggleDropdown()">
+
+                <div class="right-header-avatar-icon">
+                    <i class="fa fa-user"></i>
+                </div>
+
+                <span>Admin Panel</span>
+
+            </div>
+
+            <!-- Profile -->
+            <div class="invoice-dropdown-menu" id="dropdownMenu">
+                <a href="my-profile.html"><i class="fa fa-user"></i>My Profile</a>
+                <a href="settings.html"><i class="fa fa-cog"></i>Settings</a>
+                <a href="admin-login.html"><i class="fa fa-sign-out-alt"></i>Logout</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+    <!-- Dashboard Side Bar -->
+    <div class="Admin-side-bar-invoice">
+
+        <!-- Dashboard Sidebar -->
+        <aside class="invoice-admin-dsh-sidebar" id="sidebar">
+
+            <a href="dashboard-invoice.html"><i class="fa fa-dashboard"></i> Dashboard</a>
+
+            <!-- Courses -->
+            <div class="in-admin-sidebar-task-dropdown">
+
+                <div class="invoice-admin-side-bar-drop-btn">
+                    <i class="fa fa-box"></i> Courses
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="adminInvoice-side-bar-drop-content">
+                    <a href="add-course.html"><i class="fa fa-plus"></i> Add Course</a>
+                    <a href="manage-courses.html"><i class="fa fa-cogs"></i> Manage Courses</a>
+                </div>
+
+            </div>
+
+            <!-- Students -->
+            <div class="in-admin-sidebar-task-dropdown">
+
+                <div class="invoice-admin-side-bar-drop-btn">
+                    <i class="fa fa-user-graduate"></i> Students
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="adminInvoice-side-bar-drop-content">
+                    <a href="add-student.html"><i class="fa fa-user-plus"></i> Add Student</a>
+                    <a href="manage-students.html"><i class="fa fa-users"></i> Manage Students</a>
+                </div>
+
+            </div>
+
+            <!-- INVOICES -->
+            <div class="in-admin-sidebar-task-dropdown">
+
+                <div class="invoice-admin-side-bar-drop-btn">
+                    <i class="fa fa-file-invoice"></i> Invoices
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="adminInvoice-side-bar-drop-content">
+                    <a href="create-invoice.html"><i class="fa fa-plus-circle"></i> Create Invoice</a>
+                    <a href="manage-invoice.html"><i class="fa fa-file-alt"></i> Manage Invoices</a>
+                </div>
+
+            </div>
+
+            <!-- Payments -->
+            <div class="in-admin-sidebar-task-dropdown">
+
+                <div class="invoice-admin-side-bar-drop-btn">
+                    <i class="fa fa-money-bill-wave"></i> Payments
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="adminInvoice-side-bar-drop-content">
+                    <a href="record-payment.html"><i class="fa fa-credit-card"></i> Record Payment</a>
+                    <a href="payment-history.html"><i class="fa fa-history"></i> Payment History</a>
+                </div>
+
+            </div>
+
+            <!-- Reports -->
+            <div class="in-admin-sidebar-task-dropdown">
+
+                <div class="invoice-admin-side-bar-drop-btn">
+                    <i class="fa fa-chart-bar"></i> Reports
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="adminInvoice-side-bar-drop-content">
+                    <a href="invoice-reports.html"><i class="fa fa-file-invoice"></i> Invoice Reports</a>
+                    <a href="student-reports.html"><i class="fa fa-user-graduate"></i> Student Reports</a>
+                </div>
+
+            </div>
+
+            <!-- SYSTEM USERS -->
+            <div class="in-admin-sidebar-task-dropdown">
+
+                <div class="invoice-admin-side-bar-drop-btn">
+                    <i class="fa fa-user-shield"></i> System Users
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="adminInvoice-side-bar-drop-content">
+                    <a href="add-user.html"><i class="fa fa-user-plus"></i> Add User</a>
+                    <a href="manage-user.html"><i class="fa fa-users-cog"></i> Manage Users</a>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- Manage User -->
+        <div class="manage-users-container">
+
+            <!-- Header -->
+            <div class="manage-users-header">
+                <h2>Manage Users</h2>
+                <p>Manage all system user accounts.</p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="manage-users-top-bar">
+
+                <div class="manage-users-search">
+                    <input type="text" placeholder="Search User">
+                    <button>Search</button>
+                </div>
+
+                <button class="add-user-btn">Add User</button>
+
+            </div>
+
+            <!-- Table -->
+            <div class="manage-users-table-container">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Username</th>
+                            <th>Email Address</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Admin User</td>
+                            <td>admin</td>
+                            <td>admin@gmail.com</td>
+
+                            <td>
+                                <span class="manageUser-role-admin">Admin</span>
+                            </td>
+
+                            <td>
+                                <span class="manageUser-status-active">Active</span>
+                            </td>
+
+                            <td>
+                                <button class="manageUser-view-btn">View</button>
+                                <button class="manageUser-edit-btn">Edit</button>
+                                <button class="manageUser-delete-btn">Delete</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <td>Staff User</td>
+                            <td>staff</td>
+                            <td>staff@gmail.com</td>
+
+                            <td>
+                                <span class="manageUser-role-staff">Staff</span>
+                            </td>
+
+                            <td>
+                                <span class="manageUser-status-active">Active</span>
+                            </td>
+
+                            <td>
+                                <button class="manageUser-view-btn">View</button>
+                                <button class="manageUser-edit-btn">Edit</button>
+                                <button class="manageUser-delete-btn">Delete</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+<!-- Dashboard sidebar dropdown - JS -->
+<script>
+    document.querySelectorAll(".invoice-admin-side-bar-drop-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        button.parentElement.classList.toggle("active");
+
+    });
+
+});
+</script>
+
+
+<!-- Profile dropdown - JS -->
+<script>
+    function toggleDropdown() {
+
+        document.getElementById("dropdownMenu").classList.toggle("show");
+
+    }
+
+window.onclick = function(event) {
+
+    if (!event.target.closest(".invoice-admin-profile-dropdown")) {
+
+        const dropdown =
+            document.getElementById("dropdownMenu");
+
+        dropdown.classList.remove("show");
+    }
+};
+</script>
+
+
+</body>
+</html>
