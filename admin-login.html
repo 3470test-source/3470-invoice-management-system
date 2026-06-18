@@ -90,5 +90,35 @@
 }
 </script>
 
+
+
+<!-- login credentials - JS -->
+<script>
+document.getElementById("invoice-form-login").addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+    const username = document.getElementById("adminUser").value;
+
+    const password = document.getElementById("adminPass").value;
+
+    /*--- Static Credentials ---*/
+    if(username === "admin" &&
+       password === "Invoice@123"){
+
+        localStorage.setItem("invoiceAdminLoggedIn","true");
+
+        window.location.href = "dashboard-invoice.html";
+
+    }else{
+
+        alert("Invalid Username or Password");
+
+    }
+
+});
+</script>
+
+
 </body>
 </html>    
