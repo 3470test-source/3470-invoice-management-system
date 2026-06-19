@@ -116,6 +116,114 @@ app.put("/courses/:id",(req,res)=>{
 
 
 
+
+
+/*==== Add Student ====*/
+app.post("/add-student", (req,res)=>{
+
+    const {
+        student_name, email, mobile, course, address, city, country, postcode
+    } = req.body;
+
+    const sql = `
+    INSERT INTO students
+    (
+        student_name, email, mobile, course, address, city, country, postcode
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    db.query(
+        sql,
+        [
+            student_name, email, mobile, course, address, city, country, postcode
+        ],
+        (err,result)=>{
+
+            if(err){
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message:"✅ Student added successfully"
+            });
+
+        }
+    );
+
+});
+
+
+
+/*==== Get All Students ====*/
+app.get("/students", (req, res) => {
+
+    db.query(
+        "SELECT * FROM students",
+        (err, result) => {
+
+            if(err){
+                return res.status(500).json(err);
+            }
+
+            res.json(result);
+        }
+    );
+
+});
+
+
+
+/*==== Delete students ====*/
+app.delete("/delete-student/:id",(req,res)=>{
+
+    const id = req.params.id;
+
+    db.query(
+        "DELETE FROM students WHERE id=?",
+        [id],
+        (err,result)=>{
+
+            if(err){
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message:"🗑️ Student deleted successfully."
+            });
+        }
+    );
+});
+
+
+
+/*==== Edit & Updates Student ====*/
+app.put("/update-student/:id",(req,res)=>{
+
+    const id = req.params.id;
+
+    const { student_name } = req.body;
+
+    db.query(
+        "UPDATE students SET student_name=? WHERE id=?",
+        [student_name,id],
+        (err,result)=>{
+
+            if(err){
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message:"✏️ Student updated successfully."
+            });
+        }
+    );
+});
+
+
+
+
+
 /*--------------------------
           Start server
   --------------------------*/

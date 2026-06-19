@@ -205,25 +205,25 @@
                                 <!-- Student name -->
                                 <div class="add-student-form-group">
                                     <label>Student Name</label>
-                                    <input type="text" placeholder="Enter Student Name" required>
+                                    <input type="text" id="studentName" placeholder="Enter Student Name" required>
                                 </div>
 
                                 <!-- Email Address -->
                                 <div class="add-student-form-group">
                                     <label>Email Address</label>
-                                    <input type="email" placeholder="Enter Email Address" required>
+                                    <input type="email" id="studentEmail" placeholder="Enter Email Address" required>
                                 </div>
 
                                 <!-- Mobile Number -->
                                 <div class="add-student-form-group">
                                     <label>Mobile Number</label>
-                                    <input type="text" placeholder="Enter Mobile Number" required>
+                                    <input type="text" id="studentMobile" placeholder="Enter Mobile Number" required>
                                 </div>
 
                                 <!-- Course Details-->
                                 <div class="add-student-form-group">
                                     <label>Course</label>
-                                    <select required>
+                                    <select id="studentCourse" required>
                                         <option>-- Select Course --</option>
                                         <option>BMCT - Basic Medical Coding Training</option>
                                         <option>AMCT - Advanced Medical Coding Training</option>
@@ -254,25 +254,25 @@
                                 <!-- Address -->
                                 <div class="add-student-form-group">
                                     <label>Address</label>
-                                    <textarea rows="4" placeholder="Enter Address"></textarea>
+                                    <textarea id="studentAddress" rows="4" placeholder="Enter Address"></textarea>
                                 </div>
 
                                 <!-- Town / City -->
                                 <div class="add-student-form-group">
                                     <label>Town / City</label>
-                                    <input type="text" placeholder="Town / City">
+                                    <input type="text" id="studentCity" placeholder="Town / City">
                                 </div>
 
                                 <!-- Country -->
                                 <div class="add-student-form-group">
                                     <label>Country</label>
-                                    <input type="text" placeholder="Country">
+                                    <input type="text" id="studentCountry" placeholder="Country">
                                 </div>
 
                                 <!-- Postcode -->
                                 <div class="add-student-form-group">
                                     <label>Postcode</label>
-                                    <input type="text" placeholder="Postcode">
+                                    <input type="text" id="studentPostcode" placeholder="Postcode">
                                 </div>
 
                             </div>
@@ -354,6 +354,49 @@ function logout(){
 
     window.location.href = "admin-login.html";
 }
+</script>
+
+
+<!-- Add student - Js -->
+<script>
+document.getElementById("addstudent").addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const student_name = document.getElementById("studentName").value;
+
+    const email = document.getElementById("studentEmail").value;
+
+    const mobile = document.getElementById("studentMobile").value;
+
+    const course = document.getElementById("studentCourse").value;
+
+    const address = document.getElementById("studentAddress").value;
+
+    const city = document.getElementById("studentCity").value;
+
+    const country = document.getElementById("studentCountry").value;
+
+    const postcode = document.getElementById("studentPostcode").value;
+
+    const response = await fetch("http://localhost:3000/add-student",
+        {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                student_name, email, mobile, course, address, city, country, postcode
+            })
+        }
+    );
+
+    const result = await response.json();
+
+    alert(result.message);
+
+    document.getElementById("addstudent").reset();
+});
 </script>
 
 

@@ -724,6 +724,7 @@
   cursor:pointer;
   margin-left:5px;
   font-size: 12px;
+  margin-top:5px;
 }
 
 .manage-std-delete-btn:hover {
