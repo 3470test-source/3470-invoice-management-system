@@ -61,6 +61,34 @@ app.get("/courses",(req,res)=>{
 
 
 
+/*==== students-with-course ====*/
+app.get("/students-with-course", (req, res) => {
+
+    const sql = `
+    SELECT
+        students.id,
+        students.student_name,
+        students.course,
+        courses.course_fee
+    FROM students
+    LEFT JOIN courses
+    ON students.course = courses.course_name
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if(err){
+            return res.status(500).json(err);
+        }
+
+        res.json(result);
+
+    });
+
+});
+
+
+
 /*==== Delete course ====*/
 app.delete("/courses/:id", (req,res)=>{
 
@@ -219,6 +247,248 @@ app.put("/update-student/:id",(req,res)=>{
         }
     );
 });
+
+
+
+
+
+
+/* ==== Create invoice ====*/
+app.post("/create-invoice", (req, res) => {
+
+    const {
+        invoice_no, student_name, course, course_fee, discount, paid_amount,
+        pending_amount, payment_mode, invoice_date, due_date, remarks
+    } = req.body;
+
+    const sql = `
+    INSERT INTO invoices
+    (
+        invoice_no, student_name, course, course_fee, discount, paid_amount, 
+        pending_amount, payment_mode, invoice_date, due_date, remarks
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    db.query(
+        sql,
+        [
+            invoice_no, student_name, course, course_fee, discount, paid_amount, pending_amount,
+            payment_mode, invoice_date, due_date, remarks
+        ],
+        (err, result) => {
+
+            if(err){
+                console.log(err);
+                return res.status(500).json({
+                    message: "Invoice creation failed"
+                });
+            }
+
+            res.json({
+                message: "✅ Invoice created successfully"
+            });
+
+        }
+    );
+
+});
+
+
+
+/*==== Get All invoice ====*/
+app.get("/invoices", (req, res) => {
+
+    db.query(
+        "SELECT * FROM invoices ORDER BY id DESC",
+        (err, result) => {
+
+            if(err){
+                return res.status(500).json(err);
+            }
+
+            res.json(result);
+        }
+    );
+
+});
+
+
+
+/* ==== delete invoice ====*/
+app.delete("/invoice/:id",(req,res)=>{
+
+    db.query(
+        "DELETE FROM invoices WHERE id=?",
+        [req.params.id],
+        (err,result)=>{
+
+            if(err){
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message:"Invoice deleted successfully"
+            });
+        }
+    );
+
+});
+
+
+
+/* ==== Edit & Update invoice ====*/ 
+app.put("/invoice/:id", (req,res)=>{
+
+    const id = req.params.id;
+
+    const {
+        student_name, course, course_fee, discount, paid_amount, pending_amount,
+        payment_mode, invoice_date, due_date, remarks
+    } = req.body;
+
+    const sql = `
+    UPDATE invoices
+    SET
+        student_name=?, course=?, course_fee=?, discount=?, paid_amount=?,
+        pending_amount=?, payment_mode=?, invoice_date=?, due_date=?, remarks=?
+    WHERE id=?
+    `;
+
+    db.query(
+        sql,
+        [
+            student_name, course, course_fee, discount, paid_amount, pending_amount,
+            payment_mode, invoice_date, due_date, remarks,id
+        ],
+        (err,result)=>{
+
+            if(err){
+                console.log(err);
+
+                return res.status(500).json({
+                    message:"Invoice update failed"
+                });
+            }
+
+            res.json({
+                message:"Invoice updated successfully"
+            });
+
+        }
+    );
+
+});
+
+
+
+/* ==== View Invoice Details ====*/
+app.get("/invoice/:invoice_no", (req,res)=>{
+
+const sql =
+"SELECT * FROM invoices WHERE invoice_no=?";
+
+db.query(
+sql,
+[req.params.invoice_no],
+(err,result)=>{
+
+if(err){
+return res.status(500).json(err);
+}
+
+res.json(result[0]);
+
+});
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const PDFDocument =
+require("pdfkit");
+
+app.get(
+"/download-invoice/:id",
+(req,res)=>{
+
+    const id =
+    req.params.id;
+
+    db.query(
+    "SELECT * FROM invoices WHERE id=?",
+    [id],
+    (err,result)=>{
+
+        if(err) return res.status(500).send();
+
+        const invoice =
+        result[0];
+
+        const doc =
+        new PDFDocument();
+
+        res.setHeader(
+        "Content-Type",
+        "application/pdf"
+        );
+
+        res.setHeader(
+        "Content-Disposition",
+        `attachment; filename=invoice-${invoice.invoice_no}.pdf`
+        );
+
+        doc.pipe(res);
+
+        doc.fontSize(20)
+        .text("Invoice");
+
+        doc.moveDown();
+
+        doc.text(
+        "Invoice No: " +
+        invoice.invoice_no
+        );
+
+        doc.text(
+        "Student: " +
+        invoice.student_name
+        );
+
+        doc.text(
+        "Course: " +
+        invoice.course
+        );
+
+        doc.text(
+        "Amount: ₹" +
+        invoice.course_fee
+        );
+
+        doc.end();
+
+    });
+
+});
+
+
+
+
+
 
 
 

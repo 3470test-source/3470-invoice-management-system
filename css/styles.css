@@ -1267,6 +1267,7 @@
   cursor:pointer;
   font-size: 12px;
   margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .manageInvoice-view-btn:hover {
@@ -1282,6 +1283,7 @@
   cursor:pointer;
   font-size: 12px;
   margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .manageInvoice-edit-btn:hover {
@@ -2412,6 +2414,258 @@
 
 .settings-submit-btn button:hover {
   background:#0e8b1e;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------ */
+
+                      /* ===================================
+                                View Invoice Details
+                      =================================== */
+
+.view-invoice-container {
+  width: 75%;
+  margin: 40px auto;
+  padding: 50px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  height: 100%;
+}
+
+.view-invoice-page-title {
+  margin-bottom:25px;
+}
+
+.view-invoice-page-title h2 {
+  font-size:30px;
+  color:#0c4fbb;
+  margin-bottom:6px;
+}
+
+.view-invoice-details {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:30px;
+  padding:15px;
+}
+
+.viewInvoice-field {
+  display:flex;
+  flex-direction:column;
+}
+
+.viewInvoice-field label {
+  color:#0a9638;
+  display:block;
+  margin-bottom:6px;
+  font-weight:600;
+  font-size:16px;
+  letter-spacing: 0.5px;
+}
+
+.viewInvoice-field input,
+.viewInvoice-field textarea {
+  width:100%;
+  padding:12px 15px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:12px;
+  background:#fff;
+}
+
+.viewInvoice-field input:focus,
+.viewInvoice-field textarea:focus {
+  outline:none;
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,0.15);
+}
+
+.viewInvoice-field textarea {
+  resize:none;
+  height:70px;
+}
+
+.view-full-width {
+  grid-column:1 / span 2;
+}
+
+.viewInvoice-button-area {
+  margin-top:20px;
+  display:flex;
+  gap:15px;
+}
+
+.viewInvoice-btn {
+  padding:10px 28px;
+  border:none;
+  cursor:pointer;
+  border-radius:8px;
+  font-size:15px;
+  font-weight:600;
+  letter-spacing: 0.5px;
+}
+
+.viewBack-btn {
+  background:#555;
+  color:#fff;
+}
+
+.viewBack-btn:hover {
+  background:#3d3c3c; 
+}
+
+.viewPdf-btn {
+  background:#2563eb;
+  color:#fff;
+}
+
+.viewPdf-btn:hover {
+  background:#0c771a;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------------------------- */
+
+                      /* =================================== 
+                                Edit Invoice Details 
+                      =================================== */
+
+.edit-invoice-container {
+  width: 75%;
+  margin: 40px auto;
+  padding: 50px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  height: 100%;
+}
+
+
+/*--- Header ---*/
+.edit-invoice-header {
+  margin-bottom:25px;
+}
+
+.edit-invoice-header h2 {
+  font-size:30px;
+  color:#0c4fbb;
+  margin-bottom:6px;
+}
+
+.edit-invoice-header p {
+  color:#15944a;
+  font-size:16px;
+  letter-spacing: 0.5px;
+}
+
+
+/*--- Form Layout ---*/
+.edit-invoiceForm {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:30px;
+  padding:15px;
+}
+
+
+/*--- Form Group ---*/
+.edit-invoice-form-group {
+  display:flex;
+  flex-direction:column;
+}
+
+.edit-invoice-form-group label {
+  color:#0a6e96;
+  display:block;
+  margin-bottom:6px;
+  font-weight:600;
+  font-size:16px;
+  letter-spacing: 0.5px;
+}
+
+
+/*--- Inputs ---*/
+.edit-invoice-form-group input,
+.edit-invoice-form-group select,
+.edit-invoice-form-group textarea {
+  width:100%;
+  padding:12px 15px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:12px;
+  background:#fff;
+}
+
+
+/*--- Focus ---*/
+.edit-invoice-form-group input:focus,
+.edit-invoice-form-group select:focus,
+.edit-invoice-form-group textarea:focus {
+  outline:none;
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,0.15);
+}
+
+
+/*--- Readonly Fields ---*/
+.edit-invoice-form-group input[readonly] {
+  background:#f5f5f5;
+  cursor:not-allowed;
+}
+
+
+/*--- Textarea ---*/
+.edit-invoice-form-group textarea {
+  min-height:70px;
+  resize:none;
+}
+
+
+/*--- Full Width ---*/
+.edit-full-width {
+  grid-column:1 / span 2;
+}
+
+
+/*--- Buttons ---*/
+.editInvoice-button-area {
+  display:flex;
+  gap:15px;
+}
+
+
+/*--- Update Button ---*/
+.editInvoice-update-btn {
+  background:#28a745;
+  color:#fff;
+  border:none;
+  padding:10px 28px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:600;
+  letter-spacing: 0.5px;
+}
+
+.editInvoice-update-btn:hover {
+  background:#218838;
+}
+
+
+/*--- Cancel Button ---*/
+.editInvoice-cancel-btn {
+  background:#dc3545;
+  color:#fff;
+  border:none;
+  padding:10px 28px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:600;
+  letter-spacing: 0.5px;
+}
+
+.editInvoice-cancel-btn:hover {
+  background:#c82333;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------ */

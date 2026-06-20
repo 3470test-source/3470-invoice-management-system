@@ -196,7 +196,7 @@
             <div class="manage-invoice-top-bar">
 
                 <div class="manage-invoice-search">
-                    <input type="text" placeholder="Search Student or Invoice No">
+                    <input type="text" id="searchInvoice" placeholder="Search Student or Invoice No">
                     <button onclick="searchInvoice()">Search</button>
                 </div>
 
@@ -225,47 +225,7 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                        <tr>
-                            <td>INV001</td>
-                            <td>Arjun Kumar</td>
-                            <td>BCA</td>
-                            <td>₹25,000</td>
-                            <td>01-06-2026</td>
-                            <td>15-06-2026</td>
-
-                            <td>
-                                <span class="manageInvoice-paid">Paid</span>
-                            </td>
-
-                            <td>
-                                <button class="manageInvoice-view-btn" onclick="viewInvoice('INV001')">View</button>
-                                <button class="manageInvoice-edit-btn" onclick="editInvoice('INV001')">Edit</button>
-                                <button class="manageInvoice-delete-btn"onclick="deleteInvoice('INV001')">Delete</button>
-                            </td>
-
-                        </tr>
-
-                        <tr>
-                            <td>INV002</td>
-                            <td>Ravi Kumar</td>
-                            <td>B.Com</td>
-                            <td>₹30,000</td>
-                            <td>05-06-2026</td>
-                            <td>20-06-2026</td>
-
-                            <td>
-                                <span class="manageInvoice-pending">Pending</span>
-                            </td>
-
-                            <td>
-                                <button class="manageInvoice-view-btn">View</button>
-                                <button class="manageInvoice-edit-btn">Edit</button>
-                                <button class="manageInvoice-delete-btn">Delete</button>
-                            </td>
-
-                        </tr>
-                    </tbody>
+                    <tbody id="invoiceTableBody"></tbody>
 
                 </table>
 
@@ -344,105 +304,167 @@ function logout(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-<!-- Download CSV - JS -->
+<!-- Manage Students list - Js -->
 <script>
-document.getElementById("downloadCsvBtn").addEventListener("click", function(){
 
-    const csvData = [
+let allInvoices = [];
 
-        ["Invoice No","Student Name","Course","Amount","Status"],
+async function loadInvoices(){
 
-        ["INV001","Arjun Kumar","BCA","25000","Paid"],
+    const response = await fetch("http://localhost:3000/invoices");
 
-        ["INV002","Ravi Kumar","B.Com","30000","Pending"]
+    allInvoices = await response.json();
 
-    ];
+    displayInvoices(allInvoices);
+}
 
-    const csvContent = csvData
-        .map(row => row.join(","))
-        .join("\n");
+function displayInvoices(invoices){
 
-    const blob = new Blob(
-        [csvContent],
-        { type: "text/csv" }
-    );
+    const tbody = document.getElementById("invoiceTableBody");
 
-    const url = URL.createObjectURL(blob);
+    tbody.innerHTML = "";
 
-    const a = document.createElement("a");
+    invoices.forEach(invoice => {
 
-    a.href = url;
-    a.download = "invoices.csv";
+        const status =
+        Number(invoice.pending_amount) === 0
+        ? "Paid"
+        : "Pending";
 
-    document.body.appendChild(a);
+        tbody.innerHTML += `
+        <tr>
 
-    a.click();
+            <td>${invoice.invoice_no}</td>
+            <td>${invoice.student_name}</td>
+            <td>${invoice.course}</td>
+            <td>₹${invoice.course_fee}</td>
+            <td>${invoice.invoice_date}</td>
+            <td>${invoice.due_date}</td>
 
-    document.body.removeChild(a);
+            <td>
+                <span class="${
+                    status === "Paid"
+                    ? "manageInvoice-paid"
+                    : "manageInvoice-pending"
+                }">
+                    ${status}
+                </span>
+            </td>
 
-    URL.revokeObjectURL(url);
+            <td>
+                <button class="manageInvoice-view-btn" onclick="viewInvoice('${invoice.invoice_no}')">View</button>
+                <button class="manageInvoice-edit-btn" onclick="editInvoice(${invoice.id})">Edit</button>
+                <button class="manageInvoice-delete-btn" onclick="deleteInvoice(${invoice.id})">Delete</button>
+            </td>
 
-});
-</script>
-
-
-<!-- View Invoice - JS -->
-<script>
-function viewInvoice(invoiceNo){
-
-    alert("View Invoice : " + invoiceNo);
+        </tr>
+        `;
+    });
 
 }
+
+loadInvoices();
+
 </script>
 
 
-<!-- Edit Invoice - JS -->
+
+
+
+
+
+
+
 <script>
-function editInvoice(invoiceNo){
 
-    alert("Edit Invoice : " + invoiceNo);
-
-}
-</script>
-
-
-<!-- Delete Invoice - Js -->
-<script>
-function deleteInvoice(invoiceNo){
-
-    if(confirm(
-        "Are you sure you want to delete " +
-        invoiceNo + " ?"
-    )){
-
-        alert("Invoice Deleted");
-
-    }
-
-}
-</script>
-
-
-<!-- Search Invoice - JS -->
-<script>
 function searchInvoice(){
 
     const keyword =
-        document
-        .getElementById("searchInvoice")
-        .value;
+    document.getElementById(
+        "searchInvoice"
+    )
+    .value
+    .toLowerCase();
 
-    alert("Searching : " + keyword);
+    const filtered =
+    allInvoices.filter(invoice =>
+
+        invoice.invoice_no
+        .toLowerCase()
+        .includes(keyword)
+
+        ||
+
+        invoice.student_name
+        .toLowerCase()
+        .includes(keyword)
+
+    );
+
+    displayInvoices(filtered);
+
+}
+
+</script>
+
+
+
+
+
+
+
+<!-- View Invoice & edit & Update Invoice -->
+<script>
+
+    function viewInvoice(invoiceNo){
+
+        window.location.href = `view-invoice.html?invoice_no=${invoiceNo}`;
+    }
+
+
+    function editInvoice(id){
+
+        window.location.href = `edit-invoice.html?id=${id}`;
+    }
+
+</script>
+
+
+<!-- Delete Invoice - JS -->
+<script>
+    async function deleteInvoice(id){
+
+    if(!confirm(
+        "Are you sure you want to delete this invoice?"
+    )){
+        return;
+    }
+
+    try{
+
+        const response = await fetch(`http://localhost:3000/invoice/${id}`,
+            {
+                method:"DELETE"
+            }
+        );
+
+        const result =
+        await response.json();
+
+        alert(result.message);
+
+        loadInvoices();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "Failed to delete invoice"
+        );
+
+    }
 
 }
 </script>

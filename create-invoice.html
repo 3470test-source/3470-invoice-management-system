@@ -199,13 +199,17 @@
 
                             <div class="create-invoice-card-body">
 
+                                <!-- Invoice Number -->
+                                <div class="create-invoice-form-group">
+                                    <label>Invoice Number</label>
+                                    <input type="text" id="invoiceNo" readonly>
+                                </div>
+
                                 <!-- Student -->
                                 <div class="create-invoice-form-group">
                                     <label>Student</label>
                                     <select id="studentSelect" required>
-                                        <option value="">Select Student</option>
-                                        <option data-course="BCA" data-fee="25000">Arjun Kumar</option>
-                                        <option data-course="B.Com" data-fee="30000">Ravi Kumar</option>
+                                        <option value="">-- Select Student --</option>
                                     </select>
                                 </div>
 
@@ -215,28 +219,57 @@
                                     <input type="text" id="courseName" readonly>
                                 </div>
 
-                                <!-- Fee -->
+                                <!-- Course Fee -->
                                 <div class="create-invoice-form-group">
                                     <label>Course Fee</label>
                                     <input type="text" id="courseFee" readonly>
                                 </div>
 
+                                <!-- Discount -->
+                                <div class="create-invoice-form-group">
+                                    <label>Discount Amount</label>
+                                    <input type="number" id="discount"value="0">
+                                </div>
+
+                                <!-- Paid Amount -->
+                                <div class="create-invoice-form-group">
+                                    <label>Paid Amount</label>
+                                    <input type="number" id="paidAmount" value="0">
+                                </div>
+
+                                <!-- Pending Amount -->
+                                <div class="create-invoice-form-group">
+                                    <label>Pending Amount</label>
+                                    <input type="number" id="pendingAmount" readonly>
+                                </div>
+
+                                <!-- Payment Mode -->
+                                <div class="create-invoice-form-group">
+                                    <label>Payment Mode</label>
+                                    <select id="paymentMode">
+                                        <option value="Cash">Cash</option>
+                                        <option value="UPI">UPI</option>
+                                        <option value="Bank Transfer">Bank Transfer</option>
+                                        <option value="Cheque">Cheque</option>
+                                    </select>
+                                </div>
+
                                 <!-- Invoice Date -->
                                 <div class="create-invoice-form-group">
                                     <label>Invoice Date</label>
-                                    <input type="date" required>
+                                    <input type="date" id="invoiceDate" required>
                                 </div>
 
                                 <!-- Due Date -->
                                 <div class="create-invoice-form-group">
                                     <label>Due Date</label>
-                                    <input type="date" required>
+                                    <input type="date" id="dueDate" required>
                                 </div>
 
                                 <!-- Description -->
                                 <div class="create-invoice-form-group">
                                     <label>Description</label>
-                                    <textarea rows="4" placeholder="Enter Remarks"></textarea>
+                                    <textarea id="remarks" rows="4" placeholder="Enter Remarks"></textarea>
                                 </div>
 
                             </div>
@@ -282,8 +315,7 @@ window.onclick = function(event) {
 
     if (!event.target.closest(".invoice-admin-profile-dropdown")) {
 
-        const dropdown =
-            document.getElementById("dropdownMenu");
+        const dropdown = document.getElementById("dropdownMenu");
 
         dropdown.classList.remove("show");
     }
@@ -321,6 +353,69 @@ function logout(){
 
 
 
+<!-- Auto Load Students dropdown select -->
+<script>
+
+let students = [];
+
+async function loadStudents(){
+
+    const response = await fetch("http://localhost:3000/students-with-course");
+
+    students = await response.json();
+
+    const select = document.getElementById("studentSelect");
+
+    students.forEach(student => {
+
+        select.innerHTML += `
+        <option
+            value="${student.student_name}"
+            data-course="${student.course}"
+            data-fee="${student.course_fee}">
+            ${student.student_name}
+        </option>
+        `;
+
+    });
+
+}
+
+loadStudents();
+
+</script>
+
+
+
+<!-- Auto Fill Course & Fee -->
+<script>
+
+document.getElementById("studentSelect").addEventListener("change", function(){
+
+    const selected = this.options[this.selectedIndex];
+
+    document.getElementById("courseName").value = selected.dataset.course || "";
+
+    document.getElementById("courseFee").value = selected.dataset.fee || "";
+
+    calculatePending();
+
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -333,31 +428,190 @@ function logout(){
 
 
 <script>
-    const studentSelect =
-document.getElementById("studentSelect");
 
-studentSelect.addEventListener("change", function(){
+// Auto Invoice Number
+document.getElementById("invoiceNo").value =
+"INV" + Date.now();
 
-    const selectedOption =
+// Auto Invoice Date
+// document.getElementById("invoiceDate").value =
+// new Date().toISOString().split("T")[0];
+
+function formatDate(date){
+
+    const day =
+    String(date.getDate()).padStart(2,"0");
+
+    const month =
+    String(date.getMonth() + 1).padStart(2,"0");
+
+    const year =
+    date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+
+}
+
+document.getElementById("invoiceDate").value =
+formatDate(new Date());
+
+// Auto Due Date (+7 days)
+const dueDate = new Date();
+dueDate.setDate(dueDate.getDate() + 7);
+
+
+document.getElementById("dueDate").value =
+formatDate(dueDate);
+
+// document.getElementById("dueDate").value =
+// dueDate.toISOString().split("T")[0];
+
+
+// Student Selection
+document.getElementById("studentSelect")
+.addEventListener("change", function(){
+
+    const option =
     this.options[this.selectedIndex];
 
     document.getElementById("courseName").value =
-    selectedOption.dataset.course || "";
+    option.dataset.course || "";
 
     document.getElementById("courseFee").value =
-    selectedOption.dataset.fee || "";
+    option.dataset.fee || "";
 
+    calculatePending();
 });
 
-document
-.getElementById("invoiceForm")
-.addEventListener("submit", function(e){
+
+// Discount Change
+document.getElementById("discount")
+.addEventListener("input", calculatePending);
+
+
+// Paid Amount Change
+document.getElementById("paidAmount")
+.addEventListener("input", calculatePending);
+
+
+// Pending Calculation
+function calculatePending(){
+
+    const fee =
+    Number(document.getElementById("courseFee").value) || 0;
+
+    const discount =
+    Number(document.getElementById("discount").value) || 0;
+
+    const paid =
+    Number(document.getElementById("paidAmount").value) || 0;
+
+    const pending =
+    Math.max(0, fee - discount - paid);
+
+    document.getElementById("pendingAmount").value =
+    pending;
+}
+
+
+// Form Submit
+document.getElementById("invoiceForm")
+.addEventListener("submit", async function(e){
 
     e.preventDefault();
 
-    alert("Invoice Generated Successfully");
+    const invoiceData = {
+
+        invoice_no:
+        document.getElementById("invoiceNo").value,
+
+        student_name:
+        document.getElementById("studentSelect").value,
+
+        course:
+        document.getElementById("courseName").value,
+
+        course_fee:
+        document.getElementById("courseFee").value,
+
+        discount:
+        document.getElementById("discount").value,
+
+        paid_amount:
+        document.getElementById("paidAmount").value,
+
+        pending_amount:
+        document.getElementById("pendingAmount").value,
+
+        payment_mode:
+        document.getElementById("paymentMode").value,
+
+        invoice_date:
+        document.getElementById("invoiceDate").value,
+
+        due_date:
+        document.getElementById("dueDate").value,
+
+        remarks:
+        document.getElementById("remarks").value
+    };
+
+    try{
+
+        const response = await fetch(
+            "http://localhost:3000/create-invoice",
+            {
+                method: "POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify(invoiceData)
+            }
+        );
+
+        const result = await response.json();
+
+        if(response.ok){
+
+            alert("✅ " + result.message);
+
+            document.getElementById("invoiceForm").reset();
+
+            document.getElementById("invoiceNo").value =
+            "INV" + Date.now();
+
+            // document.getElementById("invoiceDate").value =
+            // new Date().toISOString().split("T")[0];
+
+            document.getElementById("invoiceDate").value =
+            formatDate(new Date());
+
+            document.getElementById("dueDate").value =
+            formatDate(dueDate);
+
+            // document.getElementById("dueDate").value =
+            // dueDate.toISOString().split("T")[0];
+
+            document.getElementById("courseName").value = "";
+            document.getElementById("courseFee").value = "";
+            document.getElementById("pendingAmount").value = "";
+
+        }else{
+
+            alert("❌ " + result.message);
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        alert("❌ Cannot connect to backend server");
+
+    }
 
 });
+
 </script>
 
 

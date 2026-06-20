@@ -193,8 +193,8 @@
 
             <!-- Search Box -->
             <div class="manage-student-search">
-                <input type="text" placeholder="Search by Name, Email or Mobile" onkeyup="searchStudent()">
-                <button>Search</button>
+                <input type="text" id="searchStudent" placeholder="Search by Name, Email or Mobile" onkeyup="searchStudent()">
+                <button onclick="searchStudent()">Search</button>
             </div>
 
             <!-- Student Table -->
@@ -254,8 +254,7 @@ window.onclick = function(event) {
 
     if (!event.target.closest(".invoice-admin-profile-dropdown")) {
 
-        const dropdown =
-            document.getElementById("dropdownMenu");
+        const dropdown = document.getElementById("dropdownMenu");
 
         dropdown.classList.remove("show");
     }

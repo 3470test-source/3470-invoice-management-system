@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Employee Task Management-System - Invoice Admin Dashboard - View Invoice Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #c5d7ee;
+    }
+
+    </style>
+
+</head>
+<body>
+
+
+    <!-- Invoice Dashboard HEADER -->
+    <header class="invoice-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="left-header-invoice">
+
+            <div class="logo-header-invoice">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="IMS Logo">
+            </div>
+
+            <div class="left-header-invoice-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+
+        <!-- CENTER -->
+        <div class="header-invoice-center">
+            INVOICE MANAGEMENT SYSTEM
+        </div>
+
+        <!-- RIGHT -->
+        <div class="right-header-invoice">
+
+            <div class="invoice-admin-profile-dropdown">
+
+                <div class="invoice-admin-profile-btn right-header-invoice-profile" onclick="toggleDropdown()">
+
+                <div class="right-header-avatar-icon">
+                    <i class="fa fa-user"></i>
+                </div>
+
+                <span>Admin Panel</span>
+
+            </div>
+
+            <!-- Profile -->
+            <div class="invoice-dropdown-menu" id="dropdownMenu">
+                <a href="my-profile.html"><i class="fa fa-user"></i>My Profile</a>
+                <a href="settings.html"><i class="fa fa-cog"></i>Settings</a>
+                <a href="#" onclick="logout()"><i class="fa fa-sign-out-alt"></i>Logout</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+    <!-- Dashboard Side Bar -->
+    <div class="Admin-side-bar-invoice">
+
+        <!-- Dashboard Sidebar -->
+        <aside class="invoice-admin-dsh-sidebar" id="sidebar">
+
+            <a href="dashboard-invoice.html"><i class="fa fa-dashboard"></i> Dashboard</a>
+
+            <!-- Courses -->
+            <div class="in-admin-sidebar-task-dropdown">
+
+                <div class="invoice-admin-side-bar-drop-btn">
+                    <i class="fa fa-box"></i> Courses
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="adminInvoice-side-bar-drop-content">
+                    <a href="add-course.html"><i class="fa fa-plus"></i> Add Course</a>
+                    <a href="manage-courses.html"><i class="fa fa-cogs"></i> Manage Courses</a>
+                </div>
+
+            </div>
+
+            <!-- Students -->
+            <div class="in-admin-sidebar-task-dropdown">
+
+                <div class="invoice-admin-side-bar-drop-btn">
+                    <i class="fa fa-user-graduate"></i> Students
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="adminInvoice-side-bar-drop-content">
+                    <a href="add-student.html"><i class="fa fa-user-plus"></i> Add Student</a>
+                    <a href="manage-students.html"><i class="fa fa-users"></i> Manage Students</a>
+                </div>
+
+            </div>
+
+            <!-- INVOICES -->
+            <div class="in-admin-sidebar-task-dropdown">
+
+                <div class="invoice-admin-side-bar-drop-btn">
+                    <i class="fa fa-file-invoice"></i> Invoices
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="adminInvoice-side-bar-drop-content">
+                    <a href="create-invoice.html"><i class="fa fa-plus-circle"></i> Create Invoice</a>
+                    <a href="manage-invoice.html"><i class="fa fa-file-alt"></i> Manage Invoices</a>
+                </div>
+
+            </div>
+
+            <!-- Payments -->
+            <div class="in-admin-sidebar-task-dropdown">
+
+                <div class="invoice-admin-side-bar-drop-btn">
+                    <i class="fa fa-money-bill-wave"></i> Payments
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="adminInvoice-side-bar-drop-content">
+                    <a href="record-payment.html"><i class="fa fa-credit-card"></i> Record Payment</a>
+                    <a href="payment-history.html"><i class="fa fa-history"></i> Payment History</a>
+                </div>
+
+            </div>
+
+            <!-- Reports -->
+            <div class="in-admin-sidebar-task-dropdown">
+
+                <div class="invoice-admin-side-bar-drop-btn">
+                    <i class="fa fa-chart-bar"></i> Reports
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="adminInvoice-side-bar-drop-content">
+                    <a href="invoice-reports.html"><i class="fa fa-file-invoice"></i> Invoice Reports</a>
+                    <a href="student-reports.html"><i class="fa fa-user-graduate"></i> Student Reports</a>
+                </div>
+
+            </div>
+
+            <!-- SYSTEM USERS -->
+            <div class="in-admin-sidebar-task-dropdown">
+
+                <div class="invoice-admin-side-bar-drop-btn">
+                    <i class="fa fa-user-shield"></i> System Users
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="adminInvoice-side-bar-drop-content">
+                    <a href="add-user.html"><i class="fa fa-user-plus"></i> Add User</a>
+                    <a href="manage-user.html"><i class="fa fa-users-cog"></i> Manage Users</a>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- View Invoice Details -->
+        <div class="view-invoice-container">
+
+            <div class="view-invoice-page-title">
+                <h2>Invoice Details</h2>
+            </div>
+
+            <div class="view-invoice-details">
+
+                <!-- Invoice Number -->
+                <div class="viewInvoice-field">
+                    <label>Invoice Number</label>
+                    <input type="text" id="invoice_no" readonly>
+                </div>
+
+                <!-- Student Name -->
+                <div class="viewInvoice-field">
+                    <label>Student Name</label>
+                    <input type="text" id="student_name" readonly>
+                </div>
+
+                <!-- Course -->
+                <div class="viewInvoice-field">
+                    <label>Course</label>
+                    <input type="text" id="course" readonly>
+                </div>
+
+                <!-- Course Fee -->
+                <div class="viewInvoice-field">
+                    <label>Course Fee</label>
+                    <input type="text" id="course_fee" readonly>
+                </div>
+
+                <!-- Discount -->
+                <div class="viewInvoice-field">
+                    <label>Discount</label>
+                    <input type="text" id="discount" readonly>
+                </div>
+
+                <!-- Paid Amount -->
+                <div class="viewInvoice-field">
+                    <label>Paid Amount</label>
+                    <input type="text" id="paid_amount" readonly>
+                </div>
+
+                <!-- Pending Amount -->
+                <div class="viewInvoice-field">
+                    <label>Pending Amount</label>
+                    <input type="text" id="pending_amount" readonly>
+                </div>
+
+                <!-- Payment Mode -->
+                <div class="viewInvoice-field">
+                    <label>Payment Mode</label>
+                    <input type="text" id="payment_mode" readonly>
+                </div>
+
+                <!-- Invoice Date -->
+                <div class="viewInvoice-field">
+                    <label>Invoice Date</label>
+                    <input type="text" id="invoice_date" readonly>
+                </div>
+
+                <!-- Due Date -->
+                <div class="viewInvoice-field">
+                    <label>Due Date</label>
+                    <input type="text" id="due_date" readonly>
+                </div>
+
+                <!-- Remarks -->
+                <div class="viewInvoice-field view-full-width">
+                    <label>Remarks</label>
+                    <textarea id="remarks" readonly></textarea>
+                </div>
+
+            </div>
+
+            <div class="viewInvoice-button-area">
+                <button class="viewInvoice-btn viewBack-btn" onclick="window.location.href='manage-invoice.html'">Back</button>
+                <button class="viewInvoice-btn viewPdf-btn" onclick="downloadPDF()">Download PDF</button>
+            </div>
+
+        </div>
+
+
+    </div>    
+
+
+<!-- Dashboard sidebar dropdown - JS -->
+<script>
+    document.querySelectorAll(".invoice-admin-side-bar-drop-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        button.parentElement.classList.toggle("active");
+
+    });
+
+});
+</script>
+
+
+<!-- Profile dropdown - JS -->
+<script>
+    function toggleDropdown() {
+
+        document.getElementById("dropdownMenu").classList.toggle("show");
+
+    }
+
+window.onclick = function(event) {
+
+    if (!event.target.closest(".invoice-admin-profile-dropdown")) {
+
+        const dropdown = document.getElementById("dropdownMenu");
+
+        dropdown.classList.remove("show");
+    }
+};
+</script>
+
+
+<!-- Protect Dashboard Page -->
+<script>
+
+if(
+    localStorage.getItem(
+        "invoiceAdminLoggedIn"
+    ) !== "true"
+){
+
+    window.location.href = "admin-login.html";
+
+}
+
+</script>
+
+
+<!-- logout -Js -->
+<script>
+function logout(){
+
+    localStorage.removeItem(
+        "invoiceAdminLoggedIn"
+    );
+
+    window.location.href = "admin-login.html";
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- View invoice Details -->
+<script>
+
+/*--- Get Invoice Number From URL ---*/
+
+const params = new URLSearchParams(window.location.search);
+
+const invoiceNo = params.get("invoice_no");
+
+/*--- Load Invoice ---*/
+
+async function loadInvoice(){
+
+try{
+
+const response = await fetch(`http://localhost:3000/invoice/${invoiceNo}`);
+
+const invoice = await response.json();
+
+document.getElementById("invoice_no").value = invoice.invoice_no;
+
+document.getElementById("student_name").value = invoice.student_name;
+
+document.getElementById("course").value = invoice.course;
+
+document.getElementById("course_fee").value = invoice.course_fee;
+
+document.getElementById("discount").value = invoice.discount;
+
+document.getElementById("paid_amount").value = invoice.paid_amount;
+
+document.getElementById("pending_amount").value = invoice.pending_amount;
+
+document.getElementById("payment_mode").value = invoice.payment_mode;
+
+document.getElementById("invoice_date").value = invoice.invoice_date;
+
+document.getElementById("due_date").value = invoice.due_date;
+
+document.getElementById("remarks").value = invoice.remarks;
+
+}
+catch(error){
+
+alert("Unable to load invoice");
+
+console.log(error);
+
+}
+
+}
+
+loadInvoice();
+
+function downloadPDF(){
+
+window.open(`http://localhost:3000/invoice-pdf/${invoiceNo}`,"_blank");
+
+}
+
+</script>
+
+
+</body>
+</html>

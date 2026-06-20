@@ -225,17 +225,6 @@
                                     <label>Course</label>
                                     <select id="studentCourse" required>
                                         <option>-- Select Course --</option>
-                                        <option>BMCT - Basic Medical Coding Training</option>
-                                        <option>AMCT - Advanced Medical Coding Training</option>
-                                        <option>CPC - Certified Professional Coder</option>
-                                        <option>CPMA - Certified Professional Medical Auditor</option>
-                                        <option>CRC - Certified Risk Adjustment Coder</option>
-                                        <option>CCS - Certified Coding Specialist</option>
-                                        <option>ED - Emergency Dearptment</option>
-                                        <option>E&M - Evaluation & Management</option>
-                                        <option>IPDRG - Inpatient Diagnosis-Related Group</option>
-                                        <option>IVR - Interventional Radiology</option>
-                                        <option>Surgery</option>
                                     </select>
                                 </div>
 
@@ -397,6 +386,53 @@ document.getElementById("addstudent").addEventListener("submit", async function(
 
     document.getElementById("addstudent").reset();
 });
+</script>
+
+
+
+<!-- Add student - course dropdown - Js -->
+<script>
+
+async function loadCourseDropdown(){
+
+    try{
+
+        const response = await fetch("http://localhost:3000/courses");
+
+        const courses = await response.json();
+
+        const courseSelect = document.getElementById("studentCourse");
+
+        courseSelect.innerHTML =
+        `<option value="">
+            -- Select Course --
+        </option>`;
+
+        courses.forEach(course => {
+
+            courseSelect.innerHTML += `
+                <option value="${course.course_name}">
+                    ${course.course_name}
+                </option>
+            `;
+
+        });
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "Unable to load courses"
+        );
+
+    }
+
+}
+
+loadCourseDropdown();
+
 </script>
 
 
