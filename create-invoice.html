@@ -406,160 +406,94 @@ document.getElementById("studentSelect").addEventListener("change", function(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Create invoice - JS  -->
 <script>
 
-// Auto Invoice Number
-document.getElementById("invoiceNo").value =
-"INV" + Date.now();
+/*--- Auto Invoice Number ---*/
+document.getElementById("invoiceNo").value = "INV" + Date.now();
 
-// Auto Invoice Date
-// document.getElementById("invoiceDate").value =
-// new Date().toISOString().split("T")[0];
+/*--- Auto Invoice Date ---*/
+document.getElementById("invoiceDate").value = new Date().toISOString().split("T")[0];
 
-function formatDate(date){
 
-    const day =
-    String(date.getDate()).padStart(2,"0");
-
-    const month =
-    String(date.getMonth() + 1).padStart(2,"0");
-
-    const year =
-    date.getFullYear();
-
-    return `${day}-${month}-${year}`;
-
-}
-
-document.getElementById("invoiceDate").value =
-formatDate(new Date());
-
-// Auto Due Date (+7 days)
+/*-- Auto Due Date (+7 days) --*/
 const dueDate = new Date();
 dueDate.setDate(dueDate.getDate() + 7);
 
 
-document.getElementById("dueDate").value =
-formatDate(dueDate);
-
-// document.getElementById("dueDate").value =
-// dueDate.toISOString().split("T")[0];
+document.getElementById("dueDate").value = dueDate.toISOString().split("T")[0];
 
 
-// Student Selection
-document.getElementById("studentSelect")
-.addEventListener("change", function(){
+/*-- Student Selection --*/
+document.getElementById("studentSelect").addEventListener("change", function(){
 
-    const option =
-    this.options[this.selectedIndex];
+    const option = this.options[this.selectedIndex];
 
-    document.getElementById("courseName").value =
-    option.dataset.course || "";
+    document.getElementById("courseName").value = option.dataset.course || "";
 
-    document.getElementById("courseFee").value =
-    option.dataset.fee || "";
+    document.getElementById("courseFee").value = option.dataset.fee || "";
 
     calculatePending();
 });
 
 
-// Discount Change
+/*--- Discount Change ---*/
 document.getElementById("discount")
 .addEventListener("input", calculatePending);
 
 
-// Paid Amount Change
-document.getElementById("paidAmount")
-.addEventListener("input", calculatePending);
+/*--- Paid Amount Change ---*/
+document.getElementById("paidAmount").addEventListener("input", calculatePending);
 
 
-// Pending Calculation
+/*--- Pending Calculation ---*/
 function calculatePending(){
 
-    const fee =
-    Number(document.getElementById("courseFee").value) || 0;
+    const fee = Number(document.getElementById("courseFee").value) || 0;
 
-    const discount =
-    Number(document.getElementById("discount").value) || 0;
+    const discount = Number(document.getElementById("discount").value) || 0;
 
-    const paid =
-    Number(document.getElementById("paidAmount").value) || 0;
+    const paid = Number(document.getElementById("paidAmount").value) || 0;
 
-    const pending =
-    Math.max(0, fee - discount - paid);
+    const pending = Math.max(0, fee - discount - paid);
 
-    document.getElementById("pendingAmount").value =
-    pending;
+    document.getElementById("pendingAmount").value = pending;
 }
 
 
-// Form Submit
-document.getElementById("invoiceForm")
-.addEventListener("submit", async function(e){
+/*-- Form Submit --*/
+document.getElementById("invoiceForm").addEventListener("submit", async function(e){
 
     e.preventDefault();
 
     const invoiceData = {
 
-        invoice_no:
-        document.getElementById("invoiceNo").value,
+        invoice_no: document.getElementById("invoiceNo").value,
 
-        student_name:
-        document.getElementById("studentSelect").value,
+        student_name: document.getElementById("studentSelect").value,
 
-        course:
-        document.getElementById("courseName").value,
+        course: document.getElementById("courseName").value,
 
-        course_fee:
-        document.getElementById("courseFee").value,
+        course_fee: document.getElementById("courseFee").value,
 
-        discount:
-        document.getElementById("discount").value,
+        discount: document.getElementById("discount").value,
 
-        paid_amount:
-        document.getElementById("paidAmount").value,
+        paid_amount: document.getElementById("paidAmount").value,
 
-        pending_amount:
-        document.getElementById("pendingAmount").value,
+        pending_amount: document.getElementById("pendingAmount").value,
 
-        payment_mode:
-        document.getElementById("paymentMode").value,
+        payment_mode: document.getElementById("paymentMode").value,
 
-        invoice_date:
-        document.getElementById("invoiceDate").value,
+        invoice_date: document.getElementById("invoiceDate").value,
 
-        due_date:
-        document.getElementById("dueDate").value,
+        due_date: document.getElementById("dueDate").value,
 
-        remarks:
-        document.getElementById("remarks").value
+        remarks: document.getElementById("remarks").value
     };
 
     try{
 
-        const response = await fetch(
-            "http://localhost:3000/create-invoice",
+        const response = await fetch("http://localhost:3000/create-invoice",
             {
                 method: "POST",
                 headers:{
@@ -577,20 +511,11 @@ document.getElementById("invoiceForm")
 
             document.getElementById("invoiceForm").reset();
 
-            document.getElementById("invoiceNo").value =
-            "INV" + Date.now();
+            document.getElementById("invoiceNo").value = "INV" + Date.now();
 
-            // document.getElementById("invoiceDate").value =
-            // new Date().toISOString().split("T")[0];
+            document.getElementById("invoiceDate").value = new Date().toISOString().split("T")[0];
 
-            document.getElementById("invoiceDate").value =
-            formatDate(new Date());
-
-            document.getElementById("dueDate").value =
-            formatDate(dueDate);
-
-            // document.getElementById("dueDate").value =
-            // dueDate.toISOString().split("T")[0];
+            document.getElementById("dueDate").value = dueDate.toISOString().split("T")[0];
 
             document.getElementById("courseName").value = "";
             document.getElementById("courseFee").value = "";

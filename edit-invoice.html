@@ -342,9 +342,20 @@ function logout(){
 
 
 
-
 <!-- Edit & Update Invoice - JS -->
 <script>
+
+
+/*--- Data Formate - JS ---*/
+function formatDateForInput(dateString){
+
+    if(!dateString) return "";
+
+    return new Date(dateString)
+        .toISOString()
+        .split("T")[0];
+}
+
 
 /*--- Get Invoice ID From URL ---*/
 
@@ -387,9 +398,9 @@ async function loadInvoice(){
 
         document.getElementById("payment_mode").value = invoice.payment_mode;
 
-        document.getElementById("invoice_date").value = invoice.invoice_date;
+        document.getElementById("invoice_date").value = formatDateForInput(invoice.invoice_date);
 
-        document.getElementById("due_date").value = invoice.due_date;
+        document.getElementById("due_date").value = formatDateForInput(invoice.due_date);
 
         document.getElementById("remarks").value = invoice.remarks;
 

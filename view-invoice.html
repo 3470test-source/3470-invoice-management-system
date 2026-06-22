@@ -335,15 +335,28 @@ function logout(){
 
 
 
-
-
-
-
-
-
-
 <!-- View invoice Details -->
 <script>
+
+/*--- Date Formate ---*/
+function formatDate(dateString){
+
+    if(!dateString) return "";
+
+    const date = new Date(dateString);
+
+    const day =
+    String(date.getDate()).padStart(2,"0");
+
+    const month =
+    String(date.getMonth() + 1).padStart(2,"0");
+
+    const year =
+    date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+}
+
 
 /*--- Get Invoice Number From URL ---*/
 
@@ -377,9 +390,9 @@ document.getElementById("pending_amount").value = invoice.pending_amount;
 
 document.getElementById("payment_mode").value = invoice.payment_mode;
 
-document.getElementById("invoice_date").value = invoice.invoice_date;
+document.getElementById("invoice_date").value = formatDate(invoice.invoice_date);
 
-document.getElementById("due_date").value = invoice.due_date;
+document.getElementById("due_date").value = formatDate(invoice.due_date);
 
 document.getElementById("remarks").value = invoice.remarks;
 

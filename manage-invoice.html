@@ -196,7 +196,7 @@
             <div class="manage-invoice-top-bar">
 
                 <div class="manage-invoice-search">
-                    <input type="text" id="searchInvoice" placeholder="Search Student or Invoice No">
+                    <input type="text" id="searchInvoice" placeholder="Search Student or Invoice No" onkeyup="searchInvoice()">
                     <button onclick="searchInvoice()">Search</button>
                 </div>
 
@@ -303,9 +303,24 @@ function logout(){
 
 
 
-
 <!-- Manage Students list - Js -->
 <script>
+
+function formatDate(dateString){
+
+    const date = new Date(dateString);
+
+    const day =
+    String(date.getDate()).padStart(2,"0");
+
+    const month =
+    String(date.getMonth()+1).padStart(2,"0");
+
+    const year =
+    date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+}
 
 let allInvoices = [];
 
@@ -324,6 +339,20 @@ function displayInvoices(invoices){
 
     tbody.innerHTML = "";
 
+    /*--- No Match Found ---*/
+    if(invoices.length === 0){
+
+        tbody.innerHTML = `
+        <tr>
+            <td colspan="4" style="text-align:center; color:red; font-weight:bold; padding:15px;">
+                No Invoice Found
+            </td>
+        </tr>
+        `;
+
+        return;
+    }
+
     invoices.forEach(invoice => {
 
         const status =
@@ -338,8 +367,8 @@ function displayInvoices(invoices){
             <td>${invoice.student_name}</td>
             <td>${invoice.course}</td>
             <td>₹${invoice.course_fee}</td>
-            <td>${invoice.invoice_date}</td>
-            <td>${invoice.due_date}</td>
+            <td>${formatDate(invoice.invoice_date)}</td>
+            <td>${formatDate(invoice.due_date)}</td>
 
             <td>
                 <span class="${
@@ -369,25 +398,21 @@ loadInvoices();
 
 
 
-
-
-
-
-
-
+<!-- Search Field - Js -->
 <script>
+    function searchInvoice(){
 
-function searchInvoice(){
+    const keyword = document.getElementById("searchInvoice").value.trim().toLowerCase();
 
-    const keyword =
-    document.getElementById(
-        "searchInvoice"
-    )
-    .value
-    .toLowerCase();
+    /*--- Empty search box → show all invoices ---*/
+    if(keyword === ""){
 
-    const filtered =
-    allInvoices.filter(invoice =>
+        displayInvoices(allInvoices);
+
+        return;
+    }
+
+    const filtered = allInvoices.filter(invoice =>
 
         invoice.invoice_no
         .toLowerCase()
@@ -404,13 +429,7 @@ function searchInvoice(){
     displayInvoices(filtered);
 
 }
-
 </script>
-
-
-
-
-
 
 
 <!-- View Invoice & edit & Update Invoice -->
