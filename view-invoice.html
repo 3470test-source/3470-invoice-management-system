@@ -204,6 +204,18 @@
                     <input type="text" id="student_name" readonly>
                 </div>
 
+                <!-- Mobile -->
+                <div class="viewInvoice-field">
+                    <label>Mobile</label>
+                    <input type="text" id="mobile" readonly>
+                </div>
+
+                 <!-- Email Address -->
+                <div class="viewInvoice-field">
+                    <label>Email Address</label>
+                    <input type="text" id="email" readonly>
+                </div>
+
                 <!-- Course -->
                 <div class="viewInvoice-field">
                     <label>Course</label>
@@ -250,6 +262,12 @@
                 <div class="viewInvoice-field">
                     <label>Due Date</label>
                     <input type="text" id="due_date" readonly>
+                </div>
+
+                <!-- Address -->
+                <div class="viewInvoice-field view-full-width">
+                    <label>Address</label>
+                    <textarea id="address" rows="4" readonly></textarea>
                 </div>
 
                 <!-- Remarks -->
@@ -378,6 +396,10 @@ document.getElementById("invoice_no").value = invoice.invoice_no;
 
 document.getElementById("student_name").value = invoice.student_name;
 
+document.getElementById("mobile").value = invoice.mobile || "";
+
+document.getElementById("email").value = invoice.email || "";
+
 document.getElementById("course").value = invoice.course;
 
 document.getElementById("course_fee").value = invoice.course_fee;
@@ -393,6 +415,9 @@ document.getElementById("payment_mode").value = invoice.payment_mode;
 document.getElementById("invoice_date").value = formatDate(invoice.invoice_date);
 
 document.getElementById("due_date").value = formatDate(invoice.due_date);
+
+document.getElementById("address").value =`${invoice.address || ""}
+${invoice.city || ""} - ${invoice.postcode || ""}`;
 
 document.getElementById("remarks").value = invoice.remarks;
 
