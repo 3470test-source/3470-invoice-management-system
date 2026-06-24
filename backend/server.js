@@ -629,17 +629,17 @@ db.query(
 
         doc.font("Helvetica-Bold");
         doc.text("Invoice No", 370, 95);
-        doc.text("Invoice Date", 370, 115);
-        doc.text("Due Date", 370, 135);
+        doc.text("Invoice Date", 370, 120);
+        doc.text("Due Date", 370, 145);
 
         doc.font("Helvetica");
         doc.text(":", 440, 95);
-        doc.text(":", 440, 115);
-        doc.text(":", 440, 135);
+        doc.text(":", 440, 120);
+        doc.text(":", 440, 145);
 
         doc.text(invoice.invoice_no, 450, 95);
-        doc.text(formatDate(invoice.invoice_date), 450, 115);
-        doc.text(formatDate(invoice.due_date), 450, 135);
+        doc.text(formatDate(invoice.invoice_date), 450, 120);
+        doc.text(formatDate(invoice.due_date), 450, 145);
 
     /* ====================================
                 BILL TO
@@ -670,13 +670,9 @@ db.query(
         doc.text(`${invoice.address || ""}`,40,280);
         doc.text(`${invoice.city || ""} - ${invoice.postcode || ""}`,40, 305);
 
-
-
-
-
-        /*====================================
+    /* ====================================
                 STATUS BOX
-        ====================================*/
+    ==================================== */
 
         const status =
         Number(invoice.pending_amount) <= 0
@@ -686,10 +682,10 @@ db.query(
         doc
         .roundedRect(
             420,
-            180,
+            230,
             120,
             40,
-            5
+            15
         )
         .stroke();
 
@@ -702,188 +698,159 @@ db.query(
         )
         .text(
             status,
-            450,
-            193
+            445,
+            243
         );
 
         doc.fillColor("black");
 
-        /*====================================
-                COURSE TABLE
-        ====================================*/
+    /* ====================================
+            COURSE TABLE - HEADER
+    ==================================== */
 
-        // doc
-        // .rect(
-        //     40,
-        //     270,
-        //     515,
-        //     25
-        // )
-        // .fill("#d9edf7");
+        doc
+        .roundedRect(
+            40,
+            330,
+            515,
+            25,
+            4
+        )
+        .fill("#0e60ad");
 
-        // doc
-        // .fillColor("black")
-        // .fontSize(11);
+        doc
+        .fillColor("white")
+        .fontSize(11);
 
-        // doc.text(
-        //     "Course Name",
-        //     50,
-        //     278
-        // );
+        doc.text("Course Name", 50, 337);
 
-        // doc.text(
-        //     "Qty",
-        //     300,
-        //     278
-        // );
+        doc.text("Qty", 300, 337);
 
-        // doc.text(
-        //     "Course Fee",
-        //     430,
-        //     278
-        // );
+        doc.text("Course Fee", 430, 337);
 
-        // doc
-        // .rect(
-        //     40,
-        //     295,
-        //     515,
-        //     40
-        // )
-        // .stroke();
+    /* ==============================
+            COURSE TABLE DATA
+    ============================== */
 
-        // doc.text(
-        //     invoice.course,
-        //     50,
-        //     310
-        // );
+        doc
+        .roundedRect(
+            40,
+            355.5,
+            515,
+            30,
+            4
+        )
+        .stroke();
 
-        // doc.text(
-        //     "1",
-        //     305,
-        //     310
-        // );
+        doc
+        .fillColor("black");
 
-        // doc.text(
-        //     `₹ ${invoice.course_fee}`,
-        //     430,
-        //     310
-        // );
+        doc.text(invoice.course, 50, 365);
 
+        doc.text("1", 305, 365);
 
-
-
-
-
+        doc.text(`₹ ${invoice.course_fee}`, 430, 365);
         
     /* ====================================
                 TOTAL SECTION
     ==================================== */
 
-        // doc.fontSize(11);
+        doc.fontSize(11);
 
-        // doc.text(`Total Amount : ₹ ${invoice.course_fee}`,
-        //     400,
-        //     390
-        // );
+        /*-- Labels --*/
+        doc.font("Helvetica-Bold");
+        doc.text("Total Amount", 370, 410);
+        doc.text("Discount", 370, 435);
+        doc.text("Amount Paid", 370, 460);
+        doc.text("Pending Amount", 370, 485);
+        doc.text("Payment Mode", 370, 510);
 
-        // doc.text(`Discount : ₹ ${invoice.discount}`,
-        //     400,
-        //     415
-        // );
+        /*-- Colons --*/
+        doc.font("Helvetica");
+        doc.text(":", 470, 410);
+        doc.text(":", 470, 435);
+        doc.text(":", 470, 460);
+        doc.text(":", 470, 485);
+        doc.text(":", 470, 510);
 
-        // doc.text(`Amount Paid : ₹ ${invoice.paid_amount}`,
-        //     400,
-        //     440
-        // );
-
-        // doc.text(`Pending Amount : ₹ ${invoice.pending_amount}`,
-        //     400,
-        //     465
-        // );
-
-        // doc.text(`Payment Mode : ${invoice.payment_mode}`,
-        //     400,
-        //     490
-        // );
+        /*-- Values --*/
+        doc.text(`₹ ${invoice.course_fee}`, 480, 410);
+        doc.text(`₹ ${invoice.discount}`, 480, 435);
+        doc.text(`₹ ${invoice.paid_amount}`, 480, 460);
+        doc.text(`₹ ${invoice.pending_amount}`, 480, 485);
+        doc.text(invoice.payment_mode, 485, 510);
 
     /* ====================================
                 REMARKS
     ==================================== */
 
-        // doc.fontSize(13).fillColor("#00695c").text("Remarks",
-        //     40,
-        //     390
-        // );
+        doc.fontSize(13).fillColor("#00695c").text("Remarks",
+            40,
+            410
+        );
 
-        // doc.fontSize(10).fillColor("black").text(invoice.remarks || "No Remarks",
-        //     40,
-        //     415,
-        //     {
-        //         width:220
-        //     }
-        // );
+        doc.fontSize(10).fillColor("black").text(invoice.remarks || "No Remarks",
+            40,
+            435,
+            {
+                width:220
+            }
+        );
 
-
-
-
-
-
-
-
-
-        /*====================================
+    /* ====================================
                 SIGNATURE
-        ====================================*/
+    ==================================== */
 
-        // try{
+        try{
 
-        //     if(fs.existsSync(signPath)){
+            if(fs.existsSync(signPath)){
 
-        //         doc.image(
-        //             signPath,
-        //             390,
-        //             560,
-        //             {
-        //                 width:120
-        //             }
-        //         );
+                doc.image(
+                    signPath,
+                    410,
+                    560,
+                    {
+                        width:120
+                    }
+                );
 
-        //     }
+            }
 
-        // }catch(error){
+        }catch(error){
 
-        //     console.log(
-        //         "Signature Error:",
-        //         error.message
-        //     );
+            console.log(
+                "Signature Error:",
+                error.message
+            );
 
-        // }
+        }
 
-        // doc
-        // .fontSize(10)
-        // .text(
-        //     "Authorized Signature",
-        //     395,
-        //     650
-        // );
+       doc.fontSize(10);
 
-        /*====================================
+        doc.text("For 3470 Healthcare Pvt Ltd", 400, 615,
+            { width: 150, align: "center" }
+        );
+
+        doc.text("Authorized Signatory", 400, 630,
+            { width: 150, align: "center" }
+        );
+
+    /* ====================================
                 FOOTER
-        ====================================*/
+    ==================================== */
 
-        // doc.moveTo(40,730)
-        // .lineTo(555,730)
-        // .stroke();
+        doc.moveTo(40,700)
+        .lineTo(555,700)
+        .stroke();
 
-        // doc
-        // .fontSize(12)
-        // .fillColor("#00695c")
-        // .text(
-        //     "Thank you for choosing 3470 Healthcare Pvt Ltd",
-        //     140,
-        //     750
-        // );
+        doc
+        .fontSize(13)
+        .fillColor("#168039")
+        .text(
+            "Thank you for choosing 3470 Healthcare Pvt Ltd",
+            160,
+            715
+        );
 
         doc.end();
     }
