@@ -201,34 +201,34 @@
 
                                 <div class="record-payment-form-group">
                                     <label>Student Name</label>
-                                    <select required>
+                                    <select id="studentSelect" required>
                                         <option value="">Select Student</option>
                                     </select>
                                 </div>
 
                                 <div class="record-payment-form-group">
                                     <label>Invoice Number</label>
-                                    <input type="text" readonly>
+                                    <input type="text" id="invoiceNo" readonly>
                                 </div>
 
                                 <div class="record-payment-form-group">
                                     <label>Invoice Amount</label>
-                                    <input type="text" readonly>
+                                    <input type="text" id="invoiceAmount" readonly>
                                 </div>
 
                                 <div class="record-payment-form-group">
                                     <label>Payment Amount</label>
-                                    <input type="number" placeholder="Enter Payment Amount">
+                                    <input type="number" id="paymentAmount" placeholder="Enter Payment Amount">
                                 </div>
 
                                 <div class="record-payment-form-group">
                                     <label>Payment Date</label>
-                                    <input type="date">
+                                    <input type="date" id="paymentDate">
                                 </div>
 
                                 <div class="record-payment-form-group">
                                     <label>Payment Method</label>
-                                    <select>
+                                    <select id="paymentMethod">
                                         <option value="">-- Select Payment Method --</option>
                                         <option>Cash</option>
                                         <option>UPI</option>
@@ -315,6 +315,137 @@ function logout(){
     window.location.href = "admin-login.html";
 }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+let invoices = [];
+
+async function loadInvoices(){
+
+    const response =
+    await fetch("http://localhost:3000/pending-invoices");
+
+    invoices =
+    await response.json();
+
+    const select =
+    document.getElementById("studentSelect");
+
+    invoices.forEach(inv => {
+
+        select.innerHTML += `
+        <option value="${inv.invoice_no}">
+            ${inv.student_name}
+        </option>
+        `;
+
+    });
+
+}
+
+loadInvoices();
+
+</script>
+
+
+
+
+
+<script>
+    document
+.getElementById("studentSelect")
+.addEventListener("change", function(){
+
+    const invoice =
+    invoices.find(
+        x => x.invoice_no === this.value
+    );
+
+    if(!invoice) return;
+
+    document.getElementById("invoiceNo").value =
+    invoice.invoice_no;
+
+    document.getElementById("invoiceAmount").value =
+    invoice.pending_amount;
+
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<script>
+    document
+.getElementById("record-payment")
+.addEventListener("submit", async(e)=>{
+
+e.preventDefault();
+
+const response =
+await fetch(
+"http://localhost:3000/record-payment",
+{
+    method:"POST",
+
+    headers:{
+        "Content-Type":"application/json"
+    },
+
+    body:JSON.stringify({
+
+        invoice_no:
+        document.getElementById("invoiceNo").value,
+
+        payment_amount:
+        document.getElementById("paymentAmount").value,
+
+        payment_method:
+        document.getElementById("paymentMethod").value,
+
+        payment_date:
+        document.getElementById("paymentDate").value
+
+    })
+
+});
+
+const result =
+await response.json();
+
+alert(result.message);
+
+location.reload();
+
+});
+</script>
+
+
 
 
 </body>

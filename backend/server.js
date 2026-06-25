@@ -422,56 +422,6 @@ db.query(
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ====== invoice bill generator ====== */
 app.get("/invoice-pdf/:invoice_no", (req, res) => {
 
@@ -526,6 +476,18 @@ db.query(
 
         const doc = new PDFDocument({size:"A4", margin:40});
 
+        /*--- Header - Background design ---*/
+        doc
+        .roundedRect(
+            15,
+            15,
+            565,
+            810,
+            10
+        )
+
+        .fillAndStroke("#ffffff", "#c0bbbb");
+
         res.setHeader(
             "Content-Type",
             "application/pdf"
@@ -563,6 +525,16 @@ db.query(
     /* ====================================
                 COMPANY HEADER
     ==================================== */
+
+        doc
+        .roundedRect(
+            15,
+            15,
+            565,
+            170,
+            10
+        )
+        .fill("#eef6ff");
 
         try{
 
@@ -620,7 +592,7 @@ db.query(
 
         doc
         .fontSize(30)
-        .fillColor("#333")
+        .fillColor("#1a61be")
         .text("INVOICE", 430, 40);
 
         doc
@@ -629,17 +601,17 @@ db.query(
 
         doc.font("Helvetica-Bold");
         doc.text("Invoice No", 370, 95);
-        doc.text("Invoice Date", 370, 120);
-        doc.text("Due Date", 370, 145);
+        doc.text("Invoice Date", 370, 125);
+        doc.text("Due Date", 370, 155);
 
         doc.font("Helvetica");
         doc.text(":", 440, 95);
-        doc.text(":", 440, 120);
-        doc.text(":", 440, 145);
+        doc.text(":", 440, 125);
+        doc.text(":", 440, 155);
 
         doc.text(invoice.invoice_no, 450, 95);
-        doc.text(formatDate(invoice.invoice_date), 450, 120);
-        doc.text(formatDate(invoice.due_date), 450, 145);
+        doc.text(formatDate(invoice.invoice_date), 450, 125);
+        doc.text(formatDate(invoice.due_date), 450, 155);
 
     /* ====================================
                 BILL TO
@@ -649,7 +621,7 @@ db.query(
 
         doc
         .fontSize(14)
-        .fillColor("#00695c")
+        .fillColor("#1a61be")
         .text("Bill To:", 40, 205);
 
         doc
@@ -687,19 +659,22 @@ db.query(
             40,
             15
         )
-        .stroke();
+
+        .fill(
+            status === "PAID"
+            ? "#28a745"
+            : "#dc3545"
+        );
 
         doc
-        .fontSize(16)
-        .fillColor(
-            status === "PAID"
-            ? "green"
-            : "red"
-        )
+        .fillColor("white")
+        .font("Helvetica-Bold")
+        .fontSize(14)
         .text(
             status,
-            445,
-            243
+            420,
+            245,
+                {width:120, align:"center"}
         );
 
         doc.fillColor("black");
@@ -722,11 +697,11 @@ db.query(
         .fillColor("white")
         .fontSize(11);
 
-        doc.text("Course Name", 50, 337);
+        doc.text("Course Name", 50, 338);
 
-        doc.text("Qty", 300, 337);
+        doc.text("Qty", 300, 338);
 
-        doc.text("Course Fee", 430, 337);
+        doc.text("Course Fee", 430, 338);
 
     /* ==============================
             COURSE TABLE DATA
@@ -745,11 +720,11 @@ db.query(
         doc
         .fillColor("black");
 
-        doc.text(invoice.course, 50, 365);
+        doc.text(invoice.course, 50, 366);
 
-        doc.text("1", 305, 365);
+        doc.text("1", 305, 366);
 
-        doc.text(`₹ ${invoice.course_fee}`, 430, 365);
+        doc.text(`₹ ${invoice.course_fee}`, 430, 366);
         
     /* ====================================
                 TOTAL SECTION
@@ -784,7 +759,7 @@ db.query(
                 REMARKS
     ==================================== */
 
-        doc.fontSize(13).fillColor("#00695c").text("Remarks",
+        doc.fontSize(13).fillColor("#1a61be").text("Remarks",
             40,
             410
         );
@@ -856,8 +831,179 @@ db.query(
     }
 );
 
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.post("/record-payment", (req,res)=>{
+
+const {
+    invoice_no,
+    payment_amount,
+    payment_method,
+    payment_date
+} = req.body;
+
+db.query(
+    "SELECT * FROM invoices WHERE invoice_no=?",
+    [invoice_no],
+    (err,result)=>{
+
+        if(err){
+            return res.status(500).json(err);
+        }
+
+        const invoice = result[0];
+
+        const newPaid =
+        Number(invoice.paid_amount) +
+        Number(payment_amount);
+
+        const newPending =
+        Number(invoice.course_fee) -
+        Number(invoice.discount) -
+        newPaid;
+
+        db.query(
+        `UPDATE invoices
+         SET paid_amount=?,
+             pending_amount=?,
+             payment_mode=?
+         WHERE invoice_no=?`,
+        [
+            newPaid,
+            newPending,
+            payment_method,
+            invoice_no
+        ],
+        (err)=>{
+
+            if(err){
+                return res.status(500).json(err);
+            }
+
+            db.query(
+            `INSERT INTO payment_history
+            (
+                invoice_no,
+                student_name,
+                payment_amount,
+                payment_method,
+                payment_date
+            )
+            VALUES (?,?,?,?,?)`,
+            [
+                invoice_no,
+                invoice.student_name,
+                payment_amount,
+                payment_method,
+                payment_date
+            ]
+            );
+
+            res.json({
+                message:"Payment Recorded Successfully"
+            });
+
+        });
+
+    });
 
 });
+
+
+
+
+/* ===== Get All Pending Invoices ===== */
+app.get("/pending-invoices", (req, res) => {
+
+    const sql = `
+    SELECT
+        invoice_no,
+        student_name,
+        course,
+        course_fee,
+        discount,
+        paid_amount,
+        pending_amount
+    FROM invoices
+    WHERE pending_amount > 0
+    ORDER BY student_name ASC
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if(err){
+            console.log(err);
+            return res.status(500).json({
+                success:false,
+                message:"Database Error"
+            });
+        }
+
+        res.json(result);
+
+    });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== Payment History ===== */
+app.get("/payment-history", (req, res) => {
+
+    const sql = `
+    SELECT *
+    FROM payment_history
+    ORDER BY payment_date DESC
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if(err){
+            return res.status(500).json(err);
+        }
+
+        res.json(result);
+
+    });
+
+});
+
+
+
 
 
 

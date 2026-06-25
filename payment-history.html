@@ -196,12 +196,12 @@
                 <div class="payment-history-top-bar">
      
                     <div class="payment-history-search">
-                        <input type="text" placeholder="Search Student or Payment ID">
+                        <input type="text" id="searchPayment" placeholder="Search Student or Invoice Number" onkeyup="searchPayments()">
                         <button>Search</button>
                     </div>
 
                     <div class="payment-history-filter">
-                        <select>
+                        <select id="methodFilter" onchange="filterPayments()">
                             <option>-- All Payment Methods --</option>
                             <option>Cash</option>
                             <option>UPI</option>
@@ -228,42 +228,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <tr>
-                                <td>PAY001</td>
-                                <td>Arjun Kumar</td>
-                                <td>INV001</td>
-                                <td>₹25,000</td>
-                                <td>15-06-2026</td>
-
-                                <td>
-                                    <span class="payment-History-method-upi">UPI</span>
-                                </td>
-
-                                <td>
-                                    <button class="payment-History-view-btn">View</button>
-                                    <button class="payment-History-print-btn">Print</button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>PAY002</td>
-                                <td>Ravi Kumar</td>
-                                <td>INV002</td>
-                                <td>₹30,000</td>
-                                <td>18-06-2026</td>
-
-                                <td>
-                                    <span class="payment-History-method-cash">Cash</span>
-                                </td>
-
-                                <td>
-                                    <button class="payment-History-view-btn">View</button>
-                                    <button class="payment-History-print-btn">Print</button>
-                                </td>
-                            </tr>
-
-                        </tbody>
+                        <tbody id="paymentHistoryBody"></tbody>
 
                     </table>
 
