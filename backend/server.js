@@ -289,6 +289,47 @@ app.post("/create-invoice", (req, res) => {
                 });
             }
 
+
+
+
+
+
+// Save first payment into payment_history
+if (Number(paid_amount) > 0) {
+
+    const paymentSql = `
+        INSERT INTO payment_history
+        (
+            invoice_no,
+            student_name,
+            payment_amount,
+            payment_method,
+            payment_date
+        )
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    db.query(
+        paymentSql,
+        [
+            invoice_no,
+            student_name,
+            paid_amount,
+            payment_mode,
+            invoice_date
+        ],
+        (paymentErr) => {
+
+            if(paymentErr){
+                console.log(paymentErr);
+            }
+
+        }
+    );
+}
+
+
+
             res.json({
                 message: "✅ Invoice created successfully"
             });
@@ -838,22 +879,7 @@ db.query(
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* ==== Record Payment ====*/
 app.post("/record-payment", (req,res)=>{
 
 const {
@@ -874,14 +900,9 @@ db.query(
 
         const invoice = result[0];
 
-        const newPaid =
-        Number(invoice.paid_amount) +
-        Number(payment_amount);
+        const newPaid = Number(invoice.paid_amount) + Number(payment_amount);
 
-        const newPending =
-        Number(invoice.course_fee) -
-        Number(invoice.discount) -
-        newPaid;
+        const newPending = Number(invoice.course_fee) - Number(invoice.discount) - newPaid;
 
         db.query(
         `UPDATE invoices
@@ -965,18 +986,6 @@ app.get("/pending-invoices", (req, res) => {
     });
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

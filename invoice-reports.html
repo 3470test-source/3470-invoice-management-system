@@ -197,22 +197,22 @@
                 <div class="invoice-report-cards">
 
                     <div class="invoice-report-card">
-                        <h3>120</h3>
+                        <h3 id="totalInvoices">0</h3>
                         <p>Total Invoices</p>
                     </div>
 
                     <div class="invoice-report-card">
-                        <h3>95</h3>
+                        <h3 id="paidInvoices">0</h3>
                         <p>Paid Invoices</p>
                     </div>
 
                     <div class="invoice-report-card">
-                        <h3>25</h3>
+                        <h3 id="pendingInvoices">0</h3>
                         <p>Pending Invoices</p>
                     </div>
 
                     <div class="invoice-report-card">
-                        <h3>₹8,50,000</h3>
+                        <h3 id="totalRevenue">0</h3>
                         <p>Total Revenue</p>
                     </div>
 
@@ -220,11 +220,11 @@
 
                 <!-- Search Section -->
                 <div class="invoice-report-top-bar">
-                    <input type="text" placeholder="Search Invoice Number">
-                    <select>
-                        <option>All Status</option>
-                        <option>Paid</option>
-                        <option>Pending</option>
+                    <input type="text" id="searchInvoice" placeholder="Search Invoice Number">
+                    <select id="statusFilter" onchange="filterStatus()">
+                        <option value="All">-- All Status --</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Pending">Pending</option>
                     </select>
                     <button>Search</button>
                 </div>
@@ -244,37 +244,13 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <tr>
-                                <td>INV001</td>
-                                <td>Arjun Kumar</td>
-                                <td>BCA</td>
-                                <td>₹25,000</td>
-                                <td>
-                                    <span class="InvoiceReport-paid">Paid</span>
-                                </td>
-                                <td>01-06-2026</td>
-                            </tr>
-
-                            <tr>
-                                <td>INV002</td>
-                                <td>Ravi Kumar</td>
-                                <td>B.Com</td>
-                                <td>₹30,000</td>
-                                <td>
-                                    <span class="InvoiceReport-pending">Pending</span>
-                                </td>
-                                <td>05-06-2026</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="invoiceReportBody"></tbody>
 
                     </table>
 
                 </div>
 
-
         </div>
-
 
 <!-- Dashboard sidebar dropdown - JS -->
 <script>
@@ -338,6 +314,17 @@ function logout(){
     window.location.href = "admin-login.html";
 }
 </script>
+
+
+
+
+
+
+
+
+
+
+
 
 
 </body>

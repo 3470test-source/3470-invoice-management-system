@@ -202,7 +202,7 @@
                                 <div class="record-payment-form-group">
                                     <label>Student Name</label>
                                     <select id="studentSelect" required>
-                                        <option value="">Select Student</option>
+                                        <option value="">-- Select Student --</option>
                                     </select>
                                 </div>
 
@@ -212,7 +212,7 @@
                                 </div>
 
                                 <div class="record-payment-form-group">
-                                    <label>Invoice Amount</label>
+                                    <label>Pending Amount</label>
                                     <input type="text" id="invoiceAmount" readonly>
                                 </div>
 
@@ -248,7 +248,6 @@
                 </form>
 
             </div>
-
 
     </div>
 
@@ -318,37 +317,18 @@ function logout(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Pending paid Invoice - JS -->
 <script>
 
 let invoices = [];
 
 async function loadInvoices(){
 
-    const response =
-    await fetch("http://localhost:3000/pending-invoices");
+    const response = await fetch("http://localhost:3000/pending-invoices");
 
-    invoices =
-    await response.json();
+    invoices = await response.json();
 
-    const select =
-    document.getElementById("studentSelect");
+    const select = document.getElementById("studentSelect");
 
     invoices.forEach(inv => {
 
@@ -367,49 +347,29 @@ loadInvoices();
 </script>
 
 
-
-
-
+<!-- Student Select - JS -->
 <script>
-    document
-.getElementById("studentSelect")
-.addEventListener("change", function(){
+    document.getElementById("studentSelect").addEventListener("change", function(){
 
-    const invoice =
-    invoices.find(
-        x => x.invoice_no === this.value
-    );
+    const invoice = invoices.find(x => x.invoice_no === this.value);
 
     if(!invoice) return;
 
-    document.getElementById("invoiceNo").value =
-    invoice.invoice_no;
+    document.getElementById("invoiceNo").value = invoice.invoice_no;
 
-    document.getElementById("invoiceAmount").value =
-    invoice.pending_amount;
+    document.getElementById("invoiceAmount").value = invoice.pending_amount;
 
 });
 </script>
 
 
-
-
-
-
-
-
-
-
+<!-- Record Payemnt - JS -->
 <script>
-    document
-.getElementById("record-payment")
-.addEventListener("submit", async(e)=>{
+    document.getElementById("record-payment").addEventListener("submit", async(e)=>{
 
-e.preventDefault();
+        e.preventDefault();
 
-const response =
-await fetch(
-"http://localhost:3000/record-payment",
+const response = await fetch("http://localhost:3000/record-payment",
 {
     method:"POST",
 
@@ -419,24 +379,19 @@ await fetch(
 
     body:JSON.stringify({
 
-        invoice_no:
-        document.getElementById("invoiceNo").value,
+        invoice_no: document.getElementById("invoiceNo").value,
 
-        payment_amount:
-        document.getElementById("paymentAmount").value,
+        payment_amount: document.getElementById("paymentAmount").value,
 
-        payment_method:
-        document.getElementById("paymentMethod").value,
+        payment_method: document.getElementById("paymentMethod").value,
 
-        payment_date:
-        document.getElementById("paymentDate").value
+        payment_date: document.getElementById("paymentDate").value
 
     })
 
 });
 
-const result =
-await response.json();
+const result = await response.json();
 
 alert(result.message);
 
@@ -444,8 +399,6 @@ location.reload();
 
 });
 </script>
-
-
 
 
 </body>

@@ -221,7 +221,7 @@
                                 <th>Payment ID</th>
                                 <th>Student Name</th>
                                 <th>Invoice No</th>
-                                <th>Amount</th>
+                                <th>Amount Paid</th>
                                 <th>Payment Date</th>
                                 <th>Method</th>
                                 <th>Action</th>
@@ -301,6 +301,177 @@ function logout(){
     );
 
     window.location.href = "admin-login.html";
+}
+</script>
+
+
+<!-- Payment History - Search - JS -->
+<script>
+    function searchPayments(){
+
+    const keyword = document.getElementById("searchPayment").value.toLowerCase();
+
+    const filtered = allPayments.filter(payment =>
+
+        payment.student_name
+        .toLowerCase()
+        .includes(keyword)
+
+        ||
+
+        payment.invoice_no
+        .toLowerCase()
+        .includes(keyword)
+
+    );
+
+    displayPayments(filtered);
+
+}
+</script>
+
+
+<!-- Payment History - Filter Payement mode - Js -->
+<script>
+    function filterPayments(){
+
+    const method = document.getElementById("methodFilter").value;
+
+    if(method.includes("All")){
+
+        displayPayments(
+            allPayments
+        );
+
+        return;
+    }
+
+    const filtered = allPayments.filter(payment =>
+
+        payment.payment_method === method
+
+    );
+
+    displayPayments(filtered);
+
+}
+</script>
+
+
+<!-- Payment History - JS -->
+<script>
+
+let allPayments = [];
+
+function formatDate(dateString){
+
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2,"0");
+
+    const month = String(date.getMonth()+1).padStart(2,"0");
+
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+}
+
+async function loadPayments(){
+
+    const response = await fetch("http://localhost:3000/payment-history");
+
+    allPayments = await response.json();
+
+    displayPayments(allPayments);
+
+}
+
+function displayPayments(payments){
+
+    const tbody = document.getElementById("paymentHistoryBody");
+
+    tbody.innerHTML = "";
+
+    /*-- No payment found --*/
+    if(payments.length === 0){
+
+        tbody.innerHTML = `
+        <tr>
+            <td colspan="7" style="text-align:center;padding:25px;color:red;font-weight:bold;">
+                No Payment Found
+            </td>
+        </tr>
+        `;
+
+        return;
+    }
+
+
+    payments.forEach(payment => {
+
+        let badgeClass = "payment-History-method-upi";
+
+        if(payment.payment_method === "Cash"){
+            badgeClass = "payment-History-method-cash";
+        }
+
+        tbody.innerHTML += `
+        <tr>
+
+            <td>${payment.id}</td>
+            <td>${payment.student_name}</td>
+            <td>${payment.invoice_no}</td>
+            <td>₹${payment.payment_amount}</td>
+            <td>${formatDate(payment.payment_date)}</td>
+
+            <td>
+                <span class="${badgeClass}">${payment.payment_method}</span>
+            </td>
+
+            <td>
+                <button class="payment-History-view-btn" onclick="viewPayment(${payment.id})">View</button>
+            </td>
+
+        </tr>
+        `;
+
+    });
+
+}
+
+loadPayments();
+
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- View Payment History - JS -->
+<script>
+    function viewPayment(id){
+
+    const payment = allPayments.find(p => p.id == id);
+
+    alert(
+            `
+                Payment ID : ${payment.id}
+
+                Student : ${payment.student_name}
+
+                Invoice : ${payment.invoice_no}
+
+                Amount : ₹${payment.payment_amount}
+
+                Method : ${payment.payment_method}
+            `
+        );
+
 }
 </script>
 
