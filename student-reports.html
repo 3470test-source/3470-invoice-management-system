@@ -197,22 +197,22 @@
             <div class="student-report-cards">
 
                 <div class="student-report-card">
-                    <h3>350</h3>
+                    <h3 id="totalStudents">0</h3>
                     <p>Total Students</p>
                 </div>
 
                 <div class="student-report-card">
-                    <h3>320</h3>
+                    <h3 id="activeStudents">0</h3>
                     <p>Active Students</p>
                 </div>
 
                 <div class="student-report-card">
-                    <h3>15</h3>
+                    <h3 id="totalCourses">0</h3>
                     <p>Total Courses</p>
                 </div>
 
                 <div class="student-report-card">
-                    <h3>25</h3>
+                    <h3 id="newStudents">0</h3>
                     <p>New Students</p>
                 </div>
 
@@ -220,12 +220,9 @@
 
             <!-- Search & Filter -->
             <div class="student-report-top-bar">
-                <input type="text" placeholder="Search Student Name">
-                <select>
-                    <option>All Courses</option>
-                    <option>BCA</option>
-                    <option>B.Com</option>
-                    <option>B.Sc Computer Science</option>
+                <input type="text" id="studentSearch" placeholder="Search Student Name" onkeyup="searchStudent()">
+                <select id="courseFilter" onchange="filterCourse()">
+                    <option>-- All Courses --</option>
                 </select>
 
                 <button>Search</button>
@@ -246,31 +243,7 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                        <tr>
-                            <td>ST001</td>
-                            <td>Arjun Kumar</td>
-                            <td>BCA</td>
-                            <td>arjun@gmail.com</td>
-                             <td>9876543210</td>
-                        </tr>
-
-                        <tr>
-                            <td>ST002</td>
-                            <td>Ravi Kumar</td>
-                            <td>B.Com</td>
-                            <td>ravi@gmail.com</td>
-                            <td>9876543211</td>
-                        </tr>
-
-                        <tr>
-                            <td>ST003</td>
-                            <td>Priya Sharma</td>
-                            <td>B.Sc Computer Science</td>
-                            <td>priya@gmail.com</td>
-                            <td>9876543212</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="studentReportBody"></tbody>
 
                 </table>
 
@@ -342,6 +315,253 @@ function logout(){
     window.location.href = "admin-login.html";
 }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    /* ===========================
+   Load Summary Cards
+=========================== */
+
+async function loadSummary(){
+
+    try{
+
+        const response = await fetch(
+            "http://localhost:3000/student-report-summary"
+        );
+
+        const data = await response.json();
+
+        document.getElementById("totalStudents").innerHTML = data.totalStudents;
+
+        document.getElementById("activeStudents").innerHTML = data.activeStudents;
+
+        document.getElementById("totalCourses").innerHTML = data.totalCourses;
+
+        document.getElementById("newStudents").innerHTML = data.newStudents;
+
+    }
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+loadSummary();
+</script>
+
+
+
+
+
+
+
+<script>
+    let allStudents=[];
+
+/* ===========================
+   Load Students
+=========================== */
+
+async function loadStudents(){
+
+    try{
+
+        const response = await fetch(
+            "http://localhost:3000/student-report"
+        );
+
+        allStudents = await response.json();
+
+        displayStudents(allStudents);
+
+        loadCourses();
+
+    }
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+loadStudents();
+</script>
+
+
+
+
+
+
+<script>
+   /* ===========================
+   Display Students
+=========================== */
+
+function displayStudents(students){
+
+    const tbody = document.getElementById(
+        "studentReportBody"
+    );
+
+    tbody.innerHTML = "";
+
+    if(students.length===0){
+
+        tbody.innerHTML = `
+        <tr>
+            <td colspan="5"
+            style="text-align:center;color:red;">
+                No Student Found
+            </td>
+        </tr>
+        `;
+
+        return;
+    }
+
+    students.forEach(student=>{
+
+        tbody.innerHTML += `
+        <tr>
+
+            <td>${student.student_id}</td>
+
+            <td>${student.student_name}</td>
+
+            <td>${student.course_name}</td>
+
+            <td>${student.email}</td>
+
+            <td>${student.mobile}</td>
+
+        </tr>
+        `;
+
+    });
+
+}
+</script>
+
+
+
+
+
+<script>
+    /* ===========================
+   Search Student
+=========================== */
+
+function searchStudent(){
+
+    const keyword = document
+    .getElementById("studentSearch")
+    .value
+    .toLowerCase();
+
+    const filtered = allStudents.filter(student=>
+
+        student.student_name
+        .toLowerCase()
+        .includes(keyword)
+
+    );
+
+    displayStudents(filtered);
+
+}
+</script>
+
+
+
+
+<script>
+   /* ===========================
+   Course Dropdown
+=========================== */
+
+function loadCourses(){
+
+    const select =
+    document.getElementById(
+        "courseFilter"
+    );
+
+    select.innerHTML =
+    `<option>-- All Courses --</option>`;
+
+    const courses = [
+        ...new Set(
+            allStudents.map(student=>student.course_name)
+        )
+    ];
+
+    courses.forEach(course=>{
+
+        select.innerHTML += `
+        <option value="${course}">
+            ${course}
+        </option>
+        `;
+
+    });
+
+}
+</script>
+
+
+
+
+<script>
+    /* ===========================
+   Filter Course
+=========================== */
+
+function filterCourse(){
+
+    const course =
+    document.getElementById(
+        "courseFilter"
+    ).value;
+
+    if(course==="-- All Courses --"){
+
+        displayStudents(allStudents);
+
+        return;
+
+    }
+
+    const filtered = allStudents.filter(student=>
+
+        student.course_name===course
+
+    );
+
+    displayStudents(filtered);
+
+}
+</script>
+
+
+
 
 
 </body>

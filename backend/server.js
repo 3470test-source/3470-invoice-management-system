@@ -373,7 +373,7 @@ app.delete("/invoice/:id",(req,res)=>{
             }
 
             res.json({
-                message:"Invoice deleted successfully"
+                message:"🗑️ Invoice deleted successfully."
             });
         }
     );
@@ -417,7 +417,7 @@ app.put("/invoice/:id", (req,res)=>{
             }
 
             res.json({
-                message:"Invoice updated successfully"
+                message:"✅ Invoice updated successfully."
             });
 
         }
@@ -942,7 +942,7 @@ db.query(
             );
 
             res.json({
-                message:"Payment Recorded Successfully"
+                message:"✅ Payment recorded successfully."
             });
 
         });
@@ -1012,6 +1012,258 @@ app.get("/payment-history", (req, res) => {
 });
 
 
+
+
+
+
+
+
+/* ==== invoice report summary ==== */
+app.get("/invoice-report-summary", (req, res) => {
+
+    const sql = `
+    SELECT
+        COUNT(*) AS totalInvoices,
+
+        SUM(CASE
+            WHEN pending_amount = 0
+            THEN 1 ELSE 0
+        END) AS paidInvoices,
+
+        SUM(CASE
+            WHEN pending_amount > 0
+            THEN 1 ELSE 0
+        END) AS pendingInvoices,
+
+        SUM(paid_amount) AS totalRevenue
+
+    FROM invoices
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if(err){
+            return res.status(500).json(err);
+        }
+
+        res.json(result[0]);
+
+    });
+
+});
+
+
+
+
+/* ==== Invoice Report Table ==== */
+app.get("/invoice-reports", (req,res)=>{
+
+    const sql = `
+    SELECT
+        invoice_no,
+        student_name,
+        course,
+        course_fee,
+        discount,
+        paid_amount,
+        pending_amount,
+        invoice_date
+    FROM invoices
+    ORDER BY id DESC
+    `;
+
+    db.query(sql,(err,result)=>{
+
+        if(err){
+            return res.status(500).json(err);
+        }
+
+        res.json(result);
+
+    });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==============================
+   Student Report Summary
+================================= */
+app.get("/student-report-summary", (req, res) => {
+
+    const sql = `
+        SELECT
+
+        (SELECT COUNT(*) FROM students) AS totalStudents,
+
+        (
+            SELECT COUNT(DISTINCT student_name)
+            FROM invoices
+        ) AS activeStudents,
+
+        (
+            SELECT COUNT(*)
+            FROM courses
+        ) AS totalCourses,
+
+        (
+            SELECT COUNT(*)
+            FROM students
+            WHERE MONTH(created_at)=MONTH(CURDATE())
+            AND YEAR(created_at)=YEAR(CURDATE())
+        ) AS newStudents
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json(result[0]);
+
+    });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==============================
+   Student Report Table
+================================= */
+app.get("/student-report", (req, res) => {
+
+    const sql = `
+        SELECT
+            student_id,
+            student_name,
+            course_name,
+            email,
+            mobile
+        FROM students
+        ORDER BY id DESC
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json(result);
+
+    });
+
+});
+
+
+
+
+
+
+
+
+/* ==============================
+   Search Student
+================================= */
+app.get("/student-report/search/:keyword", (req, res) => {
+
+    const keyword = "%" + req.params.keyword + "%";
+
+    const sql = `
+        SELECT
+            student_id,
+            student_name,
+            course_name,
+            email,
+            mobile
+        FROM students
+        WHERE student_name LIKE ?
+        ORDER BY id DESC
+    `;
+
+    db.query(sql, [keyword], (err, result) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json(result);
+
+    });
+
+});
+
+
+
+
+
+/* ==============================
+   Filter Students by Course
+================================= */
+app.get("/student-report/course/:course", (req, res) => {
+
+    const sql = `
+        SELECT
+            student_id,
+            student_name,
+            course_name,
+            email,
+            mobile
+        FROM students
+        WHERE course_name = ?
+        ORDER BY id DESC
+    `;
+
+    db.query(sql, [req.params.course], (err, result) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json(result);
+
+    });
+
+});
 
 
 

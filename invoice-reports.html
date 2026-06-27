@@ -220,7 +220,7 @@
 
                 <!-- Search Section -->
                 <div class="invoice-report-top-bar">
-                    <input type="text" id="searchInvoice" placeholder="Search Invoice Number">
+                    <input type="text" id="searchInvoice" placeholder="Search Student or Invoice Number" onkeyup="searchInvoice()">
                     <select id="statusFilter" onchange="filterStatus()">
                         <option value="All">-- All Status --</option>
                         <option value="Paid">Paid</option>
@@ -317,14 +317,166 @@ function logout(){
 
 
 
+<!-- invoice report summary -->
+<script>
+    async function loadSummary(){
+
+    const response = await fetch("http://localhost:3000/invoice-report-summary");
+
+    const summary = await response.json();
+
+    document.getElementById("totalInvoices").innerText = summary.totalInvoices;
+
+    document.getElementById("paidInvoices").innerText = summary.paidInvoices;
+
+    document.getElementById("pendingInvoices").innerText = summary.pendingInvoices;
+
+    document.getElementById("totalRevenue").innerText = "₹" + Number(summary.totalRevenue).toLocaleString();
+
+}
+
+loadSummary();
+</script>
 
 
 
+<!-- Invoice Report - Table -JS -->
+<script>
+    let allInvoices = [];
+
+async function loadReports(){
+
+    const response = await fetch("http://localhost:3000/invoice-reports");
+
+    allInvoices = await response.json();
+
+    displayReports(allInvoices);
+
+}
+
+loadReports();
+</script>
 
 
 
+<!-- Invoice Report Display data - Js -->
+<script>
+    function formatDate(date){
+
+    return new Date(date).toLocaleDateString("en-GB");
+
+}
+
+function displayReports(data){
+
+    const tbody = document.getElementById("invoiceReportBody");
+
+    tbody.innerHTML="";
+
+    if(data.length===0){
+
+        tbody.innerHTML=`
+        <tr>
+            <td colspan="6" style="text-align:center;padding:20px;color:red;font-weight:bold;">No Invoice Found</td>
+        </tr>
+        `;
+
+        return;
+    }
+
+    data.forEach(invoice=>{
+
+        const status =
+        Number(invoice.pending_amount)<=0
+        ?"Paid"
+        :"Pending";
+
+        const badge =
+        status==="Paid"
+        ?"InvoiceReport-paid"
+        :"InvoiceReport-pending";
+
+        tbody.innerHTML+=`
+
+        <tr>
+            <td>${invoice.invoice_no}</td>
+            <td>${invoice.student_name}</td>
+            <td>${invoice.course}</td>
+            <td>₹${invoice.course_fee}</td>
+            <td>
+                <span class="${badge}">${status}</span>
+            </td>
+            <td>
+                ${formatDate(invoice.invoice_date)}
+            </td>
+        </tr>
+
+        `;
+
+    });
+
+}
+</script>
 
 
+
+<!-- Invoice report - Search - Js -->
+<script>
+    function searchInvoice(){
+
+    const keyword = document.getElementById("searchInvoice").value.toLowerCase();
+
+    const filtered = allInvoices.filter(invoice=>
+
+        invoice.invoice_no
+        .toLowerCase()
+        .includes(keyword)
+
+        ||
+
+        invoice.student_name
+        .toLowerCase()
+        .includes(keyword)
+
+    );
+
+    displayReports(filtered);
+
+}
+</script>
+
+
+
+<!-- Invoice report Filter Status - JS -->
+<script>
+    function filterStatus(){
+
+    const status = document.getElementById("statusFilter").value;
+
+    if(status==="All"){
+
+        displayReports(allInvoices);
+
+        return;
+
+    }
+
+    const filtered = allInvoices.filter(invoice=>{
+
+        if(status==="Paid"){
+
+            return Number(invoice.pending_amount)<=0;
+
+        }
+
+        return Number(invoice.pending_amount)>0;
+
+    });
+
+    displayReports(filtered);
+
+}
+</script>
 
 
 </body>
