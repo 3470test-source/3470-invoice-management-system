@@ -189,7 +189,7 @@
                 <!-- Total Invoice -->
                 <div class="InvoiceDashboard-card orange">
                     <div>
-                        <h2>24</h2>
+                        <h2 id="totalInvoices">0</h2>
                         <p>Total Invoices</p>
                     </div>
                         <i class="fa fa-file-invoice"></i>
@@ -198,7 +198,7 @@
                 <!-- Paid Invoice -->
                 <div class="InvoiceDashboard-card blue">
                     <div>
-                        <h2>22</h2>
+                        <h2 id="paidInvoices">0</h2>
                         <p>Paid Invoices</p>
                     </div>
                         <i class="fa fa-check-circle"></i>
@@ -207,7 +207,7 @@
                 <!-- pending Invoice   -->
                 <div class="InvoiceDashboard-card red">
                     <div>
-                        <h2>18</h2>
+                        <h2 id="pendingInvoices">0</h2>
                         <p>Pending Invoices</p>
                     </div>
                         <i class="fa fa-exclamation-triangle"></i>
@@ -216,7 +216,7 @@
                 <!-- Total Students -->
                 <div class="InvoiceDashboard-card green">
                     <div>
-                        <h2>12</h2>
+                        <h2 id="totalStudents">0</h2>
                         <p>Total Students</p>
                     </div>
                         <i class="fa fa-user-graduate"></i>
@@ -225,16 +225,33 @@
                 <!-- Total Courses -->
                 <div class="InvoiceDashboard-card purple">
                     <div>
-                        <h2>15</h2>
+                        <h2 id="totalCourses">0</h2>
                         <p>Total Courses</p>
                     </div>
                         <i class="fa fa-book"></i>
+                </div>
+
+                <!-- Amount Received -->
+                <div class="InvoiceDashboard-card blue-re">
+                    <div>
+                        <h2 id="amountReceived">₹0</h2>
+                        <p>Amount Received</p>
+                    </div>
+                        <i class="fa fa-money-bill-wave"></i>
+                </div>
+
+                <!-- Pending Amount -->
+                <div class="InvoiceDashboard-card blue-pe">
+                    <div>
+                        <h2 id="pendingAmount">₹0</h2>
+                        <p>Pending Amount</p>
+                    </div>
+                        <i class="fa fa-wallet"></i>
                 </div>
               
             </div>
 
         </main>
-
 
     </div>
 
@@ -301,6 +318,47 @@ function logout(){
 
     window.location.href = "admin-login.html";
 }
+</script>
+
+
+
+<!-- Dashboard Page - Js -->
+<script>
+
+async function loadDashboard(){
+
+    try{
+
+        const response = await fetch("http://localhost:3000/dashboard-summary");
+
+        const data = await response.json();
+
+        document.getElementById("totalInvoices").innerHTML = data.totalInvoices;
+
+        document.getElementById("paidInvoices").innerHTML = data.paidInvoices;
+
+        document.getElementById("pendingInvoices").innerHTML = data.pendingInvoices;
+
+        document.getElementById("totalStudents").innerHTML = data.totalStudents;
+
+        document.getElementById("totalCourses").innerHTML = data.totalCourses;
+
+        document.getElementById("amountReceived").innerHTML =
+        "₹" + (data.amountReceived || 0);
+
+        document.getElementById("pendingAmount").innerHTML =
+        "₹" + (data.pendingAmount || 0);
+
+    }catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+loadDashboard();
+
 </script>
 
 

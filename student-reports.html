@@ -318,44 +318,25 @@ function logout(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!--- Student Report - JS --->
 <script>
-    /* ===========================
-   Load Summary Cards
-=========================== */
 
+let allStudents = [];
+
+/*-- Load Summary Cards --*/
 async function loadSummary(){
 
     try{
 
-        const response = await fetch(
-            "http://localhost:3000/student-report-summary"
-        );
-
+        const response = await fetch("http://localhost:3000/student-report-summary");
         const data = await response.json();
 
         document.getElementById("totalStudents").innerHTML = data.totalStudents;
-
         document.getElementById("activeStudents").innerHTML = data.activeStudents;
-
         document.getElementById("totalCourses").innerHTML = data.totalCourses;
-
         document.getElementById("newStudents").innerHTML = data.newStudents;
 
-    }
-    catch(error){
+    }catch(error){
 
         console.log(error);
 
@@ -363,38 +344,21 @@ async function loadSummary(){
 
 }
 
-loadSummary();
-</script>
 
-
-
-
-
-
-
-<script>
-    let allStudents=[];
-
-/* ===========================
-   Load Students
-=========================== */
-
+/*-- Load Student Table --*/
 async function loadStudents(){
 
     try{
 
-        const response = await fetch(
-            "http://localhost:3000/student-report"
-        );
+        const response = await fetch("http://localhost:3000/student-report");
 
         allStudents = await response.json();
 
         displayStudents(allStudents);
 
-        loadCourses();
+        loadCourseFilter();
 
-    }
-    catch(error){
+    }catch(error){
 
         console.log(error);
 
@@ -402,116 +366,53 @@ async function loadStudents(){
 
 }
 
-loadStudents();
-</script>
 
-
-
-
-
-
-<script>
-   /* ===========================
-   Display Students
-=========================== */
-
+/*-- Display Students --*/
 function displayStudents(students){
 
-    const tbody = document.getElementById(
-        "studentReportBody"
-    );
+    const tbody = document.getElementById("studentReportBody");
 
     tbody.innerHTML = "";
 
-    if(students.length===0){
+    if(students.length === 0){
 
         tbody.innerHTML = `
         <tr>
-            <td colspan="5"
-            style="text-align:center;color:red;">
-                No Student Found
-            </td>
+            <td colspan="5" style="text-align:center;color:red;">No Student Found</td>
         </tr>
         `;
 
         return;
+
     }
 
     students.forEach(student=>{
 
         tbody.innerHTML += `
+
         <tr>
-
-            <td>${student.student_id}</td>
-
+            <td>${student.id}</td>
             <td>${student.student_name}</td>
-
-            <td>${student.course_name}</td>
-
+            <td>${student.course}</td>
             <td>${student.email}</td>
-
             <td>${student.mobile}</td>
-
         </tr>
+
         `;
 
     });
 
 }
-</script>
 
 
+/*-- Load Course Dropdown --*/
+function loadCourseFilter(){
 
+    const select = document.getElementById("courseFilter");
 
+    select.innerHTML = `<option value="">-- All Courses --</option>`;
 
-<script>
-    /* ===========================
-   Search Student
-=========================== */
-
-function searchStudent(){
-
-    const keyword = document
-    .getElementById("studentSearch")
-    .value
-    .toLowerCase();
-
-    const filtered = allStudents.filter(student=>
-
-        student.student_name
-        .toLowerCase()
-        .includes(keyword)
-
-    );
-
-    displayStudents(filtered);
-
-}
-</script>
-
-
-
-
-<script>
-   /* ===========================
-   Course Dropdown
-=========================== */
-
-function loadCourses(){
-
-    const select =
-    document.getElementById(
-        "courseFilter"
-    );
-
-    select.innerHTML =
-    `<option>-- All Courses --</option>`;
-
-    const courses = [
-        ...new Set(
-            allStudents.map(student=>student.course_name)
-        )
-    ];
+    const courses = [...new Set(allStudents.map(student=>student.course))];
 
     courses.forEach(course=>{
 
@@ -524,24 +425,35 @@ function loadCourses(){
     });
 
 }
-</script>
 
 
+/*-- Search Student --*/
+function searchStudent(){
+
+    const keyword = document
+        .getElementById("studentSearch")
+        .value
+        .toLowerCase();
+
+    const filtered = allStudents.filter(student=>
+
+        student.student_name
+        .toLowerCase()
+        .includes(keyword)
+
+    );
+
+    displayStudents(filtered);
+
+}
 
 
-<script>
-    /* ===========================
-   Filter Course
-=========================== */
-
+/*-- Filter Course --*/
 function filterCourse(){
 
-    const course =
-    document.getElementById(
-        "courseFilter"
-    ).value;
+    const course = document.getElementById("courseFilter").value;
 
-    if(course==="-- All Courses --"){
+    if(course === ""){
 
         displayStudents(allStudents);
 
@@ -551,17 +463,20 @@ function filterCourse(){
 
     const filtered = allStudents.filter(student=>
 
-        student.course_name===course
+        student.course === course
 
     );
 
     displayStudents(filtered);
 
 }
+
+
+/*-- Page Load --*/
+loadSummary();
+loadStudents();
+
 </script>
-
-
-
 
 
 </body>

@@ -1091,58 +1091,36 @@ app.get("/invoice-reports", (req,res)=>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ==============================
-   Student Report Summary
-================================= */
+/* ==== Student Report Summary ====*/
 app.get("/student-report-summary", (req, res) => {
 
     const sql = `
         SELECT
 
         (SELECT COUNT(*) FROM students) AS totalStudents,
-
+        
         (
             SELECT COUNT(DISTINCT student_name)
             FROM invoices
         ) AS activeStudents,
-
+        
         (
             SELECT COUNT(*)
             FROM courses
         ) AS totalCourses,
-
+        
         (
             SELECT COUNT(*)
             FROM students
-            WHERE MONTH(created_at)=MONTH(CURDATE())
-            AND YEAR(created_at)=YEAR(CURDATE())
+            WHERE MONTH(created_at) = MONTH(CURDATE())
+            AND YEAR(created_at) = YEAR(CURDATE())
         ) AS newStudents
     `;
 
     db.query(sql, (err, result) => {
 
         if (err) {
+            console.log(err);
             return res.status(500).json(err);
         }
 
@@ -1155,28 +1133,12 @@ app.get("/student-report-summary", (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-/* ==============================
-   Student Report Table
-================================= */
+/* ==== Student Report ==== */
 app.get("/student-report", (req, res) => {
 
     const sql = `
         SELECT
-            student_id,
-            student_name,
-            course_name,
-            email,
+            id, student_name, course, email,
             mobile
         FROM students
         ORDER BY id DESC
@@ -1185,6 +1147,7 @@ app.get("/student-report", (req, res) => {
     db.query(sql, (err, result) => {
 
         if (err) {
+            console.log(err);
             return res.status(500).json(err);
         }
 
@@ -1197,30 +1160,22 @@ app.get("/student-report", (req, res) => {
 
 
 
-
-
-
-
-/* ==============================
-   Search Student
-================================= */
+/* ==== Student Search Keyword ==== */ 
 app.get("/student-report/search/:keyword", (req, res) => {
 
     const keyword = "%" + req.params.keyword + "%";
 
     const sql = `
         SELECT
-            student_id,
-            student_name,
-            course_name,
-            email,
+            id, student_name, course, email,
             mobile
         FROM students
-        WHERE student_name LIKE ?
-        ORDER BY id DESC
+        WHERE
+            student_name LIKE ?
+            OR course LIKE ?
     `;
 
-    db.query(sql, [keyword], (err, result) => {
+    db.query(sql, [keyword, keyword], (err, result) => {
 
         if (err) {
             return res.status(500).json(err);
@@ -1236,37 +1191,53 @@ app.get("/student-report/search/:keyword", (req, res) => {
 
 
 
-/* ==============================
-   Filter Students by Course
-================================= */
-app.get("/student-report/course/:course", (req, res) => {
+/* ==== Dashboard Page - JS ==== */ 
+app.get("/dashboard-summary", (req, res) => {
 
     const sql = `
-        SELECT
-            student_id,
-            student_name,
-            course_name,
-            email,
-            mobile
-        FROM students
-        WHERE course_name = ?
-        ORDER BY id DESC
+    SELECT
+
+        COUNT(*) AS totalInvoices,
+
+        SUM(CASE
+            WHEN pending_amount = 0
+            THEN 1 ELSE 0
+        END) AS paidInvoices,
+
+        SUM(CASE
+            WHEN pending_amount > 0
+            THEN 1 ELSE 0
+        END) AS pendingInvoices,
+
+        (
+            SELECT COUNT(*)
+            FROM students
+        ) AS totalStudents,
+
+        (
+            SELECT COUNT(*)
+            FROM courses
+        ) AS totalCourses,
+
+        SUM(paid_amount) AS amountReceived,
+
+        SUM(pending_amount) AS pendingAmount
+
+    FROM invoices
     `;
 
-    db.query(sql, [req.params.course], (err, result) => {
+    db.query(sql,(err,result)=>{
 
-        if (err) {
+        if(err){
+            console.log(err);
             return res.status(500).json(err);
         }
 
-        res.json(result);
+        res.json(result[0]);
 
     });
 
 });
-
-
-
 
 
 
