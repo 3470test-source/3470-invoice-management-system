@@ -1040,10 +1040,26 @@ app.get("/pending-invoices", (req, res) => {
 app.get("/payment-history", (req, res) => {
 
     const sql = `
-    SELECT *
-    FROM payment_history
-    ORDER BY payment_date DESC
-    `;
+            SELECT
+                ph.id,
+                ph.student_name,
+                ph.invoice_no,
+                ph.payment_amount,
+                ph.payment_method,
+                ph.payment_date,
+
+                i.course,
+                i.course_fee,
+                i.discount,
+                i.pending_amount,
+                i.remarks
+
+            FROM payment_history ph
+            LEFT JOIN invoices i
+            ON ph.invoice_no = i.invoice_no
+            ORDER BY ph.payment_date DESC
+
+        `;
 
     db.query(sql, (err, result) => {
 
