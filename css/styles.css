@@ -2678,3 +2678,158 @@
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------ */
+
+                            /* ========================================
+                                    Table preview & next button 
+                            ======================================== */
+ 
+.pagination {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  margin-top:20px;
+}
+
+.pagination button {
+  padding:6px 12px;
+  border:none;
+  background:#0d6efd;
+  color:#fff;
+  cursor:pointer;
+  border-radius:4px;
+}
+
+.pagination button:hover {
+   background:#084298;
+}
+
+.pagination button.active {
+   background:#198754;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------ */
+
+                              /* ======================================
+                                      Payment Details View model 
+                              ====================================== */
+
+.paymentDetails-modal {
+  display:none;
+  position:fixed;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.5);
+  z-index:9999;
+}
+
+.paymentDetails-modal-content {
+  width:700px;
+  background:#fff;
+  margin:40px auto;
+  border-radius:8px;
+  overflow:hidden;
+}
+
+.paymentDetails-modal-header {
+  background:#0e8b3e;
+  color:white;
+  padding:15px;
+  position:relative;
+  text-align:center;
+}
+
+.paymentDetails-modal-header h2 {
+  font-size: 26px;
+  letter-spacing: 0.5px;
+  margin:0;
+}
+
+.pay-view-close-btn {
+  position:absolute;
+  right:20px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:30px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.pay-view-close-btn:hover {
+  color: #e60909;  
+}
+
+.paymentDetails-modal-body {
+  padding:20px;
+}
+
+.paymentDetails-view-table {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.paymentDetails-view-table td {
+  border:1px solid #ddd;
+  padding:12px;
+}
+
+.paymentDetails-modal-footer {
+  /* text-align:right;
+  padding:15px; */
+
+
+  display:flex;
+  justify-content:flex-end;
+  gap:15px;
+  padding:10px;
+  border-top:1px solid #ddd;
+  background:#f8f9fa;
+
+}
+
+
+
+
+
+
+
+
+
+.print-btn{
+  background:#0d6efd;
+  color:#fff;
+  border:none;
+  padding:8px 18px;
+  font-size:14px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.print-btn:hover{
+  background:#0b5ed7;
+}
+
+
+
+
+
+
+.close-modal-btn{
+  background:#dc3545;
+  color:#fff;
+  border:none;
+  padding:8px 18px;
+  font-size:14px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.close-modal-btn:hover{
+  background:#bb2d3b;
+}

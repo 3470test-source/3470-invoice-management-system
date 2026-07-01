@@ -290,11 +290,7 @@ app.post("/create-invoice", (req, res) => {
             }
 
 
-
-
-
-
-// Save first payment into payment_history
+/*--- Save first payment into payment_history ---*/
 if (Number(paid_amount) > 0) {
 
     const paymentSql = `
@@ -338,6 +334,56 @@ if (Number(paid_amount) > 0) {
     );
 
 });
+
+
+
+
+/* ==== next invoice Number ==== */
+app.get("/next-invoice-number", (req, res) => {
+
+    const sql = `
+    SELECT invoice_no
+    FROM invoices
+    ORDER BY id DESC
+    LIMIT 1
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if(err){
+            return res.status(500).json(err);
+        }
+
+        let invoiceNo;
+
+        if(result.length === 0){
+
+            invoiceNo = "3470INV-0001";
+
+        }else{
+
+            const lastNumber = parseInt(result[0].invoice_no.split("-")[1]);
+
+                console.log(result);
+
+                console.log(result[0].invoice_no);
+
+            const nextNumber = lastNumber + 1;
+
+            invoiceNo =
+            `3470INV-${String(nextNumber).padStart(4,"0")}`;
+
+        }
+
+        res.json({
+            invoice_no: invoiceNo
+        });
+
+    });
+
+});
+
+
 
 
 

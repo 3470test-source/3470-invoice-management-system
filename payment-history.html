@@ -234,11 +234,108 @@
 
                 </div>
 
-            </div>
+            <div class="pagination" id="pagination"></div>
 
-
+        </div>
 
     </div>
+
+
+
+<!---------- Payment Details View Modal ---------->
+
+<div id="paymentModal" class="paymentDetails-modal">
+
+    <div class="paymentDetails-modal-content">
+
+        <div class="paymentDetails-modal-header">
+
+            <h2>Payment Details</h2>
+            <span class="pay-view-close-btn" onclick="closePaymentModal()">&times;</span>
+
+        </div>
+
+        <div class="paymentDetails-modal-body">
+
+            <table class="paymentDetails-view-table">
+
+                <tr>
+                    <td><b>Payment ID</b></td>
+                    <td id="viewPaymentId"></td>
+                </tr>
+
+                <tr>
+                    <td><b>Student Name</b></td>
+                    <td id="viewStudentName"></td>
+                </tr>
+
+                <tr>
+                    <td><b>Invoice No</b></td>
+                    <td id="viewInvoiceNo"></td>
+                </tr>
+
+                <tr>
+                    <td><b>Course</b></td>
+                    <td id="viewCourse"></td>
+                </tr>
+
+                <tr>
+                    <td><b>Course Fee</b></td>
+                    <td id="viewCourseFee"></td>
+                </tr>
+
+                <tr>
+                    <td><b>Discount</b></td>
+                    <td id="viewDiscount"></td>
+                </tr>
+
+                <tr>
+                    <td><b>Paid Amount</b></td>
+                    <td id="viewPaidAmount"></td>
+                </tr>
+
+                <tr>
+                    <td><b>Pending Amount</b></td>
+                    <td id="viewPendingAmount"></td>
+                </tr>
+
+                <tr>
+                    <td><b>Payment Method</b></td>
+                    <td id="viewPaymentMethod"></td>
+                </tr>
+
+                <tr>
+                    <td><b>Payment Date</b></td>
+                    <td id="viewPaymentDate"></td>
+                </tr>
+
+                <tr>
+                    <td><b>Remarks</b></td>
+                    <td id="viewRemarks"></td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <div class="paymentDetails-modal-footer">
+
+            <!-- Print Btn -->
+            <button class="print-btn" onclick="window.print()">
+                <i class="fa fa-print"></i> Print
+            </button>
+
+            <!-- Close Btn -->
+            <button class="close-modal-btn" onclick="closePaymentModal()">
+                <i class="fa fa-times"></i> Close
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 
 <!-- Dashboard sidebar dropdown - JS -->
@@ -309,23 +406,25 @@ function logout(){
 <script>
     function searchPayments(){
 
-    const keyword = document.getElementById("searchPayment").value.toLowerCase();
+    const keyword = document.getElementById("searchPayment").value.trim().toLowerCase();
 
-    const filtered = allPayments.filter(payment =>
+    allPayments = paymentData.filter(payment =>
 
         payment.student_name
-        .toLowerCase()
-        .includes(keyword)
+            .toLowerCase()
+            .includes(keyword)
 
         ||
 
         payment.invoice_no
-        .toLowerCase()
-        .includes(keyword)
+            .toLowerCase()
+            .includes(keyword)
 
     );
 
-    displayPayments(filtered);
+    currentPage = 1;
+
+    displayPayments();
 
 }
 </script>
@@ -333,35 +432,50 @@ function logout(){
 
 <!-- Payment History - Filter Payement mode - Js -->
 <script>
-    function filterPayments(){
+
+   function filterPayments(){
 
     const method = document.getElementById("methodFilter").value;
 
+    /*-- Show all records --*/
     if(method.includes("All")){
 
-        displayPayments(
-            allPayments
-        );
+        allPayments = [...paymentData];
 
-        return;
     }
 
-    const filtered = allPayments.filter(payment =>
+    /*-- Filter by payment method --*/
+    else{
 
-        payment.payment_method === method
+        allPayments = paymentData.filter(payment =>
 
-    );
+            payment.payment_method.trim().toLowerCase() ===
+            method.trim().toLowerCase()
 
-    displayPayments(filtered);
+        );
+
+    }
+
+    /*-- Return to first page --*/
+    currentPage = 1;
+
+    /*-- Refresh table --*/
+    displayPayments();
 
 }
+
 </script>
+
 
 
 <!-- Payment History - JS -->
 <script>
 
 let allPayments = [];
+
+let currentPage = 1;
+
+const rowsPerPage = 10;
 
 function formatDate(dateString){
 
@@ -380,17 +494,25 @@ async function loadPayments(){
 
     const response = await fetch("http://localhost:3000/payment-history");
 
-    allPayments = await response.json();
+    paymentData = await response.json();
 
-    displayPayments(allPayments);
+    allPayments = [...paymentData];
+
+    displayPayments();
 
 }
 
-function displayPayments(payments){
+function displayPayments(){
 
     const tbody = document.getElementById("paymentHistoryBody");
 
     tbody.innerHTML = "";
+
+    const start = (currentPage - 1) * rowsPerPage;
+
+    const end = start + rowsPerPage;
+
+    const payments = allPayments.slice(start,end);
 
     /*-- No payment found --*/
     if(payments.length === 0){
@@ -405,7 +527,6 @@ function displayPayments(payments){
 
         return;
     }
-
 
     payments.forEach(payment => {
 
@@ -437,6 +558,58 @@ function displayPayments(payments){
 
     });
 
+    createPagination();
+
+}
+
+
+function createPagination(){
+
+    const pagination=document.getElementById("pagination");
+
+    pagination.innerHTML="";
+
+    const totalPages=Math.ceil(allPayments.length/rowsPerPage);
+
+    if(currentPage>1){
+
+        pagination.innerHTML+=`
+
+        <button onclick="changePage(${currentPage-1})">Previous</button>
+
+        `;
+
+    }
+
+    for(let i=1;i<=totalPages;i++){
+
+        pagination.innerHTML+=`
+
+        <button class="${i===currentPage?'active':''}" onclick="changePage(${i})"> ${i}</button>
+
+        `;
+
+    }
+
+    if(currentPage<totalPages){
+
+        pagination.innerHTML+=`
+
+        <button onclick="changePage(${currentPage+1})">Next</button>
+
+        `;
+
+    }
+
+}
+
+
+function changePage(page){
+
+    currentPage=page;
+
+    displayPayments();
+
 }
 
 loadPayments();
@@ -452,28 +625,57 @@ loadPayments();
 
 
 
+
+
+
+
 <!-- View Payment History - JS -->
 <script>
     function viewPayment(id){
 
-    const payment = allPayments.find(p => p.id == id);
+    const payment = allPayments.find(p=>p.id==id);
 
-    alert(
-            `
-                Payment ID : ${payment.id}
+    document.getElementById("viewPaymentId").innerHTML = payment.id;
 
-                Student : ${payment.student_name}
+    document.getElementById("viewStudentName").innerHTML = payment.student_name;
 
-                Invoice : ${payment.invoice_no}
+    document.getElementById("viewInvoiceNo").innerHTML = payment.invoice_no;
 
-                Amount : ₹${payment.payment_amount}
+    document.getElementById("viewCourse").innerHTML = payment.course;
 
-                Method : ${payment.payment_method}
-            `
-        );
+    document.getElementById("viewCourseFee").innerHTML = "₹"+payment.course_fee;
+
+    document.getElementById("viewDiscount").innerHTML = "₹"+payment.discount;
+
+    document.getElementById("viewPaidAmount").innerHTML = "₹"+payment.payment_amount;
+
+    document.getElementById("viewPendingAmount").innerHTML = "₹"+payment.pending_amount;
+
+    document.getElementById("viewPaymentMethod").innerHTML = payment.payment_method;
+
+    document.getElementById("viewPaymentDate").innerHTML = formatDate(payment.payment_date);
+
+    document.getElementById("viewRemarks").innerHTML = payment.remarks;
+
+    document.getElementById("paymentModal").style.display="block";
 
 }
 </script>
+
+
+<!-- Close Payment Details -->
+<script>
+    function closePaymentModal(){
+
+    document.getElementById("paymentModal").style.display="none";
+
+}
+</script>
+
+
+
+
+
 
 
 </body>

@@ -406,22 +406,44 @@ document.getElementById("studentSelect").addEventListener("change", function(){
 
 
 
+<!-- Next invoice number generate -->
+<script>
+  async function loadInvoiceNumber() {
+
+    try{
+
+        const response = await fetch("http://localhost:3000/next-invoice-number");
+
+        const data = await response.json();
+
+        document.getElementById("invoiceNo").value = data.invoice_no;
+
+    }catch(error){
+
+        console.error(error);
+
+        alert("Unable to generate Invoice Number");
+
+    }
+
+}
+loadInvoiceNumber();
+</script>
+
+
+
 <!-- Create invoice - JS  -->
 <script>
-
-/*--- Auto Invoice Number ---*/
-document.getElementById("invoiceNo").value = "INV" + Date.now();
 
 /*--- Auto Invoice Date ---*/
 document.getElementById("invoiceDate").value = new Date().toISOString().split("T")[0];
 
 
 /*-- Auto Due Date (+7 days) --*/
-const dueDate = new Date();
-dueDate.setDate(dueDate.getDate() + 7);
+const newDueDate = new Date();
+newDueDate.setDate(newDueDate.getDate() + 7);
 
-
-document.getElementById("dueDate").value = dueDate.toISOString().split("T")[0];
+document.getElementById("dueDate").value = newDueDate.toISOString().split("T")[0];
 
 
 /*-- Student Selection --*/
@@ -511,11 +533,11 @@ document.getElementById("invoiceForm").addEventListener("submit", async function
 
             document.getElementById("invoiceForm").reset();
 
-            document.getElementById("invoiceNo").value = "INV" + Date.now();
+            await loadInvoiceNumber();
 
             document.getElementById("invoiceDate").value = new Date().toISOString().split("T")[0];
 
-            document.getElementById("dueDate").value = dueDate.toISOString().split("T")[0];
+            document.getElementById("dueDate").value = newDueDate.toISOString().split("T")[0];
 
             document.getElementById("courseName").value = "";
             document.getElementById("courseFee").value = "";
