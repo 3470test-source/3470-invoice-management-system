@@ -242,9 +242,21 @@
                             <option>Cash</option>
                             <option>UPI</option>
                             <option>Bank Transfer</option>
-                            <option>Cheque</option>
+                            <option>Credit Card</option>
+                            <option>Debit Card</option>
                         </select>
                     </div>
+
+
+
+
+<div class="edit-invoice-form-group" id="transactionField" style="display:none;">
+    <label>Transaction ID</label>
+    <input type="text" id="transaction_id">
+</div>
+
+
+
 
                     <!-- Invoice Date -->
                     <div class="edit-invoice-form-group">
@@ -398,6 +410,10 @@ async function loadInvoice(){
 
         document.getElementById("payment_mode").value = invoice.payment_mode;
 
+        document.getElementById("transaction_id").value = invoice.transaction_id || "";
+
+            toggleTransactionField();
+
         document.getElementById("invoice_date").value = formatDateForInput(invoice.invoice_date);
 
         document.getElementById("due_date").value = formatDateForInput(invoice.due_date);
@@ -482,6 +498,8 @@ document.getElementById("editInvoiceForm").addEventListener("submit", async func
 
             payment_mode: document.getElementById("payment_mode").value,
 
+            transaction_id: document.getElementById("transaction_id").value,
+
             invoice_date: document.getElementById("invoice_date").value,
 
             due_date: document.getElementById("due_date").value,
@@ -537,6 +555,39 @@ document.getElementById("editInvoiceForm").addEventListener("submit", async func
 );
 
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    function toggleTransactionField(){
+
+    const mode =
+    document.getElementById("paymentMode").value;
+
+    if(mode==="Cash" || mode===""){
+
+        document.getElementById("transactionField").style.display="none";
+
+    }else{
+
+        document.getElementById("transactionField").style.display="block";
+
+    }
+
+}
+</script>
+
+
 
 
 </body>

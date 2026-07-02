@@ -250,6 +250,8 @@
 
                 </div>
 
+            <div id="pagination" class="pagination"></div>
+
         </div>
 
 <!-- Dashboard sidebar dropdown - JS -->
@@ -278,8 +280,7 @@ window.onclick = function(event) {
 
     if (!event.target.closest(".invoice-admin-profile-dropdown")) {
 
-        const dropdown =
-            document.getElementById("dropdownMenu");
+        const dropdown = document.getElementById("dropdownMenu");
 
         dropdown.classList.remove("show");
     }
@@ -344,13 +345,26 @@ loadSummary();
 <script>
     let allInvoices = [];
 
+    let filteredInvoices = [];
+
+    let currentPage = 1;
+
+    const rowsPerPage = 10;
+    
+
 async function loadReports(){
 
     const response = await fetch("http://localhost:3000/invoice-reports");
 
     allInvoices = await response.json();
 
+    filteredInvoices = allInvoices;
+
+    currentPage = 1;
+
     displayReports(allInvoices);
+
+    createPagination(allInvoices);
 
 }
 
@@ -384,10 +398,15 @@ function displayReports(data){
         return;
     }
 
-    data.forEach(invoice=>{
+    const start = (currentPage-1)*rowsPerPage;
 
-        const status =
-        Number(invoice.pending_amount)<=0
+    const end = start+rowsPerPage;
+
+    const pageData = data.slice(start,end);
+
+    pageData.forEach(invoice=>{
+
+        const status = Number(invoice.pending_amount)<=0
         ?"Paid"
         :"Pending";
 
@@ -414,6 +433,58 @@ function displayReports(data){
         `;
 
     });
+
+}
+
+
+function createPagination(data){
+
+    const totalPages = Math.ceil(data.length/rowsPerPage);
+
+    const pagination = document.getElementById("pagination");
+
+    pagination.innerHTML="";
+
+    if(totalPages<=1){
+        return;
+    }
+
+    if(currentPage>1){
+
+        pagination.innerHTML += `
+        <button onclick="changePage(${currentPage-1},filteredInvoices)">
+            Previous
+        </button>`;
+    }
+
+    for(let i=1;i<=totalPages;i++){
+
+        pagination.innerHTML += `
+        <button
+        class="${i===currentPage?'active':''}"
+        onclick="changePage(${i},filteredInvoices)">
+            ${i}
+        </button>`;
+    }
+
+    if(currentPage<totalPages){
+
+        pagination.innerHTML += `
+        <button onclick="changePage(${currentPage+1},filteredInvoices)">
+            Next
+        </button>`;
+    }
+
+}
+
+
+function changePage(page,data){
+
+    currentPage = page;
+
+    displayReports(data);
+
+    createPagination(data);
 
 }
 </script>

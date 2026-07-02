@@ -221,11 +221,12 @@
                 </table>
 
             </div>
+            
+        <div class="pagination" id="pagination"></div>
 
-        </div>
+    </div>
 
-
-    </div>    
+</div>    
 
 
 <!-- Dashboard sidebar dropdown - JS -->
@@ -297,11 +298,17 @@ function logout(){
 
 let allStudents = [];
 
+let currentPage = 1;
+
+const rowsPerPage = 10;
+
 async function loadStudents(){
 
     const response = await fetch("http://localhost:3000/students");
 
     allStudents = await response.json();
+
+    currentPage = 1;
 
     displayStudents(allStudents);
 }
@@ -322,10 +329,18 @@ function displayStudents(students){
         </tr>
         `;
 
+        document.getElementById("pagination").innerHTML = "";
+
         return;
     }
 
-    students.forEach(student => {
+    const start = (currentPage - 1) * rowsPerPage;
+
+    const end = start + rowsPerPage;
+
+    const pageStudents = students.slice(start, end);
+
+    pageStudents.forEach(student=>{
 
         tbody.innerHTML += `
         <tr>
@@ -348,8 +363,83 @@ function displayStudents(students){
         </tr>
         `;
     });
+
+    setupPagination(students);
 }
 
+function setupPagination(students){
+
+    const pagination = document.getElementById("pagination");
+
+    pagination.innerHTML = "";
+
+    const pageCount = Math.ceil(students.length / rowsPerPage);
+
+    if(pageCount <= 1) return;
+
+    /*-- Previous --*/
+    const prev = document.createElement("button");
+
+    prev.innerText = "Previous";
+
+    prev.disabled = currentPage === 1;
+
+    prev.onclick = ()=>{
+
+        currentPage--;
+
+        displayStudents(students);
+
+    };
+
+    pagination.appendChild(prev);
+
+    /*-- Numbers --*/
+    for(let i=1;i<=pageCount;i++){
+
+        const btn = document.createElement("button");
+
+        btn.innerText = i;
+
+        if(i===currentPage){
+
+            btn.classList.add("active");
+
+        }
+
+        btn.onclick = ()=>{
+
+            currentPage=i;
+
+            displayStudents(students);
+
+        };
+
+        pagination.appendChild(btn);
+
+    }
+
+    /*-- Next --*/
+    const next = document.createElement("button");
+
+    next.innerText = "Next";
+
+    next.disabled = currentPage===pageCount;
+
+    next.onclick = ()=>{
+
+        currentPage++;
+
+        displayStudents(students);
+
+    };
+
+    pagination.appendChild(next);
+
+}
+
+
+/*--- Search Field - JS ---*/
 function searchStudent(){
 
     const keyword =
@@ -357,7 +447,7 @@ function searchStudent(){
     .value
     .toLowerCase();
 
-    // Show all records if search box is empty
+    /*-- Show all records if search box is empty --*/
     if(keyword === ""){
 
         displayStudents(allStudents);

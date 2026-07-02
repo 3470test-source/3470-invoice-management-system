@@ -183,7 +183,6 @@
         </aside>
 
 
-
         <!-- Manage invoice  -->
         <div class="manage-invoice-container">
 
@@ -231,11 +230,11 @@
 
             </div>
 
-        </div>
+        <div class="pagination" id="pagination"></div>
 
+    </div>
 
-
-    </div>    
+</div>    
 
 
 <!-- Dashboard sidebar dropdown - JS -->
@@ -310,25 +309,28 @@ function formatDate(dateString){
 
     const date = new Date(dateString);
 
-    const day =
-    String(date.getDate()).padStart(2,"0");
+    const day = String(date.getDate()).padStart(2,"0");
 
-    const month =
-    String(date.getMonth()+1).padStart(2,"0");
+    const month = String(date.getMonth()+1).padStart(2,"0");
 
-    const year =
-    date.getFullYear();
+    const year = date.getFullYear();
 
     return `${day}-${month}-${year}`;
 }
 
 let allInvoices = [];
 
+let currentPage = 1;
+
+const rowsPerPage = 10;
+
 async function loadInvoices(){
 
     const response = await fetch("http://localhost:3000/invoices");
 
     allInvoices = await response.json();
+
+    currentPage = 1;
 
     displayInvoices(allInvoices);
 }
@@ -350,13 +352,20 @@ function displayInvoices(invoices){
         </tr>
         `;
 
+        document.getElementById("pagination").innerHTML="";
+
         return;
     }
 
-    invoices.forEach(invoice => {
+    const start=(currentPage-1)*rowsPerPage;
 
-        const status =
-        Number(invoice.pending_amount) === 0
+    const end=start+rowsPerPage;
+
+    const pageInvoices=invoices.slice(start,end);
+
+    pageInvoices.forEach(invoice=>{
+
+        const status = Number(invoice.pending_amount) === 0
         ? "Paid"
         : "Pending";
 
@@ -389,6 +398,79 @@ function displayInvoices(invoices){
         </tr>
         `;
     });
+
+    setupPagination(invoices);
+
+}
+
+function setupPagination(invoices){
+
+    const pagination=document.getElementById("pagination");
+
+    pagination.innerHTML="";
+
+    const totalPages=Math.ceil(invoices.length/rowsPerPage);
+
+    if(totalPages<=1) return;
+
+    /*-- Previous --*/
+    const prev=document.createElement("button");
+
+    prev.innerText="Previous";
+
+    prev.disabled=currentPage===1;
+
+    prev.onclick=()=>{
+
+        currentPage--;
+
+        displayInvoices(invoices);
+
+    };
+
+    pagination.appendChild(prev);
+
+    /*-- Page Numbers --*/
+    for(let i=1;i<=totalPages;i++){
+
+        const btn=document.createElement("button");
+
+        btn.innerText=i;
+
+        if(i===currentPage){
+
+            btn.classList.add("active");
+
+        }
+
+        btn.onclick=()=>{
+
+            currentPage=i;
+
+            displayInvoices(invoices);
+
+        };
+
+        pagination.appendChild(btn);
+
+    }
+
+    /*-- Next --*/
+    const next=document.createElement("button");
+
+    next.innerText="Next";
+
+    next.disabled=currentPage===totalPages;
+
+    next.onclick=()=>{
+
+        currentPage++;
+
+        displayInvoices(invoices);
+
+    };
+
+    pagination.appendChild(next);
 
 }
 

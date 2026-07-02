@@ -248,9 +248,10 @@
                 </table>
 
             </div>
+
+        <div id="pagination" class="pagination"></div>
  
     </div>
-
 
 
 <!-- Dashboard sidebar dropdown - JS -->
@@ -323,6 +324,12 @@ function logout(){
 
 let allStudents = [];
 
+let filteredStudents = [];
+
+let currentPage = 1;
+
+const rowsPerPage = 10;
+
 /*-- Load Summary Cards --*/
 async function loadSummary(){
 
@@ -354,7 +361,13 @@ async function loadStudents(){
 
         allStudents = await response.json();
 
-        displayStudents(allStudents);
+        filteredStudents = allStudents;
+
+        currentPage = 1;
+
+        displayStudents(filteredStudents);
+
+        createPagination(filteredStudents);
 
         loadCourseFilter();
 
@@ -386,7 +399,13 @@ function displayStudents(students){
 
     }
 
-    students.forEach(student=>{
+    const start = (currentPage - 1) * rowsPerPage;
+
+    const end = start + rowsPerPage;
+
+    const pageData = students.slice(start, end);
+
+    pageData.forEach(student=>{
 
         tbody.innerHTML += `
 
@@ -401,6 +420,58 @@ function displayStudents(students){
         `;
 
     });
+
+}
+
+
+function createPagination(data){
+
+    const totalPages = Math.ceil(data.length / rowsPerPage);
+
+    const pagination = document.getElementById("pagination");
+
+    pagination.innerHTML = "";
+
+    if(totalPages <= 1){
+        return;
+    }
+
+    if(currentPage > 1){
+
+        pagination.innerHTML += `
+        <button onclick="changePage(${currentPage-1})">
+            Previous
+        </button>`;
+    }
+
+    for(let i=1;i<=totalPages;i++){
+
+        pagination.innerHTML += `
+        <button
+        class="${i===currentPage?'active':''}"
+        onclick="changePage(${i})">
+            ${i}
+        </button>`;
+    }
+
+    if(currentPage < totalPages){
+
+        pagination.innerHTML += `
+        <button onclick="changePage(${currentPage+1})">
+            Next
+        </button>`;
+    }
+
+}
+
+
+function changePage(page){
+
+    currentPage = page;
+
+    displayStudents(filteredStudents);
+
+    createPagination(filteredStudents);
 
 }
 

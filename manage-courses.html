@@ -219,10 +219,11 @@
 
             </div>
 
-        </div>
+        <div class="pagination" id="pagination"></div>
 
+    </div>
 
-    </div>    
+</div>    
 
 
 <!-- Dashboard sidebar dropdown - JS -->
@@ -293,6 +294,10 @@ function logout(){
 
     let allCourses = [];
 
+    let currentPage = 1;
+
+    const rowsPerPage = 10;
+
 async function loadCourses() {
 
     const response = await fetch("http://localhost:3000/courses");
@@ -323,7 +328,13 @@ function displayCourses(courses) {
         return;
     }
 
-    courses.forEach(course => {
+    const start = (currentPage - 1) * rowsPerPage;
+
+    const end = start + rowsPerPage;
+
+    const paginatedCourses = courses.slice(start, end);
+
+    paginatedCourses.forEach(course => {
 
         tbody.innerHTML += `
         <tr>
@@ -337,7 +348,67 @@ function displayCourses(courses) {
         </tr>
         `;
     });
+
+    createPagination(courses);
 }
+
+
+function createPagination(courses){
+
+    const pagination = document.getElementById("pagination");
+
+    pagination.innerHTML = "";
+
+    const pageCount = Math.ceil(courses.length / rowsPerPage);
+
+    if(pageCount <= 1) return;
+
+    /*-- Previous Button --*/
+    if(currentPage > 1){
+
+        pagination.innerHTML += `
+        <button onclick="changePage(${currentPage-1})">
+            Previous
+        </button>
+        `;
+
+    }
+
+    /*-- Page Numbers --*/
+    for(let i=1;i<=pageCount;i++){
+
+        pagination.innerHTML += `
+        <button
+            class="${i===currentPage?'active':''}"
+            onclick="changePage(${i})">
+            ${i}
+        </button>
+        `;
+
+    }
+
+    /*-- Next Button --*/
+    if(currentPage < pageCount){
+
+        pagination.innerHTML += `
+        <button onclick="changePage(${currentPage+1})">
+            Next
+        </button>
+        `;
+
+    }
+
+}
+
+
+function changePage(page){
+
+    currentPage = page;
+
+    displayCourses(allCourses);
+
+}
+
 
 function searchCourse(){
 

@@ -2701,11 +2701,16 @@
 }
 
 .pagination button:hover {
-   background:#084298;
+  background:#084298;
 }
 
 .pagination button.active {
-   background:#198754;
+  background:#198754;
+}
+
+.pagination button:disabled {
+  background:#ccc;
+  cursor:not-allowed;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------ */

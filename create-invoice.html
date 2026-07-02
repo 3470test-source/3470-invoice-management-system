@@ -246,12 +246,20 @@
                                 <!-- Payment Mode -->
                                 <div class="create-invoice-form-group">
                                     <label>Payment Mode</label>
-                                    <select id="paymentMode">
+                                    <select id="paymentMode" onchange="toggleTransactionField()">
+                                        <option value="">-- Select Payment Mode --</option>
                                         <option value="Cash">Cash</option>
                                         <option value="UPI">UPI</option>
                                         <option value="Bank Transfer">Bank Transfer</option>
-                                        <option value="Cheque">Cheque</option>
+                                        <option value="Credit Card">Credit Card</option>
+                                        <option value="Debit Card">Debit Card</option>
                                     </select>
+                                </div>
+
+                                <!-- Transaction ID -->
+                                <div class="create-invoice-form-group" id="transactionField" style="display:none;">
+                                    <label>Transaction ID</label>
+                                    <input type="text" id="transaction_id" placeholder="Enter Transaction ID">
                                 </div>
 
                                 <!-- Invoice Date -->
@@ -506,6 +514,8 @@ document.getElementById("invoiceForm").addEventListener("submit", async function
 
         payment_mode: document.getElementById("paymentMode").value,
 
+        transaction_id: document.getElementById("transaction_id").value,
+
         invoice_date: document.getElementById("invoiceDate").value,
 
         due_date: document.getElementById("dueDate").value,
@@ -559,6 +569,28 @@ document.getElementById("invoiceForm").addEventListener("submit", async function
 
 });
 
+</script>
+
+
+
+<!-- Invoice Transaction ID - JS -->
+<script>
+    function toggleTransactionField(){
+
+    const mode = document.getElementById("paymentMode").value;
+
+    const field = document.getElementById("transactionField");
+
+    if(
+        mode === "Cash"
+        || mode === ""
+    ){
+        field.style.display = "none";
+    }else{
+        field.style.display = "block";
+    }
+
+}
 </script>
 
 

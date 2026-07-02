@@ -262,14 +262,14 @@ app.post("/create-invoice", (req, res) => {
 
     const {
         invoice_no, student_name, course, course_fee, discount, paid_amount,
-        pending_amount, payment_mode, invoice_date, due_date, remarks
+        pending_amount, payment_mode, transaction_id, invoice_date, due_date, remarks
     } = req.body;
 
     const sql = `
     INSERT INTO invoices
     (
         invoice_no, student_name, course, course_fee, discount, paid_amount, 
-        pending_amount, payment_mode, invoice_date, due_date, remarks
+        pending_amount, payment_mode, transaction_id, invoice_date, due_date, remarks
     )
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
@@ -278,7 +278,7 @@ app.post("/create-invoice", (req, res) => {
         sql,
         [
             invoice_no, student_name, course, course_fee, discount, paid_amount, pending_amount,
-            payment_mode, invoice_date, due_date, remarks
+            payment_mode, transaction_id, invoice_date, due_date, remarks
         ],
         (err, result) => {
 
@@ -442,7 +442,7 @@ app.put("/invoice/:id", (req,res)=>{
     UPDATE invoices
     SET
         student_name=?, course=?, course_fee=?, discount=?, paid_amount=?,
-        pending_amount=?, payment_mode=?, invoice_date=?, due_date=?, remarks=?
+        pending_amount=?, payment_mode=?, transaction_id=?, invoice_date=?, due_date=?, remarks=?
     WHERE id=?
     `;
 
@@ -450,7 +450,7 @@ app.put("/invoice/:id", (req,res)=>{
         sql,
         [
             student_name, course, course_fee, discount, paid_amount, pending_amount,
-            payment_mode, invoice_date, due_date, remarks,id
+            payment_mode, transaction_id, invoice_date, due_date, remarks,id
         ],
         (err,result)=>{
 
