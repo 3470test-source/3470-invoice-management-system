@@ -199,6 +199,7 @@
 
                             <div class="record-payment-card-body">
 
+                                <!-- Student Name -->
                                 <div class="record-payment-form-group">
                                     <label>Student Name</label>
                                     <select id="studentSelect" required>
@@ -206,41 +207,54 @@
                                     </select>
                                 </div>
 
+                                <!-- Invoice Number -->
                                 <div class="record-payment-form-group">
                                     <label>Invoice Number</label>
                                     <input type="text" id="invoiceNo" readonly>
                                 </div>
 
+                                <!-- Pending Amount -->
                                 <div class="record-payment-form-group">
                                     <label>Pending Amount</label>
                                     <input type="text" id="invoiceAmount" readonly>
                                 </div>
 
+                                <!-- Payment Amount -->
                                 <div class="record-payment-form-group">
                                     <label>Payment Amount</label>
                                     <input type="number" id="paymentAmount" placeholder="Enter Payment Amount">
                                 </div>
 
+                                <!-- Payment Date -->
                                 <div class="record-payment-form-group">
                                     <label>Payment Date</label>
                                     <input type="date" id="paymentDate">
                                 </div>
 
+                                <!-- Payment Method -->
                                 <div class="record-payment-form-group">
                                     <label>Payment Method</label>
-                                    <select id="paymentMethod">
+                                    <select id="paymentMethod" onchange="toggleTransactionField()">
                                         <option value="">-- Select Payment Method --</option>
-                                        <option>Cash</option>
-                                        <option>UPI</option>
-                                        <option>Bank Transfer</option>
-                                        <option>Credit Card</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="UPI">UPI</option>
+                                        <option value="Bank Transfer">Bank Transfer</option>
+                                        <option value="Credit Card">Credit Card</option>
+                                        <option value="Debit Card">Debit Card</option>
                                     </select>
+                                </div>
+
+                                <!-- Transaction ID -->
+                                <div class="record-payment-form-group" id="transactionField" style="display:none;">
+                                    <label>Transaction ID</label>
+                                    <input type="text" id="transactionId" placeholder="Enter Transaction ID">
                                 </div>
 
                             </div>
 
                         </div>
 
+                        <!-- Submit Btn -->
                         <div class="record-payment-submit-btn">
                             <button type="submit">Record Payment</button>
                         </div>
@@ -385,6 +399,8 @@ const response = await fetch("http://localhost:3000/record-payment",
 
         payment_method: document.getElementById("paymentMethod").value,
 
+        transaction_id: document.getElementById("transactionId").value,
+
         payment_date: document.getElementById("paymentDate").value
 
     })
@@ -399,6 +415,47 @@ location.reload();
 
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    function toggleTransactionField(){
+
+    const mode = document.getElementById("paymentMethod").value;
+
+    const field = document.getElementById("transactionField");
+
+    const input = document.getElementById("transactionId");
+
+    if(mode === "Cash" || mode === ""){
+
+        field.style.display = "none";
+
+        input.value = "";
+
+    }else{
+
+        field.style.display = "block";
+
+    }
+
+}
+</script>
+
 
 
 </body>

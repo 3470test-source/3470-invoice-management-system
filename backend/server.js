@@ -271,7 +271,7 @@ app.post("/create-invoice", (req, res) => {
         invoice_no, student_name, course, course_fee, discount, paid_amount, 
         pending_amount, payment_mode, transaction_id, invoice_date, due_date, remarks
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(
@@ -435,7 +435,7 @@ app.put("/invoice/:id", (req,res)=>{
 
     const {
         student_name, course, course_fee, discount, paid_amount, pending_amount,
-        payment_mode, invoice_date, due_date, remarks
+        payment_mode, transaction_id, invoice_date, due_date, remarks
     } = req.body;
 
     const sql = `
@@ -506,6 +506,7 @@ db.query(
 );
 
 });
+
 
 
 
@@ -618,7 +619,7 @@ db.query(
             15,
             15,
             565,
-            170,
+            180,
             10
         )
         .fill("#eef6ff");
@@ -630,7 +631,7 @@ db.query(
                 doc.image(
                     logoPath,
                     40,
-                    10,
+                    20,
                     {
                         width:130
                     }
@@ -650,27 +651,27 @@ db.query(
         doc
         .fontSize(10)
         .fillColor("black")
-        .text("No: 3/373, MCN Tower, 1st & 2nd Floor,", 40, 95);
+        .text("No: 3/373, MCN Tower, 1st & 2nd Floor,", 40, 105);
 
-        doc.text("OMR Mettukuppam, Chennai,", 40, 110);
+        doc.text("OMR Mettukuppam, Chennai,", 40, 120);
 
-        doc.text("Tamil Nadu, India.", 40, 125);
+        doc.text("Tamil Nadu, India.", 40, 135);
 
         doc.font("Helvetica-Bold");
-        doc.text("Phone", 40, 145);
-        doc.text("Email", 40, 160);
+        doc.text("Phone", 40, 155);
+        doc.text("Email", 40, 170);
 
         doc.font("Helvetica");
-        doc.text(":", 75, 145);
-        doc.text(":", 75, 160);
+        doc.text(":", 75, 155);
+        doc.text(":", 75, 170);
 
-        doc.text("+91 9876543210", 85, 145);
-        doc.text("info@3470healthcare.com", 85, 160);
+        doc.text("+91 9876543210", 85, 155);
+        doc.text("info@3470healthcare.com", 85, 170);
 
         doc
         .lineWidth(1)
-        .moveTo(40,185)
-        .lineTo(555,185)
+        .moveTo(40,195)
+        .lineTo(555,195)
         .stroke();
 
     /* ====================================
@@ -680,25 +681,25 @@ db.query(
         doc
         .fontSize(30)
         .fillColor("#1a61be")
-        .text("INVOICE", 430, 40);
+        .text("INVOICE", 430, 50);
 
         doc
         .fontSize(11)
         .fillColor("black");
 
         doc.font("Helvetica-Bold");
-        doc.text("Invoice No", 370, 95);
-        doc.text("Invoice Date", 370, 125);
-        doc.text("Due Date", 370, 155);
+        doc.text("Invoice No", 370, 105);
+        doc.text("Invoice Date", 370, 135);
+        doc.text("Due Date", 370, 165);
 
         doc.font("Helvetica");
-        doc.text(":", 440, 95);
-        doc.text(":", 440, 125);
-        doc.text(":", 440, 155);
+        doc.text(":", 440, 105);
+        doc.text(":", 440, 135);
+        doc.text(":", 440, 165);
 
-        doc.text(invoice.invoice_no, 450, 95);
-        doc.text(formatDate(invoice.invoice_date), 450, 125);
-        doc.text(formatDate(invoice.due_date), 450, 155);
+        doc.text(invoice.invoice_no, 450, 105);
+        doc.text(formatDate(invoice.invoice_date), 450, 135);
+        doc.text(formatDate(invoice.due_date), 450, 165);
 
     /* ====================================
                 BILL TO
@@ -709,25 +710,25 @@ db.query(
         doc
         .fontSize(14)
         .fillColor("#1a61be")
-        .text("Bill To:", 40, 205);
+        .text("Bill To:", 40, 215);
 
         doc
         .fontSize(10)
         .fillColor("black");
 
-        doc.text(invoice.student_name,40,230);
+        doc.text(invoice.student_name,40,240);
 
-        doc.text("Mobile No", 40, 245);
-        doc.text("Email ID", 40, 260);
+        doc.text("Mobile No", 40, 255);
+        doc.text("Email ID", 40, 270);
 
-        doc.text(":", 90, 245);
-        doc.text(":", 90, 260);
+        doc.text(":", 90, 255);
+        doc.text(":", 90, 270);
 
-        doc.text(invoice.mobile || "", 100, 245);
-        doc.text(invoice.email || "", 100, 260);
+        doc.text(invoice.mobile || "", 100, 255);
+        doc.text(invoice.email || "", 100, 270);
 
-        doc.text(`${invoice.address || ""}`,40,280);
-        doc.text(`${invoice.city || ""} - ${invoice.postcode || ""}`,40, 305);
+        doc.text(`${invoice.address || ""}`,40,290);
+        doc.text(`${invoice.city || ""} - ${invoice.postcode || ""}`,40, 315);
 
     /* ====================================
                 STATUS BOX
@@ -741,7 +742,7 @@ db.query(
         doc
         .roundedRect(
             420,
-            230,
+            240,
             120,
             40,
             15
@@ -760,7 +761,7 @@ db.query(
         .text(
             status,
             420,
-            245,
+            255,
                 {width:120, align:"center"}
         );
 
@@ -773,7 +774,7 @@ db.query(
         doc
         .roundedRect(
             40,
-            330,
+            340,
             515,
             25,
             4
@@ -784,11 +785,11 @@ db.query(
         .fillColor("white")
         .fontSize(11);
 
-        doc.text("Course Name", 50, 338);
+        doc.text("Course Name", 50, 348);
 
-        doc.text("Qty", 300, 338);
+        doc.text("Qty", 300, 348);
 
-        doc.text("Course Fee", 430, 338);
+        doc.text("Course Fee", 430, 348);
 
     /* ==============================
             COURSE TABLE DATA
@@ -797,7 +798,7 @@ db.query(
         doc
         .roundedRect(
             40,
-            355.5,
+            365.5,
             515,
             30,
             4
@@ -807,11 +808,11 @@ db.query(
         doc
         .fillColor("black");
 
-        doc.text(invoice.course, 50, 366);
+        doc.text(invoice.course, 50, 376);
 
-        doc.text("1", 305, 366);
+        doc.text("1", 305, 376);
 
-        doc.text(`₹ ${invoice.course_fee}`, 430, 366);
+        doc.text(`₹ ${invoice.course_fee}`, 430, 376);
         
     /* ====================================
                 TOTAL SECTION
@@ -821,26 +822,42 @@ db.query(
 
         /*-- Labels --*/
         doc.font("Helvetica-Bold");
-        doc.text("Total Amount", 370, 410);
-        doc.text("Discount", 370, 435);
-        doc.text("Amount Paid", 370, 460);
-        doc.text("Pending Amount", 370, 485);
-        doc.text("Payment Mode", 370, 510);
+        doc.text("Total Amount", 370, 420);
+        doc.text("Discount", 370, 445);
+        doc.text("Amount Paid", 370, 470);
+        doc.text("Pending Amount", 370, 495);
+        doc.text("Payment Mode", 370, 520);
 
         /*-- Colons --*/
         doc.font("Helvetica");
-        doc.text(":", 470, 410);
-        doc.text(":", 470, 435);
-        doc.text(":", 470, 460);
-        doc.text(":", 470, 485);
-        doc.text(":", 470, 510);
+        doc.text(":", 470, 420);
+        doc.text(":", 470, 445);
+        doc.text(":", 470, 470);
+        doc.text(":", 470, 495);
+        doc.text(":", 470, 520);
 
         /*-- Values --*/
-        doc.text(`₹ ${invoice.course_fee}`, 480, 410);
-        doc.text(`₹ ${invoice.discount}`, 480, 435);
-        doc.text(`₹ ${invoice.paid_amount}`, 480, 460);
-        doc.text(`₹ ${invoice.pending_amount}`, 480, 485);
-        doc.text(invoice.payment_mode, 485, 510);
+        doc.text(`₹ ${invoice.course_fee}`, 480, 420);
+        doc.text(`₹ ${invoice.discount}`, 480, 445);
+        doc.text(`₹ ${invoice.paid_amount}`, 480, 470);
+        doc.text(`₹ ${invoice.pending_amount}`, 480, 495);
+        doc.text(invoice.payment_mode, 485, 520);
+
+        /*-- Show Transaction ID only for Online Payments --*/
+        if (
+            invoice.payment_mode !== "Cash" &&
+            invoice.transaction_id
+        ) {
+
+        doc.font("Helvetica-Bold");
+        doc.text("Transaction ID", 370, 545);
+
+        doc.font("Helvetica");
+        doc.text(":", 470, 545);
+
+        doc.text(invoice.transaction_id, 485, 545);
+
+        }
 
     /* ====================================
                 REMARKS
@@ -848,12 +865,12 @@ db.query(
 
         doc.fontSize(13).fillColor("#1a61be").text("Remarks",
             40,
-            410
+            420
         );
 
         doc.fontSize(10).fillColor("black").text(invoice.remarks || "No Remarks",
             40,
-            435,
+            445,
             {
                 width:220
             }
@@ -870,7 +887,7 @@ db.query(
                 doc.image(
                     signPath,
                     410,
-                    560,
+                    590,
                     {
                         width:120
                     }
@@ -889,11 +906,11 @@ db.query(
 
        doc.fontSize(10);
 
-        doc.text("For 3470 Healthcare Pvt Ltd", 400, 615,
+        doc.text("For 3470 Healthcare Pvt Ltd", 400, 645,
             { width: 150, align: "center" }
         );
 
-        doc.text("Authorized Signatory", 400, 630,
+        doc.text("Authorized Signatory", 400, 660,
             { width: 150, align: "center" }
         );
 
@@ -901,8 +918,8 @@ db.query(
                 FOOTER
     ==================================== */
 
-        doc.moveTo(40,700)
-        .lineTo(555,700)
+        doc.moveTo(40,720)
+        .lineTo(555,720)
         .stroke();
 
         doc
@@ -911,7 +928,7 @@ db.query(
         .text(
             "Thank you for choosing 3470 Healthcare Pvt Ltd",
             160,
-            715
+            735
         );
 
         doc.end();
@@ -932,6 +949,7 @@ const {
     invoice_no,
     payment_amount,
     payment_method,
+    transaction_id,
     payment_date
 } = req.body;
 
@@ -954,12 +972,14 @@ db.query(
         `UPDATE invoices
          SET paid_amount=?,
              pending_amount=?,
-             payment_mode=?
+             payment_mode=?,
+             transaction_id=?
          WHERE invoice_no=?`,
         [
             newPaid,
             newPending,
             payment_method,
+            transaction_id,
             invoice_no
         ],
         (err)=>{
@@ -975,14 +995,16 @@ db.query(
                 student_name,
                 payment_amount,
                 payment_method,
+                transaction_id,
                 payment_date
             )
-            VALUES (?,?,?,?,?)`,
+            VALUES (?,?,?,?,?,?)`,
             [
                 invoice_no,
                 invoice.student_name,
                 payment_amount,
                 payment_method,
+                transaction_id,
                 payment_date
             ]
             );
@@ -1046,6 +1068,7 @@ app.get("/payment-history", (req, res) => {
                 ph.invoice_no,
                 ph.payment_amount,
                 ph.payment_method,
+                ph.transaction_id,
                 ph.payment_date,
 
                 i.course,

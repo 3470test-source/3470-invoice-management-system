@@ -207,6 +207,7 @@
                             <option>UPI</option>
                             <option>Bank Transfer</option>
                             <option>Credit Card</option>
+                            <option>Debit Card</option>
                         </select>
                     </div>
 
@@ -302,6 +303,11 @@
                 <tr>
                     <td><b>Payment Method</b></td>
                     <td id="viewPaymentMethod"></td>
+                </tr>
+
+                <tr>
+                    <td><b>Transaction ID</b></td>
+                    <td id="viewTransactionId"></td>
                 </tr>
 
                 <tr>
@@ -641,6 +647,14 @@ loadPayments();
     document.getElementById("viewPendingAmount").innerHTML = "₹"+payment.pending_amount;
 
     document.getElementById("viewPaymentMethod").innerHTML = payment.payment_method;
+
+    if(payment.payment_method === "Cash"){
+    document.getElementById("viewTransactionId").innerHTML = "-";
+
+    }else{
+    document.getElementById("viewTransactionId").innerHTML =
+        payment.transaction_id || "N/A";
+    }
 
     document.getElementById("viewPaymentDate").innerHTML = formatDate(payment.payment_date);
 

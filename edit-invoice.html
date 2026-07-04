@@ -238,25 +238,20 @@
                     <!-- Payment Mode -->
                     <div class="edit-invoice-form-group">
                         <label>Payment Mode</label>
-                        <select id="payment_mode">
-                            <option>Cash</option>
-                            <option>UPI</option>
-                            <option>Bank Transfer</option>
-                            <option>Credit Card</option>
-                            <option>Debit Card</option>
+                        <select id="payment_mode" onchange="toggleTransactionField()">
+                            <option value="Cash">Cash</option>
+                            <option value="UPI">UPI</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Debit Card">Debit Card</option>
                         </select>
                     </div>
 
-
-
-
-<div class="edit-invoice-form-group" id="transactionField" style="display:none;">
-    <label>Transaction ID</label>
-    <input type="text" id="transaction_id">
-</div>
-
-
-
+                    <!-- Transaction ID -->
+                    <div class="edit-invoice-form-group" id="transactionField" style="display:none;">
+                        <label>Transaction ID</label>
+                        <input type="text" id="transaction_id">
+                    </div>
 
                     <!-- Invoice Date -->
                     <div class="edit-invoice-form-group">
@@ -357,7 +352,6 @@ function logout(){
 <!-- Edit & Update Invoice - JS -->
 <script>
 
-
 /*--- Data Formate - JS ---*/
 function formatDateForInput(dateString){
 
@@ -367,7 +361,6 @@ function formatDateForInput(dateString){
         .toISOString()
         .split("T")[0];
 }
-
 
 /*--- Get Invoice ID From URL ---*/
 
@@ -409,7 +402,7 @@ async function loadInvoice(){
         document.getElementById("pending_amount").value = invoice.pending_amount;
 
         document.getElementById("payment_mode").value = invoice.payment_mode;
-
+        
         document.getElementById("transaction_id").value = invoice.transaction_id || "";
 
             toggleTransactionField();
@@ -557,37 +550,28 @@ document.getElementById("editInvoiceForm").addEventListener("submit", async func
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
+<!-- Transaction ID - JS -->
 <script>
-    function toggleTransactionField(){
+    function toggleTransactionField() {
 
-    const mode =
-    document.getElementById("paymentMode").value;
+    const mode = document.getElementById("payment_mode").value;
 
-    if(mode==="Cash" || mode===""){
+    const transactionField = document.getElementById("transactionField");
+    const transactionInput = document.getElementById("transaction_id");
 
-        document.getElementById("transactionField").style.display="none";
+    if (mode === "Cash" || mode === "") {
 
-    }else{
+        transactionField.style.display = "none";
+        transactionInput.value = "";
 
-        document.getElementById("transactionField").style.display="block";
+    } else {
+
+        transactionField.style.display = "block";
 
     }
 
 }
 </script>
-
-
 
 
 </body>

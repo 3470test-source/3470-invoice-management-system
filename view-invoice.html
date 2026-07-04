@@ -252,20 +252,11 @@
                     <input type="text" id="payment_mode" readonly>
                 </div>
 
-
-
-
-<div class="viewInvoice-field" id="transactionRow">
-
-    <strong>Transaction ID :</strong>
-
-    <span id="transactionId"></span>
-
-</div>
-
-
-
-
+                <!-- Transaction ID -->
+                <div class="viewInvoice-field" id="transactionRow">
+                    <label>Transaction ID</label>
+                    <input type="text" id="transactionId" readonly>
+                </div>
 
                 <!-- Invoice Date -->
                 <div class="viewInvoice-field">
@@ -424,7 +415,7 @@ document.getElementById("pending_amount").value = invoice.pending_amount;
 
 document.getElementById("payment_mode").value = invoice.payment_mode;
 
-document.getElementById("transactionId").innerHTML = invoice.transaction_id;
+document.getElementById("transactionId").value = invoice.transaction_id;
 
 
 if (invoice.payment_mode === "Cash") {
@@ -442,7 +433,7 @@ document.getElementById("invoice_date").value = formatDate(invoice.invoice_date)
 
 document.getElementById("due_date").value = formatDate(invoice.due_date);
 
-document.getElementById("address").value =`${invoice.address || ""}
+document.getElementById("address").value =`${invoice.address || ""} 
 ${invoice.city || ""} - ${invoice.postcode || ""}`;
 
 document.getElementById("remarks").value = invoice.remarks;
