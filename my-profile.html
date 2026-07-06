@@ -81,6 +81,8 @@
 
 </header>
 
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay"></div>
 
     <!-- Dashboard Side Bar -->
     <div class="Admin-side-bar-invoice">
@@ -332,6 +334,32 @@ function logout(){
 
     window.location.href = "admin-login.html";
 }
+</script>
+
+
+<!-- Mobile header menu icon open / close -->
+<script>
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("sidebarOverlay");
+
+        menuBtn.addEventListener("click", () => {
+
+    if(window.innerWidth <= 768){
+
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("show");
+
+    }
+
+});
+
+overlay.addEventListener("click", () => {
+
+    sidebar.classList.remove("active");
+    overlay.classList.remove("show");
+
+});
 </script>
 
 
