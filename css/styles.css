@@ -898,51 +898,47 @@
 
 
 
+                                /* ============================================
+                                            Large Desktop (1600px - 1920px)
+                                ============================================ */
 
+@media (min-width:1600px) {
 
-
-
-
-
-/* =========================================
-   Large Desktop (1600px - 1920px)
-========================================= */
-@media (min-width:1600px){
-
-    .admin-InvoiceDash-main-content{
+    .admin-InvoiceDash-main-content {
         padding:60px;
     }
 
-    .invoice-dashboard-cards{
+    .invoice-dashboard-cards {
         grid-template-columns:repeat(3,1fr);
         gap:45px;
     }
 
-    .InvoiceDashboard-card{
+    .InvoiceDashboard-card {
         height:140px;
     }
 
-    .InvoiceDashboard-card h2{
+    .InvoiceDashboard-card h2 {
         font-size:48px;
     }
 
-    .InvoiceDashboard-card p{
+    .InvoiceDashboard-card p {
         font-size:20px;
     }
 
-    .InvoiceDashboard-card i{
+    .InvoiceDashboard-card i {
         font-size:70px;
     }
 
 }
 
 
-/* =========================================
-   Desktop (1280px - 1599px)
-========================================= */
-@media (min-width:1280px) and (max-width:1599px){
+                                /* =========================================
+                                          Desktop (1280px - 1599px)
+                                ========================================= */
 
-    .invoice-dashboard-cards{
+@media (min-width:1280px) and (max-width:1599px) {
+
+    .invoice-dashboard-cards {
         grid-template-columns:repeat(3,1fr);
         gap:30px;
     }
@@ -950,16 +946,17 @@
 }
 
 
-/* =========================================
-   Tablet Landscape (1024px)
-========================================= */
-@media (max-width:1024px){
+                                /* =========================================
+                                            Tablet Landscape (1024px)
+                                ========================================= */
 
-    .admin-InvoiceDash-main-content{
+@media (max-width:1024px) {
+
+    .admin-InvoiceDash-main-content {
         padding:30px;
     }
 
-    .invoice-dashboard-cards{
+    .invoice-dashboard-cards {
 
         grid-template-columns:repeat(2,1fr);
 
@@ -967,7 +964,7 @@
 
     }
 
-    .InvoiceDashboard-card{
+    .InvoiceDashboard-card {
 
         height:120px;
 
@@ -975,19 +972,19 @@
 
     }
 
-    .InvoiceDashboard-card h2{
+    .InvoiceDashboard-card h2 {
 
         font-size:36px;
 
     }
 
-    .InvoiceDashboard-card p{
+    .InvoiceDashboard-card p {
 
         font-size:16px;
 
     }
 
-    .InvoiceDashboard-card i{
+    .InvoiceDashboard-card i {
 
         font-size:55px;
 
@@ -996,186 +993,137 @@
 }
 
 
-/* =========================================
-   Tablet Portrait (768px)
-========================================= */
-@media (max-width:768px){
+                                /* =========================================
+                                          Tablet Portrait (768px)
+                                ========================================= */
 
-    .admin-InvoiceDash-main-content{
+@media (max-width:768px) {
 
+    .admin-InvoiceDash-main-content {
         padding:20px;
-
     }
 
-    .admin-InvoiceDash-main-content h2{
-
+    .admin-InvoiceDash-main-content h2 {
         font-size:24px;
-
     }
 
-    .invoice-dashboard-cards{
-
+    .invoice-dashboard-cards {
         grid-template-columns:1fr;
-
         gap:20px;
-
     }
 
-    .InvoiceDashboard-card{
-
+    .InvoiceDashboard-card {
         height:110px;
-
     }
 
 }
 
 
-/* =========================================
-   Mobile (414px)
-========================================= */
-@media (max-width:414px){
+                                /* =========================================
+                                              Mobile (414px)
+                                ========================================= */
 
-    .admin-InvoiceDash-main-content{
+@media (max-width:414px) {
 
+    .admin-InvoiceDash-main-content {
         padding:15px;
-
     }
 
-    .admin-InvoiceDash-main-content h2{
-
+    .admin-InvoiceDash-main-content h2 {
         font-size:22px;
-
     }
 
-    .InvoiceDashboard-card{
-
+    .InvoiceDashboard-card {
         height:100px;
-
         padding:15px;
-
     }
 
-    .InvoiceDashboard-card h2{
-
+    .InvoiceDashboard-card h2 {
         font-size:30px;
-
     }
 
-    .InvoiceDashboard-card p{
-
+    .InvoiceDashboard-card p {
         font-size:15px;
-
     }
 
-    .InvoiceDashboard-card i{
-
+    .InvoiceDashboard-card i {
         font-size:45px;
-
     }
 
 }
 
 
-/* =========================================
-   Mobile (375px)
-========================================= */
-@media (max-width:375px){
 
-    .InvoiceDashboard-card h2{
+                                /* =========================================
+                                              Mobile (375px)
+                                ========================================= */
 
+@media (max-width:375px) {
+
+    .InvoiceDashboard-card h2 {
         font-size:28px;
-
     }
 
-    .InvoiceDashboard-card p{
-
+    .InvoiceDashboard-card p {
         font-size:14px;
-
     }
 
 }
 
 
-/* =========================================
-   Mobile (360px)
-========================================= */
-@media (max-width:360px){
+                                /* =========================================
+                                              Mobile (360px)
+                                ========================================= */
 
-    .InvoiceDashboard-card{
+@media (max-width:360px) {
 
+    .InvoiceDashboard-card {
         height:95px;
-
     }
 
-    .InvoiceDashboard-card h2{
-
+    .InvoiceDashboard-card h2 {
         font-size:26px;
-
     }
 
-    .InvoiceDashboard-card p{
-
+    .InvoiceDashboard-card p {
         font-size:13px;
-
     }
 
-    .InvoiceDashboard-card i{
-
+    .InvoiceDashboard-card i {
         font-size:40px;
-
     }
 
 }
 
 
-/* =========================================
-   Mobile (320px)
-========================================= */
-@media (max-width:320px){
+                                /* =========================================
+                                                Mobile (320px)
+                                ========================================= */
 
-    .admin-InvoiceDash-main-content{
+@media (max-width:320px) {
 
+    .admin-InvoiceDash-main-content {
         padding:12px;
-
     }
 
-    .InvoiceDashboard-card{
-
+    .InvoiceDashboard-card {
         padding:12px;
-
         height:90px;
-
     }
 
-    .InvoiceDashboard-card h2{
-
+    .InvoiceDashboard-card h2 {
         font-size:24px;
-
     }
 
-    .InvoiceDashboard-card p{
-
+    .InvoiceDashboard-card p {
         font-size:12px;
-
     }
 
-    .InvoiceDashboard-card i{
-
+    .InvoiceDashboard-card i {
         font-size:35px;
-
     }
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
@@ -1307,6 +1255,142 @@
 .Add-student-submit button:hover {
   background:#0e8b1e;
 }
+
+
+                                /* =========================================
+                                          Tablet Landscape (1024px)
+                                ========================================= */
+
+@media (max-width:1024px) {
+
+.add-student-main-content {
+    width:70%;
+    padding:35px;
+}
+
+.add-student-form-wrapper {
+    gap:25px;
+}
+
+.add-student-page-header h2 {
+    font-size:28px;
+}
+
+}
+
+
+                                /* =========================================
+                                            Tablet Portrait (768px)
+                                ========================================= */
+
+@media (max-width:768px) {
+
+.add-student-main-content {
+    width:95%;
+    margin:25px auto;
+    padding:25px;
+}
+
+.add-student-page-header h2 {
+    font-size:24px;
+}
+
+.add-student-page-header p {
+    font-size:14px;
+}
+
+/*-- Two columns → One column --*/
+.add-student-form-wrapper {
+    grid-template-columns:1fr;
+    gap:20px;
+}
+
+.addStudent-box-header {
+    font-size:17px;
+}
+
+.addStudent-box-body {
+    padding:18px;
+}
+
+.Add-student-submit {
+    text-align:center;
+}
+
+.Add-student-submit button {
+    width:100%;
+}
+
+}
+
+
+                                /* =========================================
+                                                Mobile (480px)
+                                ========================================= */
+
+@media (max-width:480px) {
+
+.add-student-main-content {
+    width:96%;
+    margin:15px auto;
+    padding:18px;
+    border-radius:8px;
+}
+
+.add-student-page-header {
+    margin-bottom:18px;
+}
+
+.add-student-page-header h2 {
+    font-size:20px;
+}
+
+.add-student-page-header p {
+    font-size:13px;
+}
+
+.add-student-form-wrapper {
+    grid-template-columns:1fr;
+    gap:18px;
+}
+
+.addStudent-box-header {
+    padding:15px;
+    font-size:16px;
+}
+
+.addStudent-box-body {
+    padding:15px;
+}
+
+.add-student-form-group {
+    margin-bottom:15px;
+}
+
+.add-student-form-group label {
+    font-size:13px;
+}
+
+.add-student-form-group input,
+.add-student-form-group select,
+.add-student-form-group textarea {
+    padding:10px 12px;
+    font-size:14px;
+}
+
+.Add-student-submit {
+    margin-top:20px;
+    text-align:center;
+}
+
+.Add-student-submit button {
+    width:100%;
+    padding:12px;
+    font-size:15px;
+}
+
+}
+
 
 /* --------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -1442,6 +1526,149 @@
 .manage-std-delete-btn:hover {
   background:#ce2c2c;
 }
+
+
+
+                                  /* =========================================
+                                              Tablet Landscape (1024px)
+                                  ========================================= */
+
+@media (max-width:1024px) {
+
+.manage-student-container {
+    width:70%;
+    padding:35px;
+}
+
+.manage-std-page-header h2 {
+    font-size:28px;
+}
+
+}
+
+
+
+                                  /* =========================================
+                                              Tablet Portrait (768px)
+                                  ========================================= */
+
+@media (max-width:768px) {
+
+.manage-student-container {
+    width:95%;
+    margin:25px auto;
+    padding:25px;
+}
+
+.manage-std-page-header h2 {
+    font-size:24px;
+}
+
+.manage-std-page-header p {
+    font-size:14px;
+}
+
+/*-- Search --*/
+.manage-student-search {
+    flex-direction:column;
+}
+
+.manage-student-search input {
+    width:100%;
+    font-size:14px;
+}
+
+.manage-student-search button {
+    width:100%;
+    font-size:14px;
+    border-radius:8px;
+}
+
+/*-- Table --*/
+.manage-std-table-container {
+    overflow-x:auto;
+}
+
+.manage-std-table-container table {
+    min-width:1000px;
+}
+
+}
+
+
+                                  /* =========================================
+                                                Mobile (480px)
+                                  ========================================= */
+
+@media (max-width:480px) {
+
+.manage-student-container {
+    width:96%;
+    margin:15px auto;
+    padding:18px;
+    border-radius:8px;
+}
+
+.manage-std-page-header {
+    margin-bottom:18px;
+}
+
+.manage-std-page-header h2 {
+    font-size:20px;
+}
+
+.manage-std-page-header p {
+    font-size:13px;
+}
+
+/*-- Search --*/
+.manage-student-search {
+    flex-direction:column;
+    gap:10px;
+}
+
+.manage-student-search input {
+    width:100%;
+    padding:10px;
+    font-size:14px;
+}
+
+.manage-student-search button {
+    width:100%;
+    padding:10px;
+    font-size:14px;
+    border-radius:8px;
+}
+
+/*-- Table --*/
+.manage-std-table-container {
+    overflow-x:auto;
+}
+
+.manage-std-table-container table {
+    min-width:1000px;
+}
+
+.manage-std-table-container thead th {
+    padding:10px;
+    font-size:13px;
+}
+
+.manage-std-table-container tbody td {
+    padding:10px;
+    font-size:13px;
+}
+
+/*-- Buttons --*/
+.manage-std-edit-btn,
+.manage-std-delete-btn {
+    padding:6px 10px;
+    font-size:12px;
+    margin:3px;
+}
+
+}
+
 
 /* --------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -2055,6 +2282,137 @@
   background:#0c771a;
 }
 
+
+
+                              /* =========================================
+                                          Tablet Landscape (1024px)
+                              ========================================= */
+
+@media (max-width:1024px) {
+
+.create-invoice-container {
+    width:70%;
+    padding:35px;
+}
+
+.create-invoice-card-body {
+    gap:25px;
+}
+
+.create-invoice-page-header h2 {
+    font-size:28px;
+}
+
+}
+
+
+                              /* =========================================
+                                          Tablet Portrait (768px)
+                              ========================================= */
+
+@media (max-width:768px) {
+
+.create-invoice-container {
+    width:95%;
+    margin:25px auto;
+    padding:25px;
+}
+
+.create-invoice-page-header h2 {
+    font-size:24px;
+}
+
+.create-invoice-page-header p {
+    font-size:14px;
+}
+
+/* Two columns → One column */
+.create-invoice-card-body {
+    grid-template-columns:1fr;
+    gap:20px;
+    padding:20px;
+}
+
+.create-invoice-card-header {
+    font-size:17px;
+}
+
+.generate-invoice-submit {
+    text-align:center;
+}
+
+.generate-invoice-submit button {
+    width:100%;
+}
+
+}
+
+
+                              /* =========================================
+                                            Mobile (480px)
+                              ========================================= */
+
+@media (max-width:480px) {
+
+.create-invoice-container {
+    width:96%;
+    margin:15px auto;
+    padding:18px;
+    border-radius:8px;
+}
+
+.create-invoice-page-header {
+    margin-bottom:18px;
+}
+
+.create-invoice-page-header h2 {
+    font-size:20px;
+}
+
+.create-invoice-page-header p {
+    font-size:13px;
+}
+
+.create-invoice-card-header {
+    padding:15px;
+    font-size:16px;
+}
+
+.create-invoice-card-body {
+    grid-template-columns:1fr;
+    gap:18px;
+    padding:15px;
+}
+
+.create-invoice-form-group {
+    margin-bottom:15px;
+}
+
+.create-invoice-form-group label {
+    font-size:13px;
+}
+
+.create-invoice-form-group input,
+.create-invoice-form-group select,
+.create-invoice-form-group textarea {
+    padding:10px 12px;
+    font-size:14px;
+}
+
+.generate-invoice-submit {
+    margin-top:20px;
+    text-align:center;
+}
+
+.generate-invoice-submit button {
+    width:100%;
+    padding:12px;
+    font-size:15px;
+}
+
+}
+
+
 /* --------------------------------------------------------------------------------------------------------------------------------- */
 
                               /* ==========================================
@@ -2273,6 +2631,170 @@
 }
 
 
+                              /* =========================================
+                                          Tablet Landscape (1024px)
+                              ========================================= */
+
+@media (max-width:1024px) {
+
+.manage-invoice-container {
+    width:70%;
+    padding:30px;
+    margin:25px auto;
+}
+
+.manage-invoice-page-header h2 {
+    font-size:26px;
+}
+
+.manage-invoice-page-header p {
+    font-size:15px;
+}
+
+.manage-invoice-top-bar {
+    flex-direction:column;
+    align-items:stretch;
+    gap:15px;
+}
+
+.manage-invoice-search {
+    width:100%;
+}
+
+.manage-invoice-actions {
+    width:100%;
+    justify-content:flex-end;
+}
+
+.manageInvoice-create-btn,
+.manageInvoice-csv-btn {
+    padding:10px 18px;
+}
+
+.manage-invoice-table-container {
+    overflow-x:auto;
+}
+
+.manage-invoice-table-container table {
+    min-width:1100px;
+}
+
+}
+
+
+                              /* =========================================
+                                          Tablet Portrait (768px)
+                              ========================================= */
+
+@media (max-width:768px) {
+
+.manage-invoice-container {
+    width:90%;
+    margin:15px;
+    padding:20px;
+    border-radius:8px;
+}
+
+.manage-invoice-page-header {
+    margin-bottom:18px;
+}
+
+.manage-invoice-page-header h2 {
+    font-size:22px;
+}
+
+.manage-invoice-page-header p {
+    font-size:14px;
+}
+
+.manage-invoice-top-bar {
+    flex-direction:column;
+    align-items:stretch;
+}
+
+.manage-invoice-search {
+    flex-direction:column;
+}
+
+.manage-invoice-search input,
+.manage-invoice-search button {
+    width:100%;
+}
+
+.manage-invoice-actions {
+    flex-direction:column;
+    width:100%;
+}
+
+.manageInvoice-create-btn,
+.manageInvoice-csv-btn {
+    width:100%;
+}
+
+.manage-invoice-table-container {
+    overflow-x:auto;
+}
+
+.manage-invoice-table-container table {
+    min-width:1100px;
+}
+
+.manage-invoice-table-container th,
+.manage-invoice-table-container td {
+    padding:10px;
+    font-size:13px;
+}
+
+.manageInvoice-view-btn,
+.manageInvoice-edit-btn,
+.manageInvoice-delete-btn {
+    width:100%;
+    margin:3px 0;
+}
+
+.manageInvoice-paid,
+.manageInvoice-pending {
+    font-size:12px;
+    padding:4px 8px;
+}
+
+}
+
+
+                              /* =========================================
+                                            Mobile (480px)
+                              ========================================= */
+
+@media (max-width:480px) {
+
+.manage-invoice-container {
+    padding:15px;
+}
+
+.manage-invoice-page-header h2 {
+    font-size:20px;
+}
+
+.manage-invoice-page-header p {
+    font-size:13px;
+}
+
+.manageInvoice-create-btn,
+.manageInvoice-csv-btn,
+.manage-invoice-search button {
+    font-size:13px;
+    padding:10px;
+}
+
+.manage-invoice-table-container th,
+.manage-invoice-table-container td {
+    font-size:12px;
+}
+
+}
+
+
+
 /* --------------------------------------------------------------------------------------------------------------------------------------------- */
 
                             /* ==========================================
@@ -2380,6 +2902,166 @@
 .record-payment-submit-btn button:hover {
   background:#0c771a;
 }
+
+
+                              /* =========================================
+                                          Tablet Landscape (1024px)
+                              ========================================= */
+
+@media (max-width:1024px){
+
+.record-payment-container{
+    width:70%;
+    padding:30px;
+    margin:25px auto;
+}
+
+.record-payment-header h2{
+    font-size:26px;
+}
+
+.record-payment-header p{
+    font-size:15px;
+}
+
+.record-payment-card-body{
+    grid-template-columns:1fr;
+    gap:20px;
+}
+
+.record-payment-card-header{
+    font-size:17px;
+}
+
+.record-payment-form-group label{
+    font-size:14px;
+}
+
+.record-payment-form-group input,
+.record-payment-form-group select{
+    padding:12px;
+    font-size:14px;
+}
+
+.record-payment-submit-btn{
+    text-align:center;
+}
+
+.record-payment-submit-btn button{
+    width:100%;
+}
+
+}
+
+
+                              /* =========================================
+                                          Tablet Portrait (768px)
+                              ========================================= */
+
+@media (max-width:768px){
+
+.record-payment-container{
+    width:100%;
+    margin:15px;
+    padding:20px;
+    border-radius:8px;
+}
+
+.record-payment-header{
+    margin-bottom:20px;
+}
+
+.record-payment-header h2{
+    font-size:22px;
+}
+
+.record-payment-header p{
+    font-size:14px;
+    line-height:20px;
+}
+
+.record-payment-card{
+    border-radius:8px;
+}
+
+.record-payment-card-header{
+    padding:15px;
+    font-size:16px;
+}
+
+.record-payment-card-body{
+    display:block;
+    padding:15px;
+}
+
+.record-payment-form-group{
+    margin-bottom:18px;
+}
+
+.record-payment-form-group label{
+    font-size:14px;
+}
+
+.record-payment-form-group input,
+.record-payment-form-group select{
+    width:100%;
+    padding:12px;
+    font-size:14px;
+}
+
+.record-payment-submit-btn{
+    margin-top:15px;
+    text-align:center;
+}
+
+.record-payment-submit-btn button{
+    width:100%;
+    padding:14px;
+    font-size:15px;
+}
+
+}
+
+
+                              /* =========================================
+                                            Mobile (480px)
+                              ========================================= */
+
+@media (max-width:480px){
+
+.record-payment-container{
+    padding:15px;
+}
+
+.record-payment-header h2{
+    font-size:20px;
+}
+
+.record-payment-header p{
+    font-size:13px;
+}
+
+.record-payment-card-header{
+    font-size:15px;
+}
+
+.record-payment-form-group label{
+    font-size:13px;
+}
+
+.record-payment-form-group input,
+.record-payment-form-group select{
+    font-size:13px;
+    padding:10px;
+}
+
+.record-payment-submit-btn button{
+    font-size:14px;
+    padding:12px;
+}
+
+}
+
 
 /* -------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -2548,6 +3230,171 @@
 .payment-History-print-btn:hover {
   background:#15803d;
 }
+
+
+                              /* =========================================
+                                          Tablet Landscape (1024px)
+                              ========================================= */
+
+@media (max-width:1024px) {
+
+  .payment-history-container {
+    width:70%;
+    padding:30px;
+    margin:25px auto;
+  }
+
+  .payment-history-page-header h2 {
+    font-size:26px;
+  }
+
+  .payment-history-page-header p {
+    font-size:15px;
+  }
+
+  .payment-history-top-bar {
+    flex-direction:column;
+    align-items:stretch;
+    gap:15px;
+  }
+
+  .payment-history-search {
+    width:100%;
+  }
+
+  .payment-history-filter {
+    width:100%;
+  }
+
+  .payment-history-filter select {
+    width:100%;
+  }
+
+  .payment-history-table-container {
+    overflow-x:auto;
+  }
+
+  .payment-history-table-container table {
+    min-width:950px;
+  }
+
+}
+
+
+                              /* =========================================
+                                          Tablet Portrait (768px)
+                              ========================================= */
+
+@media (max-width:768px) {
+
+  .payment-history-container {
+    width:90%;
+    margin:15px;
+    padding:20px;
+    border-radius:10px;
+  }
+
+  .payment-history-page-header {
+    margin-bottom:20px;
+  }
+
+  .payment-history-page-header h2 {
+    font-size:22px;
+  }
+
+  .payment-history-page-header p {
+    font-size:14px;
+  }
+
+  /*-- Search Area --*/
+  .payment-history-top-bar {
+    flex-direction:column;
+    align-items:stretch;
+    gap:15px;
+  }
+
+  .payment-history-search {
+    flex-direction:column;
+    width:100%;
+  }
+
+  .payment-history-search input {
+    width:100%;
+  }
+
+  .payment-history-search button {
+    width:100%;
+    border-radius:8px;
+  }
+
+  .payment-history-filter {
+    width:100%;
+  }
+
+  .payment-history-filter select {
+    width:100%;
+  }
+
+  /*-- Table --*/
+  .payment-history-table-container {
+    overflow-x:auto;
+  }
+
+  .payment-history-table-container table {
+    min-width:950px;
+  }
+
+  .payment-history-table-container th,
+  .payment-history-table-container td {
+    padding:10px;
+    font-size:13px;
+    white-space:nowrap;
+  }
+
+  /*-- Payment Badge --*/
+  .payment-History-method-upi,
+  .payment-History-method-cash {
+    font-size:12px;
+    padding:5px 10px;
+  }
+
+  /*-- Buttons --*/
+  .payment-History-view-btn,
+  .payment-History-print-btn {
+    padding:6px 10px;
+    font-size:11px;
+    margin-bottom:5px;
+  }
+
+}
+
+
+                              /* =========================================
+                                            Mobile (480px)
+                              ========================================= */
+
+@media (max-width:480px) {
+
+  .payment-history-container {
+    padding:15px;
+  }
+
+  .payment-history-page-header h2 {
+    font-size:20px;
+  }
+
+  .payment-history-page-header p {
+    font-size:13px;
+  }
+
+  .payment-history-search input,
+  .payment-history-search button,
+  .payment-history-filter select {
+    font-size:12px;
+  }
+
+}
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -3491,6 +4338,124 @@
   background:#0c771a;
 }
 
+
+                                      /* =========================================
+                                                  Tablet Landscape (1024px)
+                                      ========================================= */
+
+@media (max-width:1024px) {
+
+.view-invoice-container {
+    width:70%;
+    padding:35px;
+}
+
+.view-invoice-page-title h2 {
+    font-size:28px;
+}
+
+.view-invoice-details {
+    gap:20px;
+}
+
+}
+
+
+                                      /* =========================================
+                                                Tablet Portrait (768px)
+                                      ========================================= */
+
+@media (max-width:768px) {
+
+.view-invoice-container {
+    width:95%;
+    margin:25px auto;
+    padding:25px;
+}
+
+.view-invoice-page-title h2 {
+    font-size:24px;
+}
+
+.view-invoice-details {
+    grid-template-columns:1fr;
+    gap:18px;
+}
+
+.view-full-width {
+    grid-column:auto;
+}
+
+.viewInvoice-button-area {
+    flex-direction:column;
+}
+
+.viewInvoice-btn {
+    width:100%;
+}
+
+}
+
+
+                                      /* =========================================
+                                                      Mobile (480px)
+                                      ========================================= */
+
+@media (max-width:480px) {
+
+.view-invoice-container {
+    width:96%;
+    margin:15px auto;
+    padding:18px;
+    border-radius:8px;
+}
+
+.view-invoice-page-title {
+    margin-bottom:18px;
+}
+
+.view-invoice-page-title h2 {
+    font-size:20px;
+}
+
+.view-invoice-details {
+    grid-template-columns:1fr;
+    gap:15px;
+    padding:0;
+}
+
+.view-full-width {
+    grid-column:auto;
+}
+
+.viewInvoice-field label {
+    font-size:13px;
+}
+
+.viewInvoice-field input,
+.viewInvoice-field textarea {
+    padding:10px 12px;
+    font-size:14px;
+}
+
+.viewInvoice-field textarea {
+    height:90px;
+}
+
+.viewInvoice-button-area {
+    flex-direction:column;
+    gap:10px;
+}
+
+.viewInvoice-btn {
+    width:100%;
+    padding:12px;
+    font-size:15px;
+}
+
+}
+
+
 /* ----------------------------------------------------------------------------------------------------------------------------------- */
 
                       /* =================================== 
@@ -3635,6 +4600,120 @@
 .editInvoice-cancel-btn:hover {
   background:#c82333;
 }
+
+
+                                /* =========================================
+                                          Tablet (768px - 1024px)
+                                ========================================= */
+
+@media (max-width:1024px) {
+
+.edit-invoice-container {
+    width:70%;
+    padding:30px;
+    margin:25px auto;
+}
+
+.edit-invoice-header h2 {
+    font-size:26px;
+}
+
+.edit-invoice-header p {
+    font-size:15px;
+}
+
+.edit-invoiceForm {
+    gap:20px;
+}
+
+.edit-invoice-form-group label {
+    font-size:15px;
+}
+
+.edit-invoice-form-group input,
+.edit-invoice-form-group select,
+.edit-invoice-form-group textarea {
+    padding:11px 14px;
+    font-size:13px;
+}
+
+.editInvoice-button-area {
+    flex-wrap:wrap;
+}
+
+.editInvoice-update-btn,
+.editInvoice-cancel-btn {
+    padding:10px 22px;
+}
+
+}
+
+
+                                /* =========================================
+                                          Mobile (767px and below)
+                                ========================================= */
+
+@media (max-width:767px) {
+
+.edit-invoice-container {
+    width:100%;
+    margin:15px;
+    padding:20px;
+}
+
+.edit-invoice-header {
+    margin-bottom:20px;
+}
+
+.edit-invoice-header h2 {
+    font-size:22px;
+    line-height:30px;
+}
+
+.edit-invoice-header p {
+    font-size:14px;
+}
+
+.edit-invoiceForm {
+    grid-template-columns:1fr;
+    gap:18px;
+    padding:0;
+}
+
+.edit-full-width {
+    grid-column:auto;
+}
+
+.edit-invoice-form-group label {
+    font-size:14px;
+}
+
+.edit-invoice-form-group input,
+.edit-invoice-form-group select,
+.edit-invoice-form-group textarea {
+    font-size:14px;
+    padding:12px;
+}
+
+.edit-invoice-form-group textarea {
+    min-height:90px;
+}
+
+.editInvoice-button-area {
+    flex-direction:column;
+    gap:12px;
+    margin-top:15px;
+}
+
+.editInvoice-update-btn,
+.editInvoice-cancel-btn {
+    width:100%;
+    padding:12px;
+    font-size:15px;
+}
+
+}
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------ */
 
