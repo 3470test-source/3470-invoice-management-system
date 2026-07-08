@@ -2172,7 +2172,7 @@
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
                                     /* ===============================================
-                                                Create the Invoice - Admin Side 
+                                              Create the Invoice - Admin Side 
                                     =============================================== */
 
 .create-invoice-container {
@@ -2908,46 +2908,46 @@
                                           Tablet Landscape (1024px)
                               ========================================= */
 
-@media (max-width:1024px){
+@media (max-width:1024px) {
 
-.record-payment-container{
+.record-payment-container {
     width:70%;
     padding:30px;
     margin:25px auto;
 }
 
-.record-payment-header h2{
+.record-payment-header h2 {
     font-size:26px;
 }
 
-.record-payment-header p{
+.record-payment-header p {
     font-size:15px;
 }
 
-.record-payment-card-body{
+.record-payment-card-body {
     grid-template-columns:1fr;
     gap:20px;
 }
 
-.record-payment-card-header{
+.record-payment-card-header {
     font-size:17px;
 }
 
-.record-payment-form-group label{
+.record-payment-form-group label {
     font-size:14px;
 }
 
 .record-payment-form-group input,
-.record-payment-form-group select{
+.record-payment-form-group select {
     padding:12px;
     font-size:14px;
 }
 
-.record-payment-submit-btn{
+.record-payment-submit-btn {
     text-align:center;
 }
 
-.record-payment-submit-btn button{
+.record-payment-submit-btn button {
     width:100%;
 }
 
@@ -2958,63 +2958,63 @@
                                           Tablet Portrait (768px)
                               ========================================= */
 
-@media (max-width:768px){
+@media (max-width:768px) {
 
-.record-payment-container{
+.record-payment-container {
     width:100%;
     margin:15px;
     padding:20px;
     border-radius:8px;
 }
 
-.record-payment-header{
+.record-payment-header {
     margin-bottom:20px;
 }
 
-.record-payment-header h2{
+.record-payment-header h2 {
     font-size:22px;
 }
 
-.record-payment-header p{
+.record-payment-header p {
     font-size:14px;
     line-height:20px;
 }
 
-.record-payment-card{
+.record-payment-card {
     border-radius:8px;
 }
 
-.record-payment-card-header{
+.record-payment-card-header {
     padding:15px;
     font-size:16px;
 }
 
-.record-payment-card-body{
+.record-payment-card-body {
     display:block;
     padding:15px;
 }
 
-.record-payment-form-group{
+.record-payment-form-group {
     margin-bottom:18px;
 }
 
-.record-payment-form-group label{
+.record-payment-form-group label {
     font-size:14px;
 }
 
 .record-payment-form-group input,
-.record-payment-form-group select{
+.record-payment-form-group select {
     width:100%;
     padding:12px;
     font-size:14px;
 }
 
-.record-payment-submit-btn{
+.record-payment-submit-btn {
     margin-top:15px;
     text-align:center;
 }
 
-.record-payment-submit-btn button{
+.record-payment-submit-btn button {
     width:100%;
     padding:14px;
     font-size:15px;
@@ -3027,35 +3027,35 @@
                                             Mobile (480px)
                               ========================================= */
 
-@media (max-width:480px){
+@media (max-width:480px) {
 
-.record-payment-container{
+.record-payment-container {
     padding:15px;
 }
 
-.record-payment-header h2{
+.record-payment-header h2 {
     font-size:20px;
 }
 
-.record-payment-header p{
+.record-payment-header p {
     font-size:13px;
 }
 
-.record-payment-card-header{
+.record-payment-card-header {
     font-size:15px;
 }
 
-.record-payment-form-group label{
+.record-payment-form-group label {
     font-size:13px;
 }
 
 .record-payment-form-group input,
-.record-payment-form-group select{
+.record-payment-form-group select {
     font-size:13px;
     padding:10px;
 }
 
-.record-payment-submit-btn button{
+.record-payment-submit-btn button {
     font-size:14px;
     padding:12px;
 }
@@ -3549,6 +3549,135 @@
   font-weight:600;
 } 
 
+
+                              /* =========================================
+                                          Tablet Landscape (1024px)
+                              ========================================= */
+
+@media (max-width:1024px) {
+
+  .invoice-report-container {
+    width:70%;
+    padding:30px;
+    margin:25px auto;
+  }
+
+  .invoice-report-cards {
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+  }
+
+}
+
+
+                              /* =========================================
+                                          Tablet Portrait (768px)
+                              ========================================= */
+
+
+@media (max-width:768px) {
+
+  .invoice-report-container {
+    width:90%;
+    margin:15px;
+    padding:20px;
+  }
+
+  .invoice-report-header h2 {
+    font-size:24px;
+  }
+
+  .invoice-report-header p {
+    font-size:14px;
+  }
+
+  /*-- Dashboard Cards --*/
+  .invoice-report-cards {
+    grid-template-columns:1fr;
+    gap:15px;
+  }
+
+  .invoice-report-card {
+    padding:18px;
+  }
+
+  .invoice-report-card h3 {
+    font-size:22px;
+  }
+
+  .invoice-report-card p {
+    font-size:14px;
+  }
+
+  /*-- Search --*/
+  .invoice-report-top-bar {
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .invoice-report-top-bar input,
+  .invoice-report-top-bar select,
+  .invoice-report-top-bar button {
+    width:100%;
+  }
+
+  /*-- Table --*/
+  .invoice-report-table-container {
+    overflow-x:auto;
+  }
+
+  .invoice-report-table-container table {
+    min-width:850px;
+  }
+
+  .invoice-report-table-container th,
+  .invoice-report-table-container td {
+    padding:10px;
+    font-size:13px;
+    white-space:nowrap;
+  }
+
+  .InvoiceReport-paid,
+  .InvoiceReport-pending {
+    font-size:12px;
+    padding:4px 10px;
+  }
+
+}
+
+
+                              /* =========================================
+                                            Mobile (480px)
+                              ========================================= */
+
+@media (max-width:480px) {
+
+  .invoice-report-container {
+    padding:15px;
+  }
+
+  .invoice-report-header h2 {
+    font-size:20px;
+  }
+
+  .invoice-report-card h3 {
+    font-size:20px;
+  }
+
+  .invoice-report-card p {
+    font-size:13px;
+  }
+
+  .invoice-report-top-bar input,
+  .invoice-report-top-bar select,
+  .invoice-report-top-bar button {
+    font-size:13px;
+    padding:10px;
+  }
+
+}
+
+
 /* -------------------------------------------------------------------------------------------------------------------------------------- */
 
 
@@ -3685,6 +3814,150 @@
   background:#d7f5de;
 }
 
+
+                              /* =========================================
+                                          Tablet Landscape (1024px)
+                              ========================================= */
+
+@media (max-width:1024px) {
+
+  .student-report-container {
+    width:70%;
+    padding:30px;
+    margin:25px auto;
+  }
+
+  .student-report-header h2 {
+    font-size:26px;
+  }
+
+  .student-report-header p {
+    font-size:15px;
+  }
+
+  .student-report-cards {
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+  }
+
+}
+
+                              /* =========================================
+                                          Tablet Portrait (768px)
+                              ========================================= */
+
+@media (max-width:768px) {
+
+  .student-report-container {
+    width:90%;
+    margin:15px;
+    padding:20px;
+  }
+
+  .student-report-header {
+    margin-bottom:20px;
+  }
+
+  .student-report-header h2 {
+    font-size:22px;
+  }
+
+  .student-report-header p {
+    font-size:14px;
+    line-height:20px;
+  }
+
+  /*-- Summary Cards --*/
+  .student-report-cards {
+    grid-template-columns:1fr;
+    gap:15px;
+    margin-bottom:20px;
+  }
+
+  .student-report-card {
+    padding:18px;
+  }
+
+  .student-report-card h3 {
+    font-size:22px;
+  }
+
+  .student-report-card p {
+    font-size:14px;
+  }
+
+  /*-- Search --*/
+  .student-report-top-bar {
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .student-report-top-bar input,
+  .student-report-top-bar select,
+  .student-report-top-bar button {
+    width:100%;
+  }
+
+  .student-report-top-bar button {
+    border-radius:8px;
+  }
+
+  /*-- Table --*/
+  .student-report-table-container {
+    overflow-x:auto;
+  }
+
+  .student-report-table-container table {
+    min-width:850px;
+  }
+
+  .student-report-table-container th,
+  .student-report-table-container td {
+    padding:10px;
+    font-size:13px;
+    white-space:nowrap;
+  }
+
+}
+
+
+                              /* =========================================
+                                            Mobile (480px)
+                              ========================================= */
+
+
+@media (max-width:480px) {
+
+  .student-report-container {
+    padding:15px;
+  }
+
+  .student-report-header h2 {
+    font-size:20px;
+  }
+
+  .student-report-header p {
+    font-size:13px;
+  }
+
+  .student-report-card h3 {
+    font-size:20px;
+  }
+
+  .student-report-card p {
+    font-size:13px;
+  }
+
+  .student-report-top-bar input,
+  .student-report-top-bar select,
+  .student-report-top-bar button {
+    font-size:13px;
+    padding:10px;
+  }
+
+}
+
+
 /* ----------------------------------------------------------------------------------------------------------------------------------- */
 
                                 /* ==========================================
@@ -3761,7 +4034,7 @@
 }
 
 .user-form-group input,
-.user-form-group select{
+.user-form-group select {
   width:100%;
   padding:12px 15px;
   border:1px solid #cbd5e1;
@@ -3797,6 +4070,144 @@
 
 .add-user-submit-btn button:hover {
   background:#0c771a;
+}
+
+
+                              /* =========================================
+                                          Tablet Landscape (1024px)
+                              ========================================= */
+
+
+@media (max-width:1024px) {
+
+  .add-user-container {
+    width:70%;
+    padding:30px;
+    margin:25px auto;
+  }
+
+  .add-user-page-header h2 {
+    font-size:26px;
+  }
+
+  .add-user-page-header p {
+    font-size:15px;
+  }
+
+  .add-user-card-body {
+    gap:25px;
+  }
+
+}
+
+
+
+                              /* =========================================
+                                          Tablet Portrait (768px)
+                              ========================================= */
+
+
+@media (max-width:768px) {
+
+  .add-user-container {
+    width:100%;
+    margin:15px;
+    padding:20px;
+    border-radius:10px;
+  }
+
+  .add-user-page-header {
+    margin-bottom:20px;
+  }
+
+  .add-user-page-header h2 {
+    font-size:22px;
+  }
+
+  .add-user-page-header p {
+    font-size:14px;
+    line-height:20px;
+  }
+
+  /*-- Card --*/
+  .add-user-card-header {
+    font-size:16px;
+    padding:15px;
+  }
+
+  .add-user-card-body {
+    grid-template-columns:1fr;
+    gap:20px;
+    padding:15px;
+  }
+
+  /*-- Form --*/
+  .user-form-group {
+    margin-bottom:15px;
+  }
+
+  .user-form-group label {
+    font-size:14px;
+  }
+
+  .user-form-group input,
+  .user-form-group select {
+    font-size:13px;
+    padding:12px;
+  }
+
+  /*-- Button --*/
+  .add-user-submit-btn {
+    text-align:center;
+  }
+
+  .add-user-submit-btn button {
+    width:100%;
+    padding:12px;
+    font-size:14px;
+  }
+
+}
+
+
+
+                              /* =========================================
+                                            Mobile (480px)
+                              ========================================= */
+
+
+@media (max-width:480px) {
+
+  .add-user-container {
+    padding:15px;
+  }
+
+  .add-user-page-header h2 {
+    font-size:20px;
+  }
+
+  .add-user-page-header p {
+    font-size:13px;
+  }
+
+  .add-user-card-header {
+    font-size:15px;
+  }
+
+  .user-form-group label {
+    font-size:13px;
+  }
+
+  .user-form-group input,
+  .user-form-group select {
+    font-size:12px;
+    padding:10px;
+  }
+
+  .add-user-submit-btn button {
+    font-size:13px;
+  }
+
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------- */
@@ -3999,6 +4410,151 @@
   background:#af1616;
 }
 
+
+                              /* =========================================
+                                          Tablet Landscape (1024px)
+                              ========================================= */
+
+
+@media (max-width:1024px) {
+
+  .manage-users-container {
+    width:70%;
+    padding:30px;
+    margin:25px auto;
+  }
+
+  .manage-users-header h2 {
+    font-size:26px;
+  }
+
+  .manage-users-header p {
+    font-size:15px;
+  }
+
+  .manage-users-search input {
+    width:350px;
+  }
+
+}
+
+
+
+                              /* =========================================
+                                          Tablet Portrait (768px)
+                              ========================================= */
+
+
+@media (max-width:768px) {
+
+  .manage-users-container {
+    width:90%;
+    margin:15px;
+    padding:20px;
+    border-radius:10px;
+  }
+
+  .manage-users-header {
+    margin-bottom:20px;
+  }
+
+  .manage-users-header h2 {
+    font-size:22px;
+  }
+
+  .manage-users-header p {
+    font-size:14px;
+    line-height:20px;
+  }
+
+  /*-- Top Bar --*/
+  .manage-users-top-bar {
+    flex-direction:column;
+    gap:15px;
+  }
+
+  .manage-users-search {
+    flex-direction:column;
+    width:100%;
+    gap:12px;
+  }
+
+  .manage-users-search input {
+    width:100%;
+  }
+
+  .manage-users-search button,
+  .add-user-btn {
+    width:100%;
+    border-radius:8px;
+  }
+
+  /*-- Table --*/
+  .manage-users-table-container {
+    overflow-x:auto;
+  }
+
+  .manage-users-table-container table {
+    min-width:950px;
+  }
+
+  .manage-users-table-container th,
+  .manage-users-table-container td {
+    padding:10px;
+    font-size:13px;
+    white-space:nowrap;
+  }
+
+  /*-- Status & Role --*/
+  .manageUser-role-admin,
+  .manageUser-role-staff,
+  .manageUser-status-active {
+    font-size:12px;
+    padding:4px 10px;
+  }
+
+  /*-- Buttons --*/
+  .manageUser-view-btn,
+  .manageUser-edit-btn,
+  .manageUser-delete-btn {
+    display:block;
+    width:100%;
+    margin:4px 0;
+    font-size:12px;
+  }
+
+}
+
+
+                              /* =========================================
+                                            Mobile (480px)
+                              ========================================= */
+
+
+@media (max-width:480px){
+
+  .manage-users-container{
+    padding:15px;
+  }
+
+  .manage-users-header h2{
+    font-size:20px;
+  }
+
+  .manage-users-header p{
+    font-size:13px;
+  }
+
+  .manage-users-search input,
+  .manage-users-search button,
+  .add-user-btn{
+    font-size:13px;
+    padding:10px;
+  }
+
+}
+
+
 /* ---------------------------------------------------------------------------------------------------------------------------------------- */
 
                                   /* =================================
@@ -4113,6 +4669,139 @@
 .my-profile-submit-btn button:hover {
   background:#0e8b1e;
 }
+
+
+                              /* =========================================
+                                          Tablet Landscape (1024px)
+                              ========================================= */
+
+
+@media (max-width:1024px) {
+
+  .my-profile-container {
+    width:70%;
+    padding:30px;
+    margin:25px auto;
+  }
+
+  .my-profile-header h2 {
+    font-size:26px;
+  }
+
+  .my-profile-header p {
+    font-size:15px;
+  }
+
+  .my-profile-card-body {
+    gap:25px;
+  }
+
+}
+
+
+                              /* =========================================
+                                          Tablet Portrait (768px)
+                              ========================================= */
+
+@media (max-width:768px) {
+
+  .my-profile-container {
+    width:100%;
+    margin:15px;
+    padding:20px;
+    border-radius:10px;
+  }
+
+  .my-profile-header {
+    margin-bottom:20px;
+  }
+
+  .my-profile-header h2 {
+    font-size:22px;
+  }
+
+  .my-profile-header p {
+    font-size:14px;
+    line-height:20px;
+  }
+
+  /*-- Card --*/
+  .my-profile-card {
+    margin-bottom:20px;
+  }
+
+  .my-profile-card-header {
+    font-size:16px;
+    padding:15px;
+  }
+
+  .my-profile-card-body {
+    grid-template-columns:1fr;
+    gap:20px;
+    padding:15px;
+  }
+
+  /*-- Form --*/
+  .my-profile-form-group label {
+    font-size:14px;
+  }
+
+  .my-profile-form-group input {
+    padding:12px;
+    font-size:13px;
+  }
+
+  /*-- Button --*/
+  .my-profile-submit-btn {
+    text-align:center;
+  }
+
+  .my-profile-submit-btn button {
+    width:100%;
+    padding:12px;
+    font-size:14px;
+  }
+
+}
+
+
+                              /* =========================================
+                                            Mobile (480px)
+                              ========================================= */
+
+@media (max-width:480px) {
+
+  .my-profile-container {
+    padding:15px;
+  }
+
+  .my-profile-header h2 {
+    font-size:20px;
+  }
+
+  .my-profile-header p {
+    font-size:13px;
+  }
+
+  .my-profile-card-header {
+    font-size:15px;
+  }
+
+  .my-profile-form-group label {
+    font-size:13px;
+  }
+
+  .my-profile-form-group input { 
+    font-size:12px;
+    padding:10px;
+  }
+
+  .my-profile-submit-btn button {
+    font-size:13px;
+  }
+
+}
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -4230,6 +4919,143 @@
 .settings-submit-btn button:hover {
   background:#0e8b1e;
 }
+
+
+
+                              /* =========================================
+                                          Tablet Landscape (1024px)
+                              ========================================= */
+
+@media (max-width:1024px) {
+
+  .settings-container {
+    width:70%;
+    padding:30px;
+    margin:25px auto;
+  }
+
+  .settings-header h2 {
+    font-size:26px;
+  }
+
+  .settings-header p {
+    font-size:15px;
+  }
+
+  .settings-card-body {
+    gap:25px;
+  }
+
+}
+
+
+
+                              /* =========================================
+                                          Tablet Portrait (768px)
+                              ========================================= */
+
+@media (max-width:768px) {
+
+  .settings-container {
+    width:100%;
+    margin:15px;
+    padding:20px;
+    border-radius:10px;
+  }
+
+  .settings-header {
+    margin-bottom:20px;
+  }
+
+  .settings-header h2 {
+    font-size:22px;
+  }
+
+  .settings-header p {
+    font-size:14px;
+    line-height:20px;
+  }
+
+  /*-- Card --*/
+  .settings-card {
+    margin-bottom:20px;
+  }
+
+  .settings-card-header {
+    padding:15px;
+    font-size:16px;
+  }
+
+  .settings-card-body {
+    grid-template-columns:1fr;
+    gap:20px;
+    padding:15px;
+  }
+
+  /*-- Form --*/
+  .settings-form-group label {
+    font-size:14px;
+  }
+
+  .settings-form-group input,
+  .settings-form-group select {
+    padding:12px;
+    font-size:13px;
+  }
+
+  /*-- Button --*/
+  .settings-submit-btn {
+    text-align:center;
+  }
+
+  .settings-submit-btn button {
+    width:100%;
+    padding:12px;
+    font-size:14px;
+  }
+
+}
+
+
+
+                              /* =========================================
+                                            Mobile (480px)
+                              ========================================= */
+
+@media (max-width:480px) {
+
+  .settings-container {
+    padding:15px;
+  }
+
+  .settings-header h2 {
+    font-size:20px;
+  }
+
+  .settings-header p {
+    font-size:13px;
+  }
+
+  .settings-card-header {
+    font-size:15px;
+  }
+
+  .settings-form-group label {
+    font-size:13px;
+  }
+
+  .settings-form-group input,
+  .settings-form-group select {
+    padding:10px;
+    font-size:12px;
+  }
+
+  .settings-submit-btn button {
+    font-size:13px;
+  }
+
+}
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -4859,6 +5685,100 @@
 .close-modal-btn:hover {
   background:#bb2d3b;
 }
+
+
+                                      /* =========================================
+                                                  Tablet Landscape (1024px)
+                                      ========================================= */
+
+
+@media (max-width:1024px) {
+
+  .paymentDetails-modal-content {
+    width:70%;
+    margin:30px auto;
+  }
+
+}
+
+
+                                      /* =========================================
+                                                Tablet Portrait (768px)
+                                      ========================================= */
+
+@media (max-width:768px) {
+
+  .paymentDetails-modal {
+    padding:15px;
+    overflow-y:auto;
+  }
+
+  .paymentDetails-modal-content {
+    width:100%;
+    margin:20px auto;
+    border-radius:10px;
+  }
+
+  .paymentDetails-modal-header {
+    padding:15px 45px 15px 15px;
+  }
+
+  .paymentDetails-modal-header h2 {
+    font-size:20px;
+  }
+
+  .pay-view-close-btn {
+    right:15px;
+    font-size:24px;
+  }
+
+  .paymentDetails-modal-body {
+    padding:15px;
+  }
+
+  .paymentDetails-view-table td {
+    padding:10px;
+    font-size:13px;
+    word-break:break-word;
+  }
+
+  .paymentDetails-modal-footer {
+    flex-direction:column;
+    gap:10px;
+    padding:15px;
+  }
+
+  .print-btn,
+  .close-modal-btn {
+    width:100%;
+    font-size:14px;
+    padding:12px;
+  }
+
+}
+
+
+                                      /* =========================================
+                                                      Mobile (480px)
+                                      ========================================= */
+
+@media (max-width:480px) {
+
+  .paymentDetails-modal-header h2 {
+    font-size:18px;
+  }
+
+  .paymentDetails-view-table td {
+    padding:8px;
+    font-size:12px;
+  }
+
+  .pay-view-close-btn {
+    font-size:22px;
+  }
+
+}
+
 
 /* ---------------------------------------------------------------------------------------------------------------------------------------- */
 
