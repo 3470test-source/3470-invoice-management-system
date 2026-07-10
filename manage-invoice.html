@@ -599,5 +599,101 @@ overlay.addEventListener("click", () => {
 </script>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    document.getElementById("downloadCsvBtn").addEventListener("click", downloadCSV);
+
+async function downloadCSV() {
+
+    try {
+
+        const response = await fetch("http://localhost:3000/invoices");
+        const invoices = await response.json();
+
+        if (invoices.length === 0) {
+            alert("No invoice data found.");
+            return;
+        }
+
+        // CSV Header
+        let csv =
+`Invoice No,Student Name,Course,Course Fee,Paid Amount,Pending Amount,Invoice Date,Due Date,Status\n`;
+
+        invoices.forEach(invoice => {
+
+    const courseFee = Number(invoice.course_fee);
+    const pendingAmount = Number(invoice.pending_amount);
+    const paidAmount = courseFee - pendingAmount;
+
+    const status =
+        pendingAmount === 0
+        ? "Paid"
+        : "Pending";
+
+    csv += `"${invoice.invoice_no}",`;
+    csv += `"${invoice.student_name}",`;
+    csv += `"${invoice.course}",`;
+    csv += `"${courseFee}",`;
+    csv += `"${paidAmount}",`;
+    csv += `"${pendingAmount}",`;
+    csv += `"${formatDate(invoice.invoice_date)}",`;
+    csv += `"${formatDate(invoice.due_date)}",`;
+    csv += `"${status}"\n`;
+
+});
+
+        // Download CSV
+        const blob = new Blob([csv], {
+            type: "text/csv;charset=utf-8;"
+        });
+
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "Invoice_Report.csv";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        window.URL.revokeObjectURL(url);
+
+    }
+    catch (err) {
+
+        console.error(err);
+        alert("Failed to download CSV.");
+
+    }
+
+}
+</script>
+
+
+
+
 </body>
 </html>    
