@@ -14,6 +14,11 @@
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script> -->
+
+    
+
     <style>
         
     * {
@@ -600,26 +605,8 @@ overlay.addEventListener("click", () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>
+<!-- Download excel format  -->
+<!-- <script>
     document.getElementById("downloadCsvBtn").addEventListener("click", downloadCSV);
 
 async function downloadCSV() {
@@ -634,34 +621,39 @@ async function downloadCSV() {
             return;
         }
 
-        // CSV Header
+        /*-- CSV Header --*/
         let csv =
-`Invoice No,Student Name,Course,Course Fee,Paid Amount,Pending Amount,Invoice Date,Due Date,Status\n`;
+                `Invoice No,Student Name,Mobile No,Course,Course Fee,Discount,Paid Amount,Pending Amount,Invoice Date,Due Date,Status\n`;
+
+                console.log(invoices);
 
         invoices.forEach(invoice => {
 
-    const courseFee = Number(invoice.course_fee);
-    const pendingAmount = Number(invoice.pending_amount);
-    const paidAmount = courseFee - pendingAmount;
+            const courseFee = Number(invoice.course_fee);
+            const discount = Number(invoice.discount || 0);
+            const pendingAmount = Number(invoice.pending_amount);
+            const paidAmount = courseFee - pendingAmount;
 
-    const status =
-        pendingAmount === 0
-        ? "Paid"
-        : "Pending";
+        const status =
+            pendingAmount === 0
+                ? "Paid"
+                : "Pending";
 
-    csv += `"${invoice.invoice_no}",`;
-    csv += `"${invoice.student_name}",`;
-    csv += `"${invoice.course}",`;
-    csv += `"${courseFee}",`;
-    csv += `"${paidAmount}",`;
-    csv += `"${pendingAmount}",`;
-    csv += `"${formatDate(invoice.invoice_date)}",`;
-    csv += `"${formatDate(invoice.due_date)}",`;
-    csv += `"${status}"\n`;
+            csv += `"${invoice.invoice_no}",`;
+            csv += `"${invoice.student_name}",`;
+            csv += `"${invoice.mobile}",`;
+            csv += `"${invoice.course}",`;
+            csv += `"${courseFee}",`;
+            csv += `"${discount}",`;
+            csv += `"${paidAmount}",`;
+            csv += `"${pendingAmount}",`;
+            csv += `"${formatDate(invoice.invoice_date)}",`;
+            csv += `"${formatDate(invoice.due_date)}",`;
+            csv += `"${status}"\n`;
 
-});
+    });
 
-        // Download CSV
+        /*-- Download CSV --*/
         const blob = new Blob([csv], {
             type: "text/csv;charset=utf-8;"
         });
@@ -686,6 +678,485 @@ async function downloadCSV() {
 
         console.error(err);
         alert("Failed to download CSV.");
+
+    }
+
+}
+</script> -->
+
+
+
+
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+
+
+<script>
+    document.getElementById("downloadCsvBtn").addEventListener("click", downloadExcel);
+
+async function downloadExcel() {
+
+    try {
+
+        const response = await fetch("http://localhost:3000/invoices");
+        const invoices = await response.json();
+
+        if (invoices.length === 0) {
+            alert("No invoice data found.");
+            return;
+        }
+
+        /*-- CSV Header --*/
+       const ws = XLSX.utils.aoa_to_sheet([]);
+       
+
+       XLSX.utils.sheet_add_aoa(ws,[
+
+["3470 HEALTHCARE"],
+
+["Invoice Management System"],
+
+["Invoice Report"],
+
+[],
+
+["Generated Date :",formatDate(new Date())],
+
+["Generated Time :",new Date().toLocaleTimeString()],
+
+[]
+
+],{
+
+origin:"A1"
+
+});
+
+
+
+
+                console.log(invoices);
+
+        invoices.forEach(invoice => {
+
+         
+
+            const data = invoices.map(invoice=>{
+
+const courseFee = Number(invoice.course_fee);
+
+const discount = Number(invoice.discount || 0);
+
+const pending = Number(invoice.pending_amount);
+
+const paid = courseFee-pending;
+
+return{
+
+"Invoice No":invoice.invoice_no,
+
+"Student Name":invoice.student_name,
+
+"Mobile":invoice.mobile,
+
+"Course":invoice.course,
+
+"Course Fee":courseFee,
+
+"Discount":discount,
+
+"Paid Amount":paid,
+
+"Pending Amount":pending,
+
+"Invoice Date":formatDate(invoice.invoice_date),
+
+"Due Date":formatDate(invoice.due_date),
+
+"Status":
+
+pending===0
+
+?
+
+"Paid"
+
+:
+
+"Pending"
+
+};
+
+});
+
+
+
+
+XLSX.utils.sheet_add_json(
+
+ws,
+
+data,
+
+{
+
+origin:"A8",
+
+skipHeader:false
+
+}
+
+);
+
+
+
+
+
+ws["!merges"]=[
+
+{
+
+s:{r:0,c:0},
+
+e:{r:0,c:10}
+
+},
+
+{
+
+s:{r:1,c:0},
+
+e:{r:1,c:10}
+
+},
+
+{
+
+s:{r:2,c:0},
+
+e:{r:2,c:10}
+
+}
+
+];
+
+
+
+
+
+
+
+ws["!cols"]=[
+
+{wch:18},
+
+{wch:25},
+
+{wch:18},
+
+{wch:28},
+
+{wch:15},
+
+{wch:12},
+
+{wch:15},
+
+{wch:15},
+
+{wch:15},
+
+{wch:15},
+
+{wch:12}
+
+];
+
+
+
+const wb = XLSX.utils.book_new();
+
+
+
+XLSX.utils.book_append_sheet(
+
+wb,
+
+ws,
+
+"Invoice Report"
+
+);
+
+
+
+XLSX.writeFile(
+
+wb,
+
+"Invoice_Report.xlsx"
+
+);
+
+
+
+
+
+
+    });
+
+
+        
+
+        
+    }
+    catch (err) {
+
+        console.error(err);
+        alert("Failed to download CSV.");
+
+    }
+
+}
+</script> -->
+
+
+
+
+
+
+
+<!-- SheetJS -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx-js-style/dist/xlsx.bundle.js"></script>
+
+
+<script>
+document.getElementById("downloadCsvBtn").addEventListener("click", downloadExcel);
+
+async function downloadExcel() {
+
+    try {
+
+        const response = await fetch("http://localhost:3000/invoices");
+        const invoices = await response.json();
+
+        if (invoices.length === 0) {
+            alert("No invoice data found.");
+            return;
+        }
+
+        // Create Worksheet
+        const ws = XLSX.utils.aoa_to_sheet([]);
+
+        // Report Header
+        XLSX.utils.sheet_add_aoa(ws, [
+
+            ["3470 HEALTHCARE PVT LTD"],
+            ["Invoice Management System"],
+            ["Invoice Report"],
+            [],
+            ["Generated Date :", formatDate(new Date())],
+            ["Generated Time :", new Date().toLocaleTimeString()],
+            []
+
+
+            
+        ], {
+            origin: "A1"
+        });
+
+
+
+        console.log(ws["A1"]);
+        
+
+
+        
+
+
+
+
+ws["A1"].s = {
+    font: {
+        bold: true,
+        sz: 20,
+        color: { rgb: "FFFFFF" }
+    },
+    fill: {
+        patternType: "solid",
+        fgColor: { rgb: "0C4FBB" }
+    },
+    alignment: {
+        horizontal: "center",
+        vertical: "center"
+    }
+};
+
+ws["A2"].s = {
+    font: {
+        bold: true,
+        sz: 16,
+        color: { rgb: "FFFFFF" }
+    },
+    fill: {
+        patternType: "solid",
+        fgColor: { rgb: "15944A" }
+    },
+    alignment: {
+        horizontal: "center",
+        vertical: "center"
+    }
+};
+
+ws["A3"].s = {
+    font: {
+        bold: true,
+        sz: 14,
+        color: { rgb: "FFFFFF" }
+    },
+    fill: {
+        patternType: "solid",
+        fgColor: { rgb: "2563EB" }
+    },
+    alignment: {
+        horizontal: "center",
+        vertical: "center"
+    }
+};
+
+
+
+
+
+
+ws["A5"].s = {
+    font: {
+        bold: true,
+        sz: 14,
+        color: { rgb: "FFFFFF" }
+    },
+    fill: {
+        patternType: "solid",
+        fgColor: { rgb: "2563EB" }
+    }
+};
+
+ws["A6"].s = {
+    font: {
+        bold: true,
+        sz: 14,
+        color: { rgb: "FFFFFF" }
+    },
+    fill: {
+        patternType: "solid",
+        fgColor: { rgb: "2563EB" }
+    }
+};
+
+
+
+
+
+        // Invoice Data
+        const data = invoices.map(invoice => {
+
+            const courseFee = Number(invoice.course_fee);
+            const discount = Number(invoice.discount || 0);
+            const pending = Number(invoice.pending_amount);
+            const paid = Number(invoice.paid_amount || (courseFee - pending));
+
+            return {
+
+                "Invoice No": invoice.invoice_no,
+                "Student Name": invoice.student_name,
+                "Mobile": invoice.mobile || "",
+                "Course": invoice.course,
+                "Course Fee": courseFee,
+                "Discount": discount,
+                "Paid Amount": paid,
+                "Pending Amount": pending,
+                "Invoice Date": formatDate(invoice.invoice_date),
+                "Due Date": formatDate(invoice.due_date),
+                "Status": pending === 0 ? "Paid" : "Pending"
+
+            };
+
+        });
+
+        // Add Data starting from Row 8
+        XLSX.utils.sheet_add_json(ws, data, {
+
+            origin: "A8",
+            skipHeader: false
+
+        });
+
+        // Merge Company Title
+        ws["!merges"] = [
+
+            {
+                s: { r: 0, c: 0 },
+                e: { r: 0, c: 10 }
+            },
+
+            {
+                s: { r: 1, c: 0 },
+                e: { r: 1, c: 10 }
+            },
+
+            {
+                s: { r: 2, c: 0 },
+                e: { r: 2, c: 10 }
+            }
+
+        ];
+
+        // Column Width
+        ws["!cols"] = [
+
+            { wch: 18 }, // Invoice No
+            { wch: 25 }, // Student Name
+            { wch: 18 }, // Mobile
+            { wch: 35 }, // Course
+            { wch: 15 }, // Course Fee
+            { wch: 12 }, // Discount
+            { wch: 15 }, // Paid
+            { wch: 15 }, // Pending
+            { wch: 15 }, // Invoice Date
+            { wch: 15 }, // Due Date
+            { wch: 12 }  // Status
+
+        ];
+
+        // Create Workbook
+        const wb = XLSX.utils.book_new();
+
+        // Append Sheet
+        XLSX.utils.book_append_sheet(
+
+            wb,
+            ws,
+            "Invoice Report"
+
+        );
+
+        // Download Excel
+        XLSX.writeFile(
+
+            wb,
+            "Invoice_Report.xlsx"
+
+        );
+
+    }
+    catch (err) {
+
+        console.error(err);
+
+        alert("Failed to download Excel.");
 
     }
 

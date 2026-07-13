@@ -388,19 +388,42 @@ app.get("/next-invoice-number", (req, res) => {
 
 
 /*==== Get All invoice ====*/
+// app.get("/invoices", (req, res) => {
+
+//     db.query(
+//         "SELECT * FROM invoices ORDER BY id DESC",
+//         (err, result) => {
+
+//             if(err){
+//                 return res.status(500).json(err);
+//             }
+
+//             res.json(result);
+//         }
+//     );
+
+// });
+
 app.get("/invoices", (req, res) => {
 
-    db.query(
-        "SELECT * FROM invoices ORDER BY id DESC",
-        (err, result) => {
+    const sql = `
+        SELECT
+            i.*,
+            s.mobile
+        FROM invoices i
+        LEFT JOIN students s
+            ON i.student_name = s.student_name
+    `;
 
-            if(err){
-                return res.status(500).json(err);
-            }
+    db.query(sql, (err, result) => {
 
-            res.json(result);
+        if (err) {
+            return res.status(500).json(err);
         }
-    );
+
+        res.json(result);
+
+    });
 
 });
 
