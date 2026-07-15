@@ -887,61 +887,64 @@ async function downloadExcel() {
                 }
 
 
-        /*-- Status Colour --*/
+        /*-- Status Colour --*/        
         for (let i = 9; i <= data.length + 8; i++) {
 
             const statusCell = "K" + i;
 
                 if (ws[statusCell]) {
 
-                    if (ws[statusCell].v === "Paid") {
+                    const bgColor =
+                        ws[statusCell].v === "Paid"
+                            ? "28A745"      // Green
+                            : "DC3545";     // Red
 
                         ws[statusCell].s = {
 
                             font: {
                                 bold: true,
-                                sz:12,
+                                sz: 12,
                                 color: { rgb: "FFFFFF" }
                         },
 
                             fill: {
                                 patternType: "solid",
-                                fgColor: { rgb: "28A745" }   // Green
+                                fgColor: { rgb: bgColor }
                         },
 
                             alignment: {
                                 horizontal: "center",
                                 vertical: "center"
-                        }
-
-                    };
-
-                    } else {
-
-                        ws[statusCell].s = {
-
-                            font: {
-                                bold: true,
-                                sz:12,
-                                color: { rgb: "FFFFFF" }
                         },
 
-                            fill: {
-                                patternType: "solid",
-                                fgColor: { rgb: "DC3545" }   // Red
+                        border: {
+
+                            top: {
+                                style: "thin",
+                                color: { rgb: "000000" }
                         },
 
-                            alignment: {
-                                horizontal: "center",
-                                vertical: "center"
+                            bottom: {
+                                style: "thin",
+                                color: { rgb: "000000" }
+                        },
+
+                            left: {
+                                style: "thin",
+                                color: { rgb: "000000" }
+                        },
+
+                            right: {
+                                style: "thin",
+                                color: { rgb: "000000" }
                         }
 
-                    };
+                    }
 
-                }
+                };
 
             }
- 
+
         }
 
 
