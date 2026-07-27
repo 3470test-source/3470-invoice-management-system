@@ -206,6 +206,43 @@ app.get("/students", (req, res) => {
 
 
 
+/*==== Get One Student ====*/
+app.get("/student/:id",(req,res)=>{
+
+    const id=req.params.id;
+
+    db.query(
+        "SELECT * FROM students WHERE id=?",
+        [id],
+
+        (err,result)=>{
+
+            if(err){
+
+                return res.status(500).json(err);
+
+            }
+
+            if(result.length==0){
+
+                return res.status(404).json({
+
+                    message:"Student not found"
+
+                });
+
+            }
+
+            res.json(result[0]);
+
+        }
+
+    );
+
+});
+
+
+
 /*==== Delete students ====*/
 app.delete("/delete-student/:id",(req,res)=>{
 
@@ -230,28 +267,51 @@ app.delete("/delete-student/:id",(req,res)=>{
 
 
 /*==== Edit & Updates Student ====*/
-app.put("/update-student/:id",(req,res)=>{
+app.put("/update-student/:id", (req, res) => {
 
     const id = req.params.id;
 
-    const { student_name } = req.body;
+    const {
+        student_name, email, mobile, course, address, city, country, postcode
+
+    } = req.body;
+
+    const sql = `
+        UPDATE students
+        SET
+            student_name = ?, email = ?, mobile = ?, course = ?, address = ?, city = ?, country = ?, postcode = ?
+        WHERE id = ?
+    `;
 
     db.query(
-        "UPDATE students SET student_name=? WHERE id=?",
-        [student_name,id],
-        (err,result)=>{
 
-            if(err){
-                return res.status(500).json(err);
+        sql,
+
+        [
+            student_name, email, mobile, course, address, city, country, postcode, id
+        ],
+
+        (err, result) => {
+
+            if (err) {
+
+                console.log(err);
+
+                return res.status(500).json({
+                    message: "Student update failed."
+                });
+
             }
 
             res.json({
-                message:"✏️ Student updated successfully."
+                message: "✏️ Student updated successfully."
             });
-        }
-    );
-});
 
+        }
+
+    );
+
+});
 
 
 

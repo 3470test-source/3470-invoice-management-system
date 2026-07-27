@@ -198,6 +198,17 @@
 
                 <div class="manage-invoice-search">
                     <input type="text" id="searchInvoice" placeholder="Search Student or Invoice No" onkeyup="searchInvoice()">
+
+                    <select id="statusFilter" onchange="searchInvoice()">
+                        <option value="">-- All Status --</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+
+                    <select id="courseFilter" onchange="searchInvoice()">
+                        <option value="">All Courses</option>
+                    </select>
+
                     <button onclick="searchInvoice()">Search</button>
                 </div>
 
@@ -476,6 +487,32 @@ function setupPagination(invoices){
 
 }
 
+
+/*--- Course Filter - JS ---*/
+async function loadCourseFilter(){
+
+    const response = await fetch("http://localhost:3000/courses");
+
+    const courses = await response.json();
+
+    const select = document.getElementById("courseFilter");
+
+    select.innerHTML = '<option value="">-- All Courses --</option>';
+
+    courses.forEach(course=>{
+
+        select.innerHTML += `
+            <option value="${course.course_name}">
+                ${course.course_name}
+            </option>
+        `;
+
+    });
+
+}
+
+loadCourseFilter();
+
 loadInvoices();
 
 </script>
@@ -484,31 +521,41 @@ loadInvoices();
 
 <!-- Search Field - Js -->
 <script>
-    function searchInvoice(){
+function searchInvoice() {
 
-    const keyword = document.getElementById("searchInvoice").value.trim().toLowerCase();
+    const keyword = document.getElementById("searchInvoice").value.toLowerCase().trim();
 
-    /*--- Empty search box → show all invoices ---*/
-    if(keyword === ""){
+    const status = document.getElementById("statusFilter").value;
 
-        displayInvoices(allInvoices);
+    const course = document.getElementById("courseFilter").value;
 
-        return;
-    }
+    const filtered = allInvoices.filter(invoice => {
 
-    const filtered = allInvoices.filter(invoice =>
+        /*-- Search --*/
+        const matchSearch =
+            invoice.invoice_no.toLowerCase().includes(keyword) ||
+            invoice.student_name.toLowerCase().includes(keyword);
 
-        invoice.invoice_no
-        .toLowerCase()
-        .includes(keyword)
+        /*-- Status --*/
+        const invoiceStatus =
+            Number(invoice.pending_amount) === 0
+                ? "Paid"
+                : "Pending";
 
-        ||
+        const matchStatus =
+            status === "" ||
+            invoiceStatus === status;
 
-        invoice.student_name
-        .toLowerCase()
-        .includes(keyword)
+        /*-- Course --*/
+        const matchCourse =
+            course === "" ||
+            invoice.course === course;
 
-    );
+        return matchSearch && matchStatus && matchCourse;
+
+    });
+
+    currentPage = 1;
 
     displayInvoices(filtered);
 

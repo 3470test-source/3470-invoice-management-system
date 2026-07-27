@@ -189,7 +189,7 @@
             <div class="invoice-dashboard-cards">
 
                 <!-- Total Invoice -->
-                <div class="InvoiceDashboard-card orange">
+                <div class="InvoiceDashboard-card orange" onclick="goToPage('manage-invoice.html')">
                     <div>
                         <h2 id="totalInvoices">0</h2>
                         <p>Total Invoices</p>
@@ -198,7 +198,7 @@
                 </div>
 
                 <!-- Paid Invoice -->
-                <div class="InvoiceDashboard-card blue">
+                <div class="InvoiceDashboard-card blue" onclick="goToPage('manage-invoice.html?status=Paid')">
                     <div>
                         <h2 id="paidInvoices">0</h2>
                         <p>Paid Invoices</p>
@@ -207,7 +207,7 @@
                 </div>
 
                 <!-- pending Invoice   -->
-                <div class="InvoiceDashboard-card red">
+                <div class="InvoiceDashboard-card red" onclick="goToPage('manage-invoice.html?status=Pending')">
                     <div>
                         <h2 id="pendingInvoices">0</h2>
                         <p>Pending Invoices</p>
@@ -216,7 +216,7 @@
                 </div>
 
                 <!-- Total Students -->
-                <div class="InvoiceDashboard-card green">
+                <div class="InvoiceDashboard-card green" onclick="goToPage('manage-students.html')">
                     <div>
                         <h2 id="totalStudents">0</h2>
                         <p>Total Students</p>
@@ -225,7 +225,7 @@
                 </div>
 
                 <!-- Total Courses -->
-                <div class="InvoiceDashboard-card purple">
+                <div class="InvoiceDashboard-card purple" onclick="goToPage('manage-courses.html')">
                     <div>
                         <h2 id="totalCourses">0</h2>
                         <p>Total Courses</p>
@@ -234,7 +234,7 @@
                 </div>
 
                 <!-- Amount Received -->
-                <div class="InvoiceDashboard-card blue-re">
+                <div class="InvoiceDashboard-card blue-re" onclick="goToPage('payment-history.html')">
                     <div>
                         <h2 id="amountReceived">₹0</h2>
                         <p>Amount Received</p>
@@ -243,7 +243,7 @@
                 </div>
 
                 <!-- Pending Amount -->
-                <div class="InvoiceDashboard-card blue-pe">
+                <div class="InvoiceDashboard-card blue-pe" onclick="goToPage('manage-invoice.html?status=Pending')">
                     <div>
                         <h2 id="pendingAmount">₹0</h2>
                         <p>Pending Amount</p>
@@ -322,6 +322,12 @@ function logout(){
 }
 </script>
 
+
+<!-- Dashboard Card - js  -->
+<script>
+    function goToPage(page){window.location.href = page;
+}
+</script>
 
 
 <!-- Dashboard Page - Js -->

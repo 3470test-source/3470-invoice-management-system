@@ -845,10 +845,12 @@
   color:white;
   box-shadow:0 3px 10px rgba(0,0,0,0.1);
   transition:0.3s;
+  cursor:pointer;
 }
 
 .InvoiceDashboard-card:hover {
-  transform:translateY(-4px);
+  transform:translateY(-6px);
+  box-shadow:0 10px 25px rgba(0,0,0,.18);
 }
 
 .InvoiceDashboard-card h2 {
@@ -1440,7 +1442,15 @@
   font-size: 12px;
 }
 
-.manage-student-search input:focus {
+.manage-student-search select {
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  font-size: 12px;
+}
+
+.manage-student-search input:focus,
+.manage-student-search select:focus {
   outline:none;
   border-color:#2563eb;
   box-shadow:0 0 0 3px rgba(37,99,235,0.15);
@@ -2472,7 +2482,15 @@
   font-size: 12px;
 }
 
-.manage-invoice-search input:focus {
+.manage-invoice-search select {
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  font-size: 12px;
+}
+
+.manage-invoice-search input:focus,
+.manage-invoice-search select:focus {
   outline:none;
   border-color:#2563eb;
   box-shadow:0 0 0 3px rgba(37,99,235,0.15);
@@ -5779,8 +5797,133 @@
 }
 
 
-
-
-
 /* ---------------------------------------------------------------------------------------------------------------------------------------- */
+
+                /* ================================================
+                          Edit & update Student details 
+                ================================================ */
+
+.edit-modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:9999;
+  overflow:auto;
+}
+
+.edit-modal-content {
+  width:50%;
+  max-width:800px;
+  margin:40px auto;
+  background:#e7f3ea;
+  border-radius:10px;
+  padding:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.edit-modal-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.edit-modal-header h2 {
+  margin:0;
+  font-size:28px;
+  color: #275dad;
+}
+
+.close-btn {
+  font-size:30px;
+  cursor:pointer;
+  color:#666;
+  font-weight:700;
+}
+
+.close-btn:hover {
+  color:#e53935;
+}
+
+.edit-form-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.full-width {
+  grid-column:1 / -1;
+}
+
+.edit-form-grid label {
+  display:block;
+  margin-bottom:6px;
+  font-weight:600;
+  color: #0f7c4f;
+  letter-spacing: 0.5px;
+}
+
+.edit-form-grid input,
+.edit-form-grid select,
+.edit-form-grid textarea {
+  width:100%;
+  padding:10px 12px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  font-size:15px;
+}
+
+.edit-form-grid textarea {
+  height:80px;
+  resize:vertical;
+}
+
+.edit-modal-footer {
+  margin-top:25px;
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}
+
+.btn-update {
+  background:#0d6efd;
+  color:#fff;
+  border:none;
+  padding:10px 20px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.btn-update:hover {
+  background:#077531;
+}
+
+.btn-cancel {
+  background:#6c757d;
+  color:#fff;
+  border:none;
+  padding:10px 20px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.btn-cancel:hover {
+  background:#ca0b04;
+}
+
+
+@media(max-width:768px){
+
+    .edit-form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .edit-modal-content{
+        margin:20px;
+    }
+
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------------- */
 

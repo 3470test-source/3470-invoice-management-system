@@ -196,6 +196,11 @@
             <!-- Search Box -->
             <div class="manage-student-search">
                 <input type="text" id="searchStudent" placeholder="Search by Name, Email or Mobile" onkeyup="searchStudent()">
+
+                <select id="courseFilter" onchange="searchStudent()">
+                    <option value="">-- All Courses --</option>
+                </select>
+
                 <button onclick="searchStudent()">Search</button>
             </div>
 
@@ -229,6 +234,72 @@
     </div>
 
 </div>    
+
+
+            <!-- Edit Student Details popup Box --> 
+            <div id="editStudentModal" class="edit-modal">
+
+                <div class="edit-modal-content">
+
+                    <div class="edit-modal-header">
+                        <h2>Edit Student</h2>
+                        <span class="close-btn" onclick="closeModal()">&times;</span>
+                    </div>
+
+                    <input type="hidden" id="editId">
+
+                        <div class="edit-form-grid">
+
+                            <div>
+                                <label>Student Name</label>
+                                <input type="text" id="editStudentName">
+                            </div>
+
+                            <div>
+                                <label>Email</label>
+                                <input type="email" id="editEmail">
+                            </div>
+
+                            <div>
+                                <label>Mobile</label>
+                                <input type="text" id="editMobile">
+                            </div>
+
+                            <div>
+                                <label>Course</label>
+                                <select id="editCourse"></select>
+                            </div>
+
+                            <div class="full-width">
+                                <label>Address</label>
+                                <textarea id="editAddress"></textarea>
+                            </div>
+
+                            <div>
+                                <label>City</label>
+                                <input type="text" id="editCity">
+                            </div>
+
+                            <div>
+                                <label>Country</label>
+                                <input type="text" id="editCountry">
+                            </div>
+
+                            <div>
+                                <label>Postcode</label>
+                                <input type="text" id="editPostcode">
+                            </div>
+
+                        </div>
+
+                            <div class="edit-modal-footer">
+                                <button class="btn-update" onclick="updateStudent()">Update Student</button>
+                                <button class="btn-cancel" type="button" onclick="closeModal()">Cancel</button>
+                            </div>
+
+                    </div>
+
+                </div>
 
 
 <!-- Dashboard sidebar dropdown - JS -->
@@ -359,7 +430,7 @@ function displayStudents(students){
 
             <td>
                 <button class="manage-std-edit-btn" onclick="editStudent(${student.id})">Edit</button>
-                <button class="manage-std-delete-btn"  onclick="deleteStudent(${student.id})">Delete</button>
+                <button class="manage-std-delete-btn" onclick="deleteStudent(${student.id})">Delete</button>
             </td>
 
         </tr>
@@ -444,41 +515,82 @@ function setupPagination(students){
 /*--- Search Field - JS ---*/
 function searchStudent(){
 
-    const keyword =
-    document.getElementById("searchStudent")
-    .value
-    .toLowerCase();
+    const keyword = document
+        .getElementById("searchStudent")
+        .value
+        .toLowerCase();
 
-    /*-- Show all records if search box is empty --*/
-    if(keyword === ""){
+    const course = document
+        .getElementById("courseFilter")
+        .value
+        .toLowerCase();
 
-        displayStudents(allStudents);
+    const filteredStudents = allStudents.filter(student => {
 
-        return;
-    }
+        const matchSearch =
 
-    const filteredStudents =
-    allStudents.filter(student =>
+            student.student_name.toLowerCase().includes(keyword)
 
-        student.student_name
-        .toLowerCase()
-        .includes(keyword)
+            ||
 
-        ||
+            student.email.toLowerCase().includes(keyword)
 
-        student.email
-        .toLowerCase()
-        .includes(keyword)
+            ||
 
-        ||
+            student.mobile.toString().includes(keyword);
 
-        student.mobile
-        .toString()
-        .includes(keyword)
-    );
+        const matchCourse =
+
+            course === ""
+
+            ||
+
+            student.course.toLowerCase() === course;
+
+        return matchSearch && matchCourse;
+
+    });
+
+    currentPage = 1;
 
     displayStudents(filteredStudents);
+
 }
+
+
+/*--- Course Filter - JS ---*/
+async function loadCourseFilter() {
+
+    try {
+
+        const response = await fetch("http://localhost:3000/courses");
+
+        const courses = await response.json();
+
+        const select = document.getElementById("courseFilter");
+
+        select.innerHTML = '<option value="">-- All Courses --</option>';
+
+        courses.forEach(course => {
+
+            select.innerHTML += `
+                <option value="${course.course_name}">
+                    ${course.course_name}
+                </option>
+            `;
+
+        });
+
+    } catch (err) {
+
+        console.error(err);
+
+    }
+
+}
+
+
+loadCourseFilter();
 
 loadStudents();
 
@@ -512,34 +624,127 @@ loadStudents();
 
 <!-- Edit & Update Student -->
 <script>
-    async function editStudent(id){
+async function editStudent(id){
 
-    const studentName =
-    prompt("Enter New Student Name");
+    const response=await fetch(
 
-    if(!studentName) return;
+        `http://localhost:3000/student/${id}`
+
+    );
+
+    if(!response.ok){
+
+        alert("Student not found");
+
+        return;
+
+    }
+
+    const student=await response.json();
+
+    document.getElementById("editId").value=student.id;
+    document.getElementById("editStudentName").value=student.student_name;
+    document.getElementById("editEmail").value=student.email;
+    document.getElementById("editMobile").value=student.mobile;
+    document.getElementById("editAddress").value=student.address;
+    document.getElementById("editCity").value=student.city;
+    document.getElementById("editCountry").value=student.country;
+    document.getElementById("editPostcode").value=student.postcode;
+    await loadCourseDropdown(student.course);
+    document.getElementById("editStudentModal").style.display="block";
+
+}
+
+
+/*--- Edit course dropdown field ---*/
+async function loadCourseDropdown(selectedCourse){
 
     const response = await fetch(
+
+        "http://localhost:3000/courses"
+
+    );
+
+    const courses = await response.json();
+
+    const dropdown = document.getElementById("editCourse");
+
+    dropdown.innerHTML="";
+
+    courses.forEach(course=>{
+
+        dropdown.innerHTML +=`
+
+        <option
+
+            value="${course.course_name}"
+
+            ${course.course_name===selectedCourse?"selected":""}
+
+        >
+
+            ${course.course_name}
+
+        </option>
+
+        `;
+
+    });
+
+}
+
+
+/*--- Update Student ---*/
+async function updateStudent(){
+
+    const id = document.getElementById("editId").value;
+
+    const response = await fetch(
+
         `http://localhost:3000/update-student/${id}`,
+
         {
+
             method:"PUT",
 
             headers:{
+
                 "Content-Type":"application/json"
+
             },
 
             body:JSON.stringify({
-                student_name:studentName
+
+                student_name:document.getElementById("editStudentName").value,
+                email:document.getElementById("editEmail").value,
+                mobile:document.getElementById("editMobile").value,
+                course:document.getElementById("editCourse").value,
+                address:document.getElementById("editAddress").value,
+                city:document.getElementById("editCity").value,
+                country:document.getElementById("editCountry").value,
+                postcode:document.getElementById("editPostcode").value
+
             })
+
         }
+
     );
 
     const result = await response.json();
 
     alert(result.message);
 
+    closeModal();
+
     loadStudents();
+
 }
+
+/*--- Edit close Model ---*/
+ function closeModal(){
+    document.getElementById("editStudentModal").style.display="none";
+}
+
 </script>
 
 
@@ -567,7 +772,6 @@ overlay.addEventListener("click", () => {
 
 });
 </script>
-
 
 </body>
 </html>    
