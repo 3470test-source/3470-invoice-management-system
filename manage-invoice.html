@@ -335,6 +335,8 @@ let allInvoices = [];
 
 let currentPage = 1;
 
+let filteredInvoices = [];
+
 const rowsPerPage = 10;
 
 async function loadInvoices(){
@@ -343,9 +345,12 @@ async function loadInvoices(){
 
     allInvoices = await response.json();
 
+    filteredInvoices = [...allInvoices];
+
     currentPage = 1;
 
-    displayInvoices(allInvoices);
+    // displayInvoices(allInvoices);
+    displayInvoices(filteredInvoices);
 }
 
 function displayInvoices(invoices){
@@ -555,9 +560,13 @@ function searchInvoice() {
 
     });
 
+    filteredInvoices = filtered;
+
     currentPage = 1;
 
-    displayInvoices(filtered);
+    // displayInvoices(filtered);
+
+    displayInvoices(filteredInvoices);
 
 }
 </script>
@@ -659,8 +668,10 @@ async function downloadExcel() {
 
     try {
 
-        const response = await fetch("http://localhost:3000/invoices");
-        const invoices = await response.json();
+        // const response = await fetch("http://localhost:3000/invoices");
+        // const invoices = await response.json();
+
+        const invoices = filteredInvoices;
 
         if (invoices.length === 0) {
             alert("No invoice data found.");

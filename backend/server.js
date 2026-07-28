@@ -1393,6 +1393,97 @@ app.get("/dashboard-summary", (req, res) => {
 
 
 
+
+
+
+
+
+
+app.get("/system_settings", (req, res) => {
+
+    db.query(
+        "SELECT * FROM system_settings LIMIT 1",
+        (err, result) => {
+
+            if (err) {
+                console.log(err);
+                return res.status(500).json(err);
+            }
+
+            res.json(result[0] || {});
+        }
+    );
+
+});
+
+
+
+
+
+
+
+app.put("/system_settings",(req,res)=>{
+
+    const {
+
+        institute_name, email, phone, address, invoice_prefix, currency_symbol, default_payment_method, timezone
+
+    } = req.body;
+
+    const sql = `
+
+    UPDATE system_settings
+
+    SET
+
+        institute_name=?, email=?, phone=?, address=?, invoice_prefix=?, currency_symbol=?, default_payment_method=?, timezone=?
+
+    WHERE id=1
+
+    `;
+
+    db.query(
+
+        sql,
+
+        [
+
+            institute_name, email, phone, address, invoice_prefix, currency_symbol, default_payment_method, timezone
+
+        ],
+
+        (err,result)=>{
+
+            if(err){
+                console.log(err);
+                return res.status(500).json(err);
+
+            }
+
+            console.log(result);
+
+            res.json({
+
+                message:"Settings Updated Successfully",
+                affectedRows: result.affectedRows
+
+            });
+
+        }
+
+    );
+
+});
+
+
+
+
+
+
+
+
+
+
 /*--------------------------
           Start server
   --------------------------*/

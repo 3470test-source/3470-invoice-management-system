@@ -207,25 +207,25 @@
                             <!-- Institute name -->
                             <div class="settings-form-group">
                                 <label>Institute Name</label>
-                                <input type="text" placeholder="Enter Institute Name">
+                                <input type="text" id="instituteName" placeholder="Enter Institute Name">
                             </div>
 
                             <!-- Email Address -->
                             <div class="settings-form-group">
                                 <label>Email Address</label>
-                                <input type="email" placeholder="Enter Email Address">
+                                <input type="email" id="email" placeholder="Enter Email Address">
                             </div>
 
                             <!-- Phone Number -->
                             <div class="settings-form-group">
                                 <label>Phone Number</label>
-                                <input type="text" placeholder="Enter Phone Number">
+                                <input type="text" id="phone" placeholder="Enter Phone Number">
                             </div>
 
                             <!-- Address -->
                             <div class="settings-form-group">
                                 <label>Address</label>
-                                <input type="text" placeholder="Enter Address">
+                                <input type="text" id="address" placeholder="Enter Address">
                             </div>
 
                         </div>
@@ -243,13 +243,13 @@
                             <!-- Invoice Prefix -->
                             <div class="settings-form-group">
                                 <label>Invoice Prefix</label>
-                                <input type="text" placeholder="INV">
+                                <input type="text" id="invoicePrefix" placeholder="INV">
                             </div>
 
                             <!-- Currency Symbol -->
                             <div class="settings-form-group">
                                 <label>Currency Symbol</label>
-                                <select>
+                                <select id="currencySymbol">
                                     <option>₹ Indian Rupee</option>
                                     <option>$ US Dollar</option>
                                     <option>€ Euro</option>
@@ -271,7 +271,7 @@
                             <!-- Default Payment Method -->
                             <div class="settings-form-group">
                                 <label>Default Payment Method</label>
-                                <select>
+                                <select id="defaultPaymentMethod">
                                     <option>Cash</option>
                                     <option>UPI</option>
                                     <option>Bank Transfer</option>
@@ -282,7 +282,7 @@
                             <!-- Timezone -->
                             <div class="settings-form-group">
                                 <label>Timezone</label>
-                                <select>
+                                <select id="timezone">
                                     <option>Asia/Kolkata</option>
                                     <option>UTC</option>
                                     <option>Europe/London</option>
@@ -395,6 +395,87 @@ overlay.addEventListener("click", () => {
 
 });
 </script>
+
+
+
+
+
+
+
+
+<script>
+    async function loadSettings() {
+
+    try {
+
+        const response = await fetch("http://localhost:3000/system_settings");
+
+        const data = await response.json();
+
+        document.getElementById("instituteName").value = data.institute_name;
+        document.getElementById("email").value = data.email;
+        document.getElementById("phone").value = data.phone;
+        document.getElementById("address").value = data.address;
+
+        document.getElementById("invoicePrefix").value = data.invoice_prefix;
+        document.getElementById("currencySymbol").value = data.currency_symbol;
+
+        document.getElementById("defaultPaymentMethod").value = data.default_payment_method;
+        document.getElementById("timezone").value = data.timezone;
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+
+loadSettings();
+</script>
+
+
+
+
+
+<script>
+    document.getElementById("settings").addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const settings = {
+
+        institute_name: document.getElementById("instituteName").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        invoice_prefix: document.getElementById("invoicePrefix").value,
+        currency_symbol: document.getElementById("currencySymbol").value,
+        default_payment_method: document.getElementById("defaultPaymentMethod").value,
+        timezone: document.getElementById("timezone").value
+
+    };
+
+    const response = await fetch("http://localhost:3000/system_settings",{
+
+        method:"PUT",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify(settings)
+
+    });
+
+    const result = await response.json();
+
+    alert(result.message);
+
+});
+</script>
+
+
 
 
 </body>
