@@ -627,9 +627,27 @@ db.query(
 
         const invoice = result[0];
 
-        console.log(invoice);
+            db.query(
+                    `
+                    SELECT
+                        payment_amount, payment_method, payment_date, transaction_id 
+                    FROM payment_history
+                    WHERE invoice_no=?
+                    ORDER BY payment_date ASC
+                `,
 
-        const doc = new PDFDocument({size:"A4", margin:40});
+            [invoiceNo],
+
+                (err,payments)=>{
+
+            if(err){
+                console.log(err);
+                return res.status(500).send("Payment History Error");
+            }
+
+                console.log(payments);
+
+            const doc = new PDFDocument({size:"A4", margin:40});
 
         /*--- Header - Background design ---*/
         doc
@@ -777,10 +795,12 @@ db.query(
         doc
         .fontSize(14)
         .fillColor("#1a61be")
+        .font("Helvetica-Bold")
         .text("Bill To:", 40, 215);
 
         doc
         .fontSize(10)
+        .font("Helvetica")
         .fillColor("black");
 
         doc.text(invoice.student_name,40,240);
@@ -889,26 +909,80 @@ db.query(
 
         /*-- Labels --*/
         doc.font("Helvetica-Bold");
-        doc.text("Total Amount", 370, 420);
-        doc.text("Discount", 370, 445);
-        doc.text("Amount Paid", 370, 470);
-        doc.text("Pending Amount", 370, 495);
-        doc.text("Payment Mode", 370, 520);
+        doc.text("Total Amount", 360, 420);
+        doc.text("Discount", 360, 445);
+        doc.text("Amount Paid", 360, 470);
+        doc.text("Pending Amount", 360, 495);
+        doc.text("Payment Mode", 360, 520);
 
         /*-- Colons --*/
         doc.font("Helvetica");
-        doc.text(":", 470, 420);
-        doc.text(":", 470, 445);
-        doc.text(":", 470, 470);
-        doc.text(":", 470, 495);
-        doc.text(":", 470, 520);
+        doc.text(":", 460, 420);
+        doc.text(":", 460, 445);
+        doc.text(":", 460, 470);
+        doc.text(":", 460, 495);
+        doc.text(":", 460, 520);
 
         /*-- Values --*/
-        doc.text(`₹ ${invoice.course_fee}`, 480, 420);
-        doc.text(`₹ ${invoice.discount}`, 480, 445);
-        doc.text(`₹ ${invoice.paid_amount}`, 480, 470);
-        doc.text(`₹ ${invoice.pending_amount}`, 480, 495);
-        doc.text(invoice.payment_mode, 485, 520);
+        doc.text(`₹ ${invoice.course_fee}`, 470, 420);
+        doc.text(`₹ ${invoice.discount}`, 470, 445);
+        doc.text(`₹ ${invoice.paid_amount}`, 470, 470);
+
+        /* ==========================
+              Payment History
+        ========================== */       
+
+        let paymentY = 420;
+
+        /*-- Heading --*/
+        doc
+            .fontSize(13)
+            .fillColor("#1a61be")
+            .font("Helvetica-Bold")
+            .text("Payment History", 40, paymentY);
+
+        paymentY += 25;
+
+        /*-- Table Header --*/
+        doc
+            .fillColor("white")
+            .roundedRect(40, paymentY, 250, 22, 3)
+            .fill("#0e60ad");
+
+        doc
+            .fillColor("white")
+            .fontSize(10)
+            .font("Helvetica-Bold");
+
+        doc.text("Date", 50, paymentY + 6);
+        doc.text("Method", 120, paymentY + 6);
+        doc.text("Amount", 220, paymentY + 6);
+
+        paymentY += 22;
+
+        /*-- Table Rows --*/
+        payments.forEach((payment) => {
+
+        /*-- Border --*/
+        doc
+            .roundedRect(40, paymentY, 250, 22, 2)
+            .stroke("#cccccc");
+
+        doc
+            .fillColor("black")
+            .font("Helvetica")
+            .fontSize(10);
+
+        doc.text(formatDate(payment.payment_date), 50, paymentY + 6);
+        doc.text(payment.payment_method, 120, paymentY + 6);
+        doc.text(`₹ ${payment.payment_amount}`, 210, paymentY + 6);
+
+        paymentY += 22;
+
+    });
+
+        doc.text(`₹ ${invoice.pending_amount}`, 470, 495);
+        doc.text(invoice.payment_mode, 475, 520);
 
         /*-- Show Transaction ID only for Online Payments --*/
         if (
@@ -917,12 +991,12 @@ db.query(
         ) {
 
         doc.font("Helvetica-Bold");
-        doc.text("Transaction ID", 370, 545);
+        doc.text("Transaction ID", 360, 545);
 
         doc.font("Helvetica");
-        doc.text(":", 470, 545);
+        doc.text(":", 460, 545);
 
-        doc.text(invoice.transaction_id, 485, 545);
+        doc.text(invoice.transaction_id, 475, 545);
 
         }
 
@@ -930,16 +1004,26 @@ db.query(
                 REMARKS
     ==================================== */
 
-        doc.fontSize(13).fillColor("#1a61be").text("Remarks",
-            40,
-            420
-        );
+        paymentY += 25;
 
-        doc.fontSize(10).fillColor("black").text(invoice.remarks || "No Remarks",
+        doc
+            .fontSize(13)
+            .fillColor("#1a61be")
+            .font("Helvetica-Bold")
+            .text("Remarks", 40, paymentY);
+
+        paymentY += 20;
+
+        doc
+            .fontSize(10)
+            .fillColor("black")
+            .font("Helvetica")
+            .text(
+        invoice.remarks || "No Remarks",
             40,
-            445,
+        paymentY,
             {
-                width:220
+                width:260
             }
         );
 
@@ -992,6 +1076,7 @@ db.query(
         doc
         .fontSize(13)
         .fillColor("#168039")
+        .font("Helvetica-Bold")
         .text(
             "Thank you for choosing 3470 Healthcare Pvt Ltd",
             160,
@@ -1004,7 +1089,7 @@ db.query(
 
 });
 
-
+});
 
 
 
