@@ -6049,7 +6049,7 @@ textarea {
   font-weight:normal;
   display:flex;
   align-items:center;
-  gap:6px;
+  gap:8px;
 }
 
 
@@ -6103,212 +6103,194 @@ textarea {
 
 
 
+            /* ==========================================
+                    Tablet Landscape - 1024px
+            ========================================== */
 
+@media screen and (max-width:1024px) {
 
-
-
-
-
-
-
-
-
-
-/* ==========================================
-   Tablet Landscape
-   1024px
-========================================== */
-
-@media screen and (max-width:1024px){
-
-body{
+  body {
     padding:25px;
-}
+  }
 
-.registration-container{
+  .registration-container {
     padding:30px;
-}
+  }
 
-.std-reg-form-grid{
+  .std-reg-form-grid {
     grid-template-columns:repeat(2,1fr);
-}
+  }
 
-.std-full-width{
+  .std-full-width {
     grid-column:1 / 3;
-}
+  }
 
 }
 
 
-/* ==========================================
-   Tablet Portrait
-   768px
-========================================== */
+            /* ==========================================
+                        Tablet Portrait - 768px
+            ========================================== */
 
-@media screen and (max-width:768px){
+@media screen and (max-width:768px) {
 
-body{
+  body {
     padding:20px;
-}
+  }
 
-.registration-container{
+  .registration-container {
     padding:25px;
-}
+  }
 
-.registration-container h2{
+  .registration-container h2 {
     font-size:28px;
-}
+  }
 
-.form-description{
+  .form-description {
     font-size:16px;
-}
+  }
 
-.std-reg-form-grid{
+  .std-reg-form-grid {
     grid-template-columns:1fr;
-}
+  }
 
-.std-full-width{
+  .std-full-width {
     grid-column:auto;
-}
+  }
 
-.std-reg-radio-group{
+  .std-reg-radio-group {
     flex-direction:column;
     align-items:flex-start;
     gap:10px;
-}
+  }
 
-.std-reg-button-group{
+  .std-reg-button-group {
     flex-direction:column;
-}
+  }
 
-.std-reg-submit-btn,
-.std-reg-reset-btn{
+  .std-reg-submit-btn,
+  .std-reg-reset-btn {
     width:100%;
-}
+  }
 
 }
 
 
-/* ==========================================
-   Mobile Large
-   414px
-========================================== */
+              /* ==========================================
+                            Mobile Large - 414px
+              ========================================== */
 
-@media screen and (max-width:414px){
+@media screen and (max-width:414px) {
 
-body{
+  body {
     padding:15px;
-}
+  }
 
-.registration-container{
+  .registration-container {
     padding:18px;
-}
+  }
 
-.std-reg-company-logo img{
+  .std-reg-company-logo img {
     width:120px;
-}
+  }
 
-.registration-container h2{
+  .registration-container h2 {
     font-size:24px;
-}
+  }
 
-.form-description{
+  .form-description {
     font-size:15px;
-}
+  }
 
-.std-reg-form-section h3{
+  .std-reg-form-section h3 {
     font-size:17px;
-}
+  }
 
-.std-reg-form-group label{
+  .std-reg-form-group label {
     font-size:15px;
-}
+  }
 
-.std-reg-form-group input,
-.std-reg-form-group select,
-.std-reg-form-group textarea{
+  .std-reg-form-group input,
+  .std-reg-form-group select,
+  .std-reg-form-group textarea {
     font-size:14px;
-}
+  }
 
 }
 
 
-/* ==========================================
-   Mobile Medium
-   375px
-========================================== */
+              /* ==========================================
+                          Mobile Medium - 375px
+              ========================================== */
 
-@media screen and (max-width:375px){
+@media screen and (max-width:375px) {
 
-.registration-container{
+  .registration-container {
     padding:15px;
-}
+  }
 
-.registration-container h2{
+  .registration-container h2 {
     font-size:22px;
-}
+  }
 
-.form-description{
+  .form-description {
     font-size:14px;
-}
+  }
 
-.std-reg-company-logo img{
+  .std-reg-company-logo img {
     width:110px;
-}
+  }
 
 }
 
 
-/* ==========================================
-   Mobile Small
-   360px / 320px
-========================================== */
+                /* ==========================================
+                            Mobile Small - 360px / 320px
+                ========================================== */
 
-@media screen and (max-width:360px){
+@media screen and (max-width:360px) {
 
-body{
+  body {
     padding:10px;
-}
+  }
 
-.registration-container{
+  .registration-container {
     padding:12px;
-}
+  }
 
-.registration-container h2{
+  .registration-container h2 {
     font-size:20px;
-}
+  }
 
-.form-description{
+  .form-description {
     font-size:13px;
-}
+  }
 
-.std-reg-company-logo img{
+  .std-reg-company-logo img {
     width:100px;
-}
+  }
 
-.std-reg-form-section h3{
+  .std-reg-form-section h3 {
     font-size:16px;
-}
+  }
 
-.std-reg-form-group label{
+  .std-reg-form-group label {
     font-size:14px;
-}
+  }
 
-.std-reg-form-group input,
-.std-reg-form-group select,
-.std-reg-form-group textarea{
-
+  .std-reg-form-group input,
+  .std-reg-form-group select,
+  .std-reg-form-group textarea {
     padding:10px;
     font-size:13px;
+  }
 
-}
-
-.std-reg-submit-btn,
-.std-reg-reset-btn{
-
+  .std-reg-submit-btn,
+  .std-reg-reset-btn {
     font-size:15px;
     padding:12px;
+ }
 
 }
 
-}
+/* ------------------------------------------------------------------------------------------------------------------------------ */

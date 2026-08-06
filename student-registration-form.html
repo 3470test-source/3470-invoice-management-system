@@ -90,7 +90,7 @@
 
                             <div class="std-reg-form-group">
                                 <label>Course</label>
-                                <select name="student-course" id="student-course" required>
+                                <select name="student_course" id="student-course" required>
                                     <option value="">-- Select Course --</option>
                                     <option value="BMCT">Basic Medical Coding Training</option>
                                     <option value="CPC">Certified Professional Coder</option>
@@ -101,6 +101,18 @@
                                     <option value="CPMA">Certified Professional Medical Auditor</option>
                                     <option value="CRC">Certified Risk Adjustment Coder</option>
                                     <option value="Surgery">Surgery</option>
+                                </select>    
+                            </div>
+
+                            <div class="std-reg-form-group">
+                                <label>Counsellor By</label>
+                                <select name="counsellor_by" id="counsellor_by" required>
+                                    <option value="">-- Select Counsellor By --</option>
+                                    <option value="Ramesh">Ramesh</option>
+                                    <option value="Perumal">Perumal</option>
+                                    <option value="Renuka">Renuka</option>
+                                    <option value="Kaviya">Kaviya</option>
+                                    <option value="">Jaya Shree</option>
                                 </select>    
                             </div>
 
@@ -130,6 +142,7 @@
                                 <div class="std-reg-radio-group">
                                     <label><input type="radio" name="timing" value="Morning"> Morning</label>
                                     <label><input type="radio" name="timing" value="Evening"> Evening</label>
+                                    <label><input type="radio" name="timing" value="Afternoon"> Afternoon</label>
                                 </div>
                             </div>
 
@@ -246,15 +259,45 @@
     </div>
 
 
-
+<!-- Registration Form - JS -->
 <script>
-        const form = document.querySelector("form");
 
-        const SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
+    const form = document.querySelector("form");
 
-form.addEventListener("submit", async function (e) {
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUDhyR1DHbb0P0stzji8shKgE0jMKc-SEXWApci1SN6KH-TLd8vb8DQkO7JzTyDO6fCw/exec";
 
-    e.preventDefault();
+    async function fileToBase64(file) {
+
+        if (!file) return null;
+
+            return new Promise((resolve) => {
+
+                const reader = new FileReader();
+
+                reader.onload = function () {
+
+                resolve({
+                    name: file.name,
+                    type: file.type,
+                    data: reader.result.split(",")[1]
+                });
+
+            };
+
+            reader.readAsDataURL(file);
+
+        });
+
+    }
+
+
+    form.addEventListener("submit", async function (e) {
+
+        e.preventDefault();
+
+        const aadhaarFile = await fileToBase64(form.aadhaar_card.files[0]);
+        const panFile = await fileToBase64(form.pan_card.files[0]);
+        const photoFile = await fileToBase64(form.casual_photo.files[0]);
 
     const data = {
 
@@ -266,6 +309,7 @@ form.addEventListener("submit", async function (e) {
         email_id: form.email_id.value,
         year_passing: form.year_passing.value,
         student_course: form.student_course.value,
+        counsellor_by: form.counsellor_by.value,
         schedule: form.schedule.value,
         timing: form.timing.value,
         mode: form.mode.value,
@@ -276,28 +320,29 @@ form.addEventListener("submit", async function (e) {
         pin_code: form.pin_code.value,
         emergency_number: form.emergency_number.value,
         coder: form.coder.value,
-        coding_domain: form.coding_domain.value
+        coding_domain: form.coding_domain.value,
+        
+        aadhaar_card: aadhaarFile,
+        pan_card: panFile,
+        casual_photo: photoFile
     };
 
     try {
 
+        const formData = new FormData();
+
+        formData.append("data", JSON.stringify(data));
+
         const response = await fetch(SCRIPT_URL, {
-
             method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify(data)
-
+            body: formData
         });
 
         const result = await response.json();
 
         if (result.status === "success") {
 
-            alert("Registration submitted successfully.");
+            alert("🎉 Registration submitted successfully!\n\nThank you for registering with 3470 Healthcare.");
 
             form.reset();
 
