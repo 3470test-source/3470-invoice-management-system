@@ -295,72 +295,120 @@
 
         e.preventDefault();
 
-        const aadhaarFile = await fileToBase64(form.aadhaar_card.files[0]);
-        const panFile = await fileToBase64(form.pan_card.files[0]);
-        const photoFile = await fileToBase64(form.casual_photo.files[0]);
+        /*-- Get submit button --*/
+        const saveButton = form.querySelector(".std-reg-submit-btn");
 
-    const data = {
+        /*-- Store original button text --*/
+        const originalText = saveButton.innerHTML;
 
-        first_name: form.first_name.value,
-        last_name: form.last_name.value,
-        qualification: form.qualification.value,
-        contact_number: form.contact_number.value,
-        whatsApp_number: form.whatsApp_number.value,
-        email_id: form.email_id.value,
-        year_passing: form.year_passing.value,
-        student_course: form.student_course.value,
-        counsellor_by: form.counsellor_by.value,
-        schedule: form.schedule.value,
-        timing: form.timing.value,
-        mode: form.mode.value,
-        current_address: form.current_address.value,
-        city: form.city.value,
-        state: form.state.value,
-        country: form.country.value,
-        pin_code: form.pin_code.value,
-        emergency_number: form.emergency_number.value,
-        coder: form.coder.value,
-        coding_domain: form.coding_domain.value,
-        
-        aadhaar_card: aadhaarFile,
-        pan_card: panFile,
-        casual_photo: photoFile
-    };
+        /*-- Disable button and show loading --*/
+        saveButton.disabled = true;
+        saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
 
-    try {
+        try {
 
-        const formData = new FormData();
+            /*-- Convert uploaded files to Base64 --*/
+            const aadhaarFile = await fileToBase64(form.aadhaar_card.files[0]);
 
-        formData.append("data", JSON.stringify(data));
+            const panFile = await fileToBase64(form.pan_card.files[0]);
 
-        const response = await fetch(SCRIPT_URL, {
-            method: "POST",
-            body: formData
-        });
+            const photoFile = await fileToBase64(form.casual_photo.files[0]);
 
-        const result = await response.json();
+            /*-- Collect all form data --*/
+            const data = {
 
-        if (result.status === "success") {
+                first_name: form.first_name.value,
+                last_name: form.last_name.value,
+                qualification: form.qualification.value,
+                contact_number: form.contact_number.value,
+                whatsApp_number: form.whatsApp_number.value,
+                email_id: form.email_id.value,
+                year_passing: form.year_passing.value,
+                student_course: form.student_course.value,
+                counsellor_by: form.counsellor_by.value,
 
-            alert("🎉 Registration submitted successfully!\n\nThank you for registering with 3470 Healthcare.");
+                schedule: form.schedule.value,
+                timing: form.timing.value,
+                mode: form.mode.value,
 
-            form.reset();
+                current_address: form.current_address.value,
+                city: form.city.value,
+                state: form.state.value,
+                country: form.country.value,
+                pin_code: form.pin_code.value,
+                emergency_number: form.emergency_number.value,
 
-        } else {
+                coder: form.coder.value,
+                coding_domain: form.coding_domain.value,
 
-            alert("Submission failed.");
+                /*-- Uploaded files --*/
+                aadhaar_card: aadhaarFile,
+                pan_card: panFile,
+                casual_photo: photoFile
+            };
+
+            /*-- Prepare request --*/
+            const formData = new FormData();
+
+                formData.append(
+                    "data",
+                JSON.stringify(data)
+            );
+
+
+            /*-- Send to Google Apps Script --*/
+            const response = await fetch(SCRIPT_URL, {
+
+                method: "POST",
+                body: formData
+
+            });
+
+
+            /*-- Read response --*/
+            const result = await response.json();
+
+            /*-- Success --*/
+            if (result.status === "success") {
+
+            alert(
+                "🎉 Registration submitted successfully!\n\n" +
+                "Thank you for registering with 3470 Healthcare."
+            );
+
+                form.reset();
+
+            } else {
+
+            alert(
+                "❌ Submission failed.\n\n" +
+                (result.message || "Please try again.")
+            );
 
         }
 
     } catch (error) {
 
-        console.error(error);
+        console.error("Registration Error:", error);
 
-        alert("Error submitting form.");
+        alert(
+            "❌ Error submitting registration.\n\n" +
+            "Please try again."
+        );
+
+
+    } finally {
+
+        /*-- Re-enable button --*/
+        saveButton.disabled = false;
+
+        /*-- Restore original button text --*/
+        saveButton.innerHTML = originalText;
 
     }
 
 });
+
 </script>
 
 
